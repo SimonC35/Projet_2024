@@ -1,7 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:latlong2/spline.dart';
 
 void main() {
   runApp(MyApp());
@@ -65,6 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavoritesPage();
         break;
+      case 2:
+        page = MapPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
 }
@@ -85,6 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.favorite),
                       label: Text('Favorites'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.map_outlined),
+                      label: Text('Open Street Map'),
                     ),
                   ],
                   selectedIndex: selectedIndex,
@@ -210,3 +219,39 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
+
+class MapPage extends StatelessWidget {
+
+  @override
+ Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Open Street Map',
+          style: TextStyle(fontSize: 22),
+        ),
+      ),
+      body: content(),
+    );
+  }
+
+  Widget content() {
+    return FlutterMap(
+      options: MapOptions(
+        initialCenter: LatLng(48.733333, -3.449757),
+        initialZoom: 11,
+        interactionOptions: 
+          const InteractionOptions(flags: ~InteractiveFlag.doubleTapDragZoom),
+      ),
+      children: [
+        openStreetMapTileLayer,
+      ],
+    );
+  }
+
+  TileLayer get openStreetMapTileLayer => TileLayer(
+    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
+  );
+}
+
