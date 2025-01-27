@@ -54,7 +54,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  int selectedIndex = 1;
+  int selectedIndex = 2;
   
   @override
   Widget build(BuildContext context) {
@@ -62,13 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = FavoritesPage();
+        page = LoginPage();
         break;
       case 1:
-        page = GeneratorPage();
+        page = FavoritesPage();
         break;
       case 2:
         page = MapPage();
+        break;
+      case 3:
+        page = GeneratorPage();
+        break;
+      case 4:
+        page = SettingsPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -88,20 +94,29 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
+                icon: Icon(Icons.person),
+                label: 'Login',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
                 label: 'Favorite',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home'
+                icon: Icon(Icons.map),
+                label: 'Open Street Map',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.map_outlined),
-                label: 'Open Street Map',
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
               ),
             ],
             currentIndex: selectedIndex,
-            selectedItemColor: const Color.fromARGB(255, 62, 167, 185),
+            selectedItemColor: const Color.fromARGB(255, 128, 38, 180),
+            unselectedItemColor: const Color.fromARGB(255, 62, 167, 185),
             onTap: _onItemTapped,
           ),
         );
@@ -247,3 +262,20 @@ class MapPage extends StatelessWidget {
   );
 }
 
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Settings Page'),
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Login Page'),
+    );
+  }
+}
