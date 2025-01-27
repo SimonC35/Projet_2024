@@ -54,7 +54,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  var selectedIndex = 0;
+  int selectedIndex = 1;
   
   @override
   Widget build(BuildContext context) {
@@ -62,55 +62,47 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = FavoritesPage();
         break;
       case 1:
-        page = FavoritesPage();
+        page = GeneratorPage();
         break;
       case 2:
         page = MapPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
-}
+    }
 
+    void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.map_outlined),
-                      label: Text('Open Street Map'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
+          body: Center(
+            child: page,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                label: 'Favorite',
               ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                label: 'Home'
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.map_outlined),
+                label: 'Open Street Map',
               ),
             ],
+            currentIndex: selectedIndex,
+            selectedItemColor: const Color.fromARGB(255, 62, 167, 185),
+            onTap: _onItemTapped,
           ),
         );
       }
