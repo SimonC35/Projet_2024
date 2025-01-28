@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:latlong2/spline.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 20, 99, 50)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 35, 88, 56)),
         ),
         home: MyHomePage(),
       ),
@@ -30,21 +31,6 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-  var favorites = <WordPair>[];
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
-  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -54,7 +40,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  int selectedIndex = 2;
+  int selectedIndex = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -62,16 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = LoginPage();
+        page = HomePage();
         break;
       case 1:
-        page = FavoritesPage();
+        page = ListPage();
         break;
       case 2:
         page = MapPage();
         break;
       case 3:
-        page = GeneratorPage();
+        page = AlertPage();
         break;
       case 4:
         page = SettingsPage();
@@ -83,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
+      IconButton;
     });
   }
     return LayoutBuilder(
@@ -94,20 +81,20 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Login',
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorite',
+                icon: Icon(Icons.dehaze),
+                label: 'List',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
-                label: 'Open Street Map',
+                label: 'Map',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+                icon: Icon(Icons.notifications),
+                label: 'Alerte',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -117,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             currentIndex: selectedIndex,
             selectedItemColor: const Color.fromARGB(255, 128, 38, 180),
             unselectedItemColor: const Color.fromARGB(255, 62, 167, 185),
+            showUnselectedLabels: true,
             onTap: _onItemTapped,
           ),
         );
@@ -124,120 +112,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No favorites yet.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
-          ),
-      ],
-    );
-  }
-}
-
 class MapPage extends StatelessWidget {
 
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Open Street Map',
-          style: TextStyle(fontSize: 22),
-        ),
-      ),
       body: content(),
     );
   }
@@ -246,7 +125,8 @@ class MapPage extends StatelessWidget {
     return FlutterMap(
       options: MapOptions(
         initialCenter: LatLng(48.733333, -3.449757),
-        initialZoom: 11,
+        initialZoom: 16,
+        minZoom: 3,
         interactionOptions: 
           const InteractionOptions(flags: ~InteractiveFlag.doubleTapDragZoom),
       ),
@@ -262,20 +142,71 @@ class MapPage extends StatelessWidget {
   );
 }
 
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(height: 50),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              icon: Icon(Icons.person),
+              iconSize: 40,
+              tooltip: 'Login',
+              onPressed: () {
+                setState(() {
+                  _GoToLoginPage(context);
+                });
+              }, 
+            ),
+            SizedBox(width: 50),
+          ],
+        ),
+      ],
+    );
+  }
+  _GoToLoginPage(BuildContext) {
+     return Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Login Page'),
+        ),
+      );
+    }));
+  }
+}
+
+class ListPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Animal Tracker List Page'),
+    );
+  }
+}
+
+class AlertPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Alerte Page'),
+    );
+  }
+}
+
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text('Settings Page'),
-    );
-  }
-}
-
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Login Page'),
     );
   }
 }
