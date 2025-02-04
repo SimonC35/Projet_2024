@@ -1,86 +1,47 @@
-/// Example for the `postgres` package.
-///
-/// Running the example requires access to a postgres server. If you have docker
-/// installed, you can start a postgres server to run this example with
-///
-/// ```
-/// docker run --detach --name postgres_for_dart_test -p 127.0.0.1:5432:5432 -e POSTGRES_USER=user -e POSTGRES_DATABASE=database -e POSTGRES_PASSWORD=pass postgres
-/// ```
-///
-/// To stop and clear the database server once you're done testing, run
-///
-/// ```
-/// docker container rm --force postgres_for_dart_test
-/// ```
-library;
+import 'package:flutter/material.dart';
 
-import 'package:postgres/postgres.dart';
-
-void main() async {
-  final conn = await Connection.open(
-    Endpoint(
-      host: 'localhost',
-      database: 'projet2024test',
-      username: 'felix',
-      password: 'felix22',
-    ),
-    // The postgres server hosted locally doesn't have SSL by default. If you're
-    // accessing a postgres server over the Internet, the server should support
-    // SSL and you should swap out the mode with `SslMode.verifyFull`.
-    settings: ConnectionSettings(sslMode: SslMode.verifyFull),
-  );
-  print('has connection!');
-
-  // Simple query without results
-  /*await conn.execute('CREATE TABLE IF NOT EXISTS a_table ('
-      '  id TEXT NOT NULL, '
-      '  totals INTEGER NOT NULL DEFAULT 0'
-      ')');
-  */
-  // simple query
-  final result0 = await conn.execute("SELECT 'foo'");
-  print(result0[0][0]); // first row, first column
-
-  // Using prepared statements to supply values
-  final result1 = await conn.execute(
-    r'INSERT INTO a_table (id) VALUES ($1)',
-    parameters: ['example row'],
-  );
-  print('Inserted ${result1.affectedRows} rows');
-
-  // name parameter query
-  final result2 = await conn.execute(
-    Sql.named('SELECT * FROM a_table WHERE id=@id'),
-    parameters: {'id': 'example row'},
-  );
-  print(result2.first.toColumnMap());
-
-  // transaction
-  await conn.runTx((s) async {
-    final rs = await s.execute('SELECT count(*) FROM a_table');
-    await s.execute(
-      r'UPDATE a_table SET totals=$1 WHERE id=$2',
-      parameters: [rs[0][0], 'xyz'],
+class MonEcran extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Mon Application Flutter"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            // Un widget de texte
+            Text(
+              'Bienvenue sur Flutter !',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            
+            // Un autre texte avec style
+            Text(
+              'Voici un exemple de classe contenant des widgets.',
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            ),
+            SizedBox(height: 40),
+            
+            // Un bouton
+            ElevatedButton(
+              onPressed: () {
+                // Action à réaliser lorsqu'on appuie sur le bouton
+                print('Le bouton a été cliqué');
+              },
+              child: Text('Appuie ici'),
+            ),
+            SizedBox(height: 40),
+            
+            // Une image
+            //Image.asset('assets/mon_image.png'),  // Assurez-vous que l'image est dans le dossier "assets" de votre projet
+          ],
+        ),
+      ),
     );
-  });
-
-  // prepared statement
-  final statement = await conn.prepare(Sql("SELECT 'foo';"));
-  final result3 = await statement.run([]);
-  print(result3);
-  await statement.dispose();
-
-  // preared statement with types
-  final anotherStatement =
-      await conn.prepare(Sql(r'SELECT $1;', types: [Type.bigInteger]));
-  final bound = anotherStatement.bind([1]);
-  final subscription = bound.listen((row) {
-    print('row: $row');
-  });
-  await subscription.asFuture();
-  await subscription.cancel();
-  print(await subscription.affectedRows);
-  print(await subscription.schema);
-
-  await conn.close();
+  }
 }

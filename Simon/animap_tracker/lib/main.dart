@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 35, 88, 56)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 49, 122, 78)),
         ),
         home: MyHomePage(),
       ),
@@ -30,15 +30,89 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
 }
 
+class AssetImageWidget extends StatelessWidget {
+  final String imagePath;
+
+  AssetImageWidget({required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Image.asset(
+        imagePath,
+        width: 70,
+        height: 90,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+
+class TopBanner extends StatelessWidget {
+  
+  final double height;
+  final Color startColor;
+  final Color endColor;
+
+  TopBanner({
+    this.height = 100,
+    this.startColor = Colors.blue,
+    this.endColor = Colors.purple,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [startColor, endColor],
+            ),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)), // Coins arrondis en bas
+          ),
+        ),
+        Positioned(
+          top: 40, // Décalage depuis le haut
+          right: 20, // Décalage depuis la droite
+          child: IconButtonWidget(
+            icon: Icons.person,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+          ),
+        ),
+        Positioned(
+          top: 20,
+          left: 40,
+          child: AssetImageWidget(imagePath: "asset/images/Map.png"),
+        ),
+      ],
+    );
+  }
+}
+
 class Home extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    var _height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        toolbarHeight: 150,
-      )
+      body: Column(
+        children: [
+          // Bordereau coloré avec dégradé
+          TopBanner(
+            height: _height / 2 * 0.3,
+            startColor: const Color.fromARGB(255, 49, 122, 78),
+            endColor: const Color.fromARGB(255, 111, 173, 110),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -59,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = HomePage();
+        page = Home();
         break;
       case 1:
         page = ListPage();
@@ -71,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = AlertPage();
         break;
       case 4:
-        page = SettingsPage();
+        page = LoginPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -123,6 +197,30 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class IconButtonWidget extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  IconButtonWidget({required this.icon, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      color: const Color.fromARGB(255, 134, 212, 131),
+      onPressed: onPressed,
+      icon: Icon(icon, size: 30),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 50, 85, 64),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
+}
+
 class MapPage extends StatelessWidget {
 
   @override
@@ -236,30 +334,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  _GoToLoginPage(BuildContext) {
-     return Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Login Page'),
-        ),
-        body: content(),
-      );/*
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(200),
-          children: [
-            TextFormField(
-              controller: _controller,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-            ),
-            TextFormField(
-              controller: _controller,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-            ),
-          ],
-        ),
-      );*/
-    }));
-  }
 }
 
 class ListPage extends StatelessWidget {
@@ -280,11 +354,55 @@ class AlertPage extends StatelessWidget {
   }
 }
 
-class SettingsPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Settings Page'),
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // 🖼 Logo ou image (facultatif)
+            Icon(Icons.lock, size: 80, color: Colors.blue),
+
+            SizedBox(height: 20),
+
+            // 📧 Champ Email
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            SizedBox(height: 10),
+
+            // 🔑 Champ Mot de passe
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Mot de passe",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // ✅ Bouton Connexion
+            ElevatedButton(
+              onPressed: () {
+                print("Connexion...");
+              },
+              child: Text("Se connecter"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50), // Largeur max
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
