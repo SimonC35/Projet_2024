@@ -113,7 +113,7 @@ void loop()
 
   sendData();
 
-  lowPowerSleep(150000);  
+  lowPowerSleep(120000);  
 }
 
 ///////////////////////////////////////////////////
@@ -195,7 +195,7 @@ void sendData()
   Serial.print("ALT: ");
   Serial.print(GPS.altitude.meters());
   float alt = (float) GPS.altitude.meters();
-  int alt1 = (int) (lat * pow(10,2));
+  int alt1 = (int) (alt * pow(10,2));
   Serial.println();
   Serial.print(alt1);
   Serial.println();
@@ -207,18 +207,18 @@ void sendData()
   altbytes[3] = (alt1 >> 0) & 0xFF;
 
   uint8_t fullArray[12];
-  fullArray[0] = latbytes[0];
-  fullArray[1] = latbytes[1];
-  fullArray[2] = latbytes[2];
-  fullArray[3] = latbytes[3];
+  fullArray[0]  = latbytes[0];
+  fullArray[1]  = latbytes[1];
+  fullArray[2]  = latbytes[2];
+  fullArray[3]  = latbytes[3];
 
-  fullArray[4] = lngbytes[0];
-  fullArray[5] = lngbytes[1];
-  fullArray[6] = lngbytes[2];
-  fullArray[7] = lngbytes[3];
+  fullArray[4]  = lngbytes[0];
+  fullArray[5]  = lngbytes[1];
+  fullArray[6]  = lngbytes[2];
+  fullArray[7]  = lngbytes[3];
 
-  fullArray[8] = altbytes[0];
-  fullArray[9] = altbytes[1];
+  fullArray[8]  = altbytes[0];
+  fullArray[9]  = altbytes[1];
   fullArray[10] = altbytes[2];
   fullArray[11] = altbytes[3];
 
