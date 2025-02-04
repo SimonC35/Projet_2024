@@ -143,7 +143,9 @@ class _MyAppState extends State<MyApp> {
                             onPressed: () async {
                               if (_controllerLongitude.text.isEmpty ||
                                   _controllerLatitude.text.isEmpty ||
-                                  _controllerRadius.text.isEmpty) return;
+                                  _controllerRadius.text.isEmpty) {
+                                return;
+                              }
                               _isLoading.value = true;
                               setState(() {
                                 _results = '';
@@ -168,7 +170,9 @@ class _MyAppState extends State<MyApp> {
                           child: TextButton(
                             onPressed: () async {
                               if (_controllerLongitude.text.isEmpty ||
-                                  _controllerLatitude.text.isEmpty) return;
+                                  _controllerLatitude.text.isEmpty) {
+                                return;
+                              }
                               _isLoading.value = true;
                               setState(() {
                                 _results = '';
