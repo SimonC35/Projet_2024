@@ -131,19 +131,15 @@ uint8_t * intToUint8_tArray(int *array, size_t arraySize)
 
 void sendData()
 {
-
-  float lat = (float) GPS.location.lat();
-  int lat1 = (int) (lat * pow(10,5));
-  uint8_t latbytes[4];
-
-  latbytes[0] = (lat1 >> 24) & 0xFF;
-  latbytes[1] = (lat1 >> 16) & 0xFF;
-  latbytes[2] = (lat1 >> 8) & 0xFF;
-  latbytes[3] = (lat1 >> 0) & 0xFF;
-
+  int lat = (int) (GPS.location.lat() * 100000);
 
   float lng = (float) GPS.location.lng();
   int lng1 = (int) (lng * pow(10,5));
+
+  int lng = (int) (())
+ 
+ 
+ 
   uint8_t lngbytes[4];
 
   lngbytes[0] = (lng1 >> 24) & 0xFF;
