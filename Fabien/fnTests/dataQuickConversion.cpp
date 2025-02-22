@@ -2,12 +2,10 @@
 #include <cstdio>
 #include <cstdint>
 #include <unistd.h>
+#include <iostream>
 #include <cmath>
 
-#define valueCount 9
-
-int valueArray[] = {48723912, -3458392, 2856};
-
+#define valueCount 3
 
 
 void send(uint8_t datalen, uint8_t *data, uint8_t port, bool confirmed)
@@ -47,6 +45,17 @@ double meters()
     return 23.59;
 }
 
+void checkFullArray(uint8_t arr[], size_t size)
+{
+
+    for (size_t i = 0; i < size + 1; i++)
+    {
+        fprintf(stderr,"%02X ",arr[i]);
+    }
+    fprintf(stderr,"\n\n");
+
+}
+
 
 int main()
 {
@@ -54,11 +63,11 @@ int main()
 
     int valueArray[valueCount];
 
+    valueArray[0] = (int) ((float)lat() * pow(10,6));
+    valueArray[1] = (int) ((float)lng() * pow(10,6)); 
+    valueArray[2] = (int) ((float)meters() * pow(10,2));
 
-    printf("%ld\n\n\n",sizeof(short int));
-
-
-    uint8_t fullArray[valueCount];
+    uint8_t fullArray[valueCount * 4];
 
     for (size_t i = 0; i < valueCount; i++)
     {
@@ -66,15 +75,16 @@ int main()
         fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
         fullArray[i*4+2] = (valueArray[i] >> 8)  & 0xFF;
         fullArray[i*4+3] = (valueArray[i])       & 0xFF;
+        //checkFullArray(fullArray ,i*4+3);
     }
-
+/*
     for (size_t i = 0; i < 12; i++)
     {
         printf("%02X ",fullArray[i]);
     }
+*/
 
-
-    //send(12, fullArray, 1, 1);
+    send(12, fullArray, 1, 1);
 
     return 0;
 }

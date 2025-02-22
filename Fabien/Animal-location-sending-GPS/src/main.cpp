@@ -13,6 +13,8 @@
 #include "LoRaWanMinimal_APP.h"
 #include "Arduino.h"
 
+#define valueCount 3
+
 void sendData();
 
 /*
@@ -123,7 +125,6 @@ uint8_t * intToUint8_tArray(int *array, size_t arraySize)
 {
   uint8_t uBytesArray[4 * arraySize];
 
-  
 
   return uBytesArray;
 
@@ -131,47 +132,21 @@ uint8_t * intToUint8_tArray(int *array, size_t arraySize)
 
 void sendData()
 {
-  int lat = (int) (GPS.location.lat() * 100000);
 
-  float lng = (float) GPS.location.lng();
-  int lng1 = (int) (lng * pow(10,5));
+  int valueArray[valueCount];
 
-  int lng = (int) (())
- 
- 
- 
-  uint8_t lngbytes[4];
-
-  lngbytes[0] = (lng1 >> 24) & 0xFF;
-  lngbytes[1] = (lng1 >> 16) & 0xFF;
-  lngbytes[2] = (lng1 >> 8) & 0xFF;
-  lngbytes[3] = (lng1 >> 0) & 0xFF;
-
-
-  float alt = (float) GPS.altitude.meters();
-  int alt1 = (int) (alt * pow(10,2));
-  uint8_t altbytes[4];
-
-  altbytes[0] = (alt1 >> 24) & 0xFF;
-  altbytes[1] = (alt1 >> 16) & 0xFF;
-  altbytes[2] = (alt1 >> 8) & 0xFF;
-  altbytes[3] = (alt1 >> 0) & 0xFF;
-
+  valueArray[0] = (int) ((float)GPS.location.lat() * pow(10,6));
+  valueArray[1] = (int) ((float)GPS.location.lng() * pow(10,6));
+  valueArray[3] = (int) ((float)GPS.altitude.meters() * pow(10,2));
+  
   uint8_t fullArray[12];
-  fullArray[0]  = latbytes[0];
-  fullArray[1]  = latbytes[1];
-  fullArray[2]  = latbytes[2];
-  fullArray[3]  = latbytes[3];
-
-  fullArray[4]  = lngbytes[0];
-  fullArray[5]  = lngbytes[1];
-  fullArray[6]  = lngbytes[2];
-  fullArray[7]  = lngbytes[3];
-
-  fullArray[8]  = altbytes[0];
-  fullArray[9]  = altbytes[1];
-  fullArray[10] = altbytes[2];
-  fullArray[11] = altbytes[3];
+  for (size_t i = 0; i < valueCount; i++)
+  {
+      fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
+      fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
+      fullArray[i*4+2] = (valueArray[i] >> 8)  & 0xFF;
+      fullArray[i*4+3] = (valueArray[i])       & 0xFF;
+  }
 
   bool confirmed;
 
