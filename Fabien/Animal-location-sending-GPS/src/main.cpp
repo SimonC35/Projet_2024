@@ -15,7 +15,11 @@
 
 #define valueCount 3
 
-void sendData();
+void sendData(uint8_t * fullarray);
+
+void readData(uint8_t * fullarray);
+
+uint8_t fullArray[valueCount*4];
 
 /*
  * set LoraWan_RGB to Active,the RGB active in loraWan
@@ -70,8 +74,6 @@ void setup() {
     Serial.print("Joining... ");
     LoRaWAN.joinOTAA(appEui, appKey, devEui);
     if (!LoRaWAN.isJoined()) {
-      //In this example we just loop until we're joined, but you could
-      //also go and start doing other things and try again later
       Serial.println("JOIN FAILED! Sleeping for 30 seconds");
       lowPowerSleep(30000);   
     } else {
@@ -106,7 +108,9 @@ void loop()
       GPS.encode(GPS.read());
     }
 
-  sendData();
+  readData(fullArray);
+
+  sendData(fullArray);
 
   lowPowerSleep(120000);  
 }
@@ -121,23 +125,14 @@ void downLinkDataHandle(McpsIndication_t *mcpsIndication)
   Serial.println();
 }
 
-uint8_t * intToUint8_tArray(int *array, size_t arraySize)
-{
-  uint8_t uBytesArray[4 * arraySize];
-
-
-  return uBytesArray;
-
-}
-
-void sendData()
+void readData(uint8_t * fullarray)
 {
 
   int valueArray[valueCount];
 
   valueArray[0] = (int) ((float)GPS.location.lat() * pow(10,6));
   valueArray[1] = (int) ((float)GPS.location.lng() * pow(10,6));
-  valueArray[3] = (int) ((float)GPS.altitude.meters() * pow(10,2));
+  valueArray[2] = (int) ((float)GPS.altitude.meters() * pow(10,2));
   
   uint8_t fullArray[12];
   for (size_t i = 0; i < valueCount; i++)
@@ -148,9 +143,14 @@ void sendData()
       fullArray[i*4+3] = (valueArray[i])       & 0xFF;
   }
 
+}
+
+void sendData(uint8_t * fullArray)
+{
+
   bool confirmed;
 
-  if (LoRaWAN.send(12, fullArray, 1, confirmed)) {
+  if (LoRaWAN.send(valueCount*4, fullArray, 1, confirmed)) {
     Serial.println("Send OK");
   } else {
     Serial.println("Send FAILED");
