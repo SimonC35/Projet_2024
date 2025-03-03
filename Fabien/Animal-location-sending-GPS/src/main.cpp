@@ -1,14 +1,3 @@
-/**
- * This is an example of joining, sending and receiving data via LoRaWAN using a more minimal interface.
- * 
- * The example is configured for OTAA, set your keys into the variables below.
- * 
- * The example will upload a counter value periodically, and will print any downlink messages.
- * 
- * please disable AT_SUPPORT in tools menu
- *
- * David Brodrick.
- */
 #include "GPS_Air530Z.h"
 #include "LoRaWanMinimal_APP.h"
 #include "Arduino.h"
@@ -16,21 +5,10 @@
 #define valueCount 3
 
 void sendData(uint8_t * fullarray);
-
 void readData(uint8_t * fullarray);
 
 uint8_t fullArray[valueCount*4];
 
-/*
- * set LoraWan_RGB to Active,the RGB active in loraWan
- * RGB red means sending;
- * RGB purple means joined done;
- * RGB blue means RxWindow1;
- * RGB yellow means RxWindow2;
- * RGB green means received done;
- */
-
-//Set these OTAA parameters to match your app/node in TTN
 static uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x06, 0xD9, 0x8E };
 static uint8_t appEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x06, 0xD9, 0x8E };
 static uint8_t appKey[] = { 0xCE, 0xE4, 0xF3, 0xAA, 0x0D, 0x2A, 0x2A, 0x08, 0xEA, 0xC1, 0x52, 0x95, 0x33, 0xDF, 0x81, 0xB3 };
@@ -60,6 +38,19 @@ static void lowPowerSleep(uint32_t sleeptime)
   TimerStop( &sleepTimer );
 }
 
+void send(uint8_t datalen, uint8_t *data, uint8_t port, bool confirmed)
+{
+    printf("\n\n");
+    for (size_t i = 0; i < datalen;i++)
+    {
+        if (i == 4 || i == 8) printf("\n");
+        printf("%02X", *data);
+        data++;  
+      }
+
+
+}
+
 Air530ZClass GPS;
 
 void setup() {
@@ -67,7 +58,6 @@ void setup() {
 
   LoRaWAN.begin(LORAWAN_CLASS, ACTIVE_REGION);
   
-  //Enable ADR
   LoRaWAN.setAdaptiveDR(true);
 
   while (1) {
@@ -86,16 +76,11 @@ void setup() {
 
   while(GPS.location.lat() == 0.0 || GPS.location.lng() == 0.0)
   {
+    Serial.print("Non valid coordinates ! ");
     while (GPS.available() > 0)
     {
       GPS.encode(GPS.read());
     }
-      Serial.print(GPS.location.lat(),6);
-      Serial.println();
-      Serial.print(GPS.location.lng(),6);
-      Serial.println();
-      Serial.print(GPS.satellites.value());
-      Serial.println();
       delay(2000);  
   }
 
@@ -112,17 +97,9 @@ void loop()
 
   sendData(fullArray);
 
-  lowPowerSleep(120000);  
-}
+  send(12, fullArray, 1, 1);
 
-//Example of handling downlink data
-void downLinkDataHandle(McpsIndication_t *mcpsIndication)
-{
-  Serial.printf("Received downlink: %s, RXSIZE %d, PORT %d, DATA: ",mcpsIndication->RxSlot?"RXWIN2":"RXWIN1",mcpsIndication->BufferSize,mcpsIndication->Port);
-  for(uint8_t i=0;i<mcpsIndication->BufferSize;i++) {
-    Serial.printf("%02X",mcpsIndication->Buffer[i]);
-  }
-  Serial.println();
+  lowPowerSleep(120000);  
 }
 
 void readData(uint8_t * fullarray)
@@ -130,11 +107,17 @@ void readData(uint8_t * fullarray)
 
   int valueArray[valueCount];
 
-  valueArray[0] = (int) ((float)GPS.location.lat() * pow(10,6));
-  valueArray[1] = (int) ((float)GPS.location.lng() * pow(10,6));
-  valueArray[2] = (int) ((float)GPS.altitude.meters() * pow(10,2));
+  valueArray[0] = (int) ((float) GPS.location.lat() * pow(10,6));
+  valueArray[1] = (int) ((float) GPS.location.lng() * pow(10,6));
+  valueArray[2] = (int) ((float) GPS.altitude.meters() * pow(10,2));
   
-  uint8_t fullArray[12];
+  Serial.print(valueArray[0]);
+  Serial.println();
+  Serial.print(valueArray[1]);
+  Serial.println();
+  Serial.print(valueArray[2]);
+  Serial.println();
+
   for (size_t i = 0; i < valueCount; i++)
   {
       fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
