@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:animap_tracker/localization.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Namer App',
+        title: 'Animap Tracker',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 49, 122, 78)),
@@ -125,8 +127,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
+  String lang = 'fr';
   int selectedIndex = 0;
-  
+
   @override
   Widget build(BuildContext context) {
 
@@ -157,6 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
       IconButton;
     });
   }
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -164,26 +168,26 @@ class _MyHomePageState extends State<MyHomePage> {
             child: page,
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                label: 'Home',
+                label: AppLocalization(lang: lang).translation("_home"),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.dehaze),
-                label: 'List',
+                label: AppLocalization(lang: lang).translation("_list"),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
-                label: 'Map',
+                label: AppLocalization(lang: lang).translation("_map"),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.notifications),
-                label: 'Alerte',
+                label: AppLocalization(lang: lang).translation("_alert"),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
-                label: 'Settings',
+                label: AppLocalization(lang: lang).translation("_setting"),
               ),
             ],
             currentIndex: selectedIndex,
@@ -196,13 +200,24 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     );
   }
+  void changeLang() {
+    if (lang == "fr") {
+      setState(() {
+        lang = "en";
+      });
+    } else {
+      setState(() {
+        lang = "fr";
+      });
+    }
+  }
 }
 
 class IconButtonWidget extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
 
-  IconButtonWidget({required this.icon, required this.onPressed});
+  const IconButtonWidget({required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -354,8 +369,14 @@ class AlertPage extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
-  
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String lang = 'fr';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -365,14 +386,14 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // 🖼 Logo ou image (facultatif)
-            Icon(Icons.lock, size: 80, color: Colors.blue),
+            Icon(Icons.lock, size: 80, color: const Color.fromARGB(255, 66, 150, 101)),
 
             SizedBox(height: 20),
 
             // 📧 Champ Email
             TextField(
               decoration: InputDecoration(
-                labelText: "Email",
+                labelText: AppLocalization(lang: lang).translation("_user"),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -383,7 +404,7 @@ class LoginPage extends StatelessWidget {
             TextField(
               obscureText: true,
               decoration: InputDecoration(
-                labelText: "Mot de passe",
+                labelText: AppLocalization(lang: lang).translation("_pass"),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -395,14 +416,28 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 print("Connexion...");
               },
-              child: Text("Se connecter"),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Largeur max
-              ),
-            ),
+              child: Text(
+                    AppLocalization(lang: lang).translation("_login"),
+            )),
+            ElevatedButton(
+                  onPressed: changeLang,
+                  child: Text(
+                    AppLocalization(lang: lang).translation("changeLanguage"),
+            )),
           ],
         ),
       ),
     );
+  }
+  void changeLang() {
+    if (lang == "fr") {
+      setState(() {
+        lang = "en";
+      });
+    } else {
+      setState(() {
+        lang = "fr";
+      });
+    }
   }
 }
