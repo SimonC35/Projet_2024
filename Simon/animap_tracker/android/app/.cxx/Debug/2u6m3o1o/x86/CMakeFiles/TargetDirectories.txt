@@ -1,0 +1,2 @@
+/home/felix/Bureau/Info/Projet_2024/Simon/animap_tracker/android/app/.cxx/Debug/2u6m3o1o/x86/CMakeFiles/edit_cache.dir
+/home/felix/Bureau/Info/Projet_2024/Simon/animap_tracker/android/app/.cxx/Debug/2u6m3o1o/x86/CMakeFiles/rebuild_cache.dir

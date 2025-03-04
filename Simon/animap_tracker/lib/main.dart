@@ -1,11 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+
+// For Language Anglais / Français
 import 'package:animap_tracker/localization.dart';
 
-String lang = "en";
+// For OpenStreetMap
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
+//import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+
+String lang = "en";
+/*
+MapController controller = MapController(
+                            initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
+                            areaLimit: BoundingBox( 
+                                east: 10.4922941, 
+                                north: 47.8084648, 
+                                south: 45.817995, 
+                                west:  5.9559113,
+                      ),
+            );
+
+// ignore: non_constant_identifier_names
+OSMFlutter( 
+    controler:mapController,
+    currentLocation: false,
+    road: Road(   
+      startIcon: MarkerIcon(
+      icon: Icon(
+        Icons.person,
+        size: 64,
+        color: Colors.brown,
+      ),),
+      roadColor: Colors.yellowAccent,
+    ),
+    markerIcon: MarkerIcon(
+      icon: Icon(
+        Icons.person_pin_circle,
+        color: Colors.blue,
+        size: 56,
+      ),
+    ),
+    initPosition: GeoPoint(latitude: 47.35387, longitude: 8.43609),
+  );
+*/
 void main() {
   runApp(MyApp());
 }
@@ -174,23 +213,23 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home, size: 30),
                 label: AppLocalization(lang: lang).translation("_home"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.dehaze),
+                icon: Icon(Icons.dehaze, size: 30),
                 label: AppLocalization(lang: lang).translation("_list"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.map),
+                icon: Icon(Icons.map, size: 30),
                 label: AppLocalization(lang: lang).translation("_map"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.notifications, size: 30),
                 label: AppLocalization(lang: lang).translation("_alert"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.settings, size: 30),
                 label: AppLocalization(lang: lang).translation("_setting"),
               ),
             ],
@@ -232,7 +271,6 @@ class IconButtonWidget extends StatelessWidget {
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,8 +294,9 @@ class MapPage extends StatelessWidget {
   }
 
   TileLayer get openStreetMapTileLayer => TileLayer(
-    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    urlTemplate: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
     userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
+    subdomains: ['a', 'b', 'c'],
   );
 }
 

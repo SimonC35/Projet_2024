@@ -1,0 +1,2 @@
+/home/felix/Bureau/Info/Projet_2024/Simon/animap_tracker/android/app/.cxx/RelWithDebInfo/15p4l2e1/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/felix/Bureau/Info/Projet_2024/Simon/animap_tracker/android/app/.cxx/RelWithDebInfo/15p4l2e1/armeabi-v7a/CMakeFiles/rebuild_cache.dir
