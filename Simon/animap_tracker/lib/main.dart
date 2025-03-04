@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:animap_tracker/localization.dart';
+
+String lang = "en";
 
 void main() {
   runApp(MyApp());
@@ -35,7 +36,7 @@ class MyAppState extends ChangeNotifier {
 class AssetImageWidget extends StatelessWidget {
   final String imagePath;
 
-  AssetImageWidget({required this.imagePath});
+  const AssetImageWidget({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class TopBanner extends StatelessWidget {
   final Color startColor;
   final Color endColor;
 
-  TopBanner({
+  const TopBanner({super.key, 
     this.height = 100,
     this.startColor = Colors.blue,
     this.endColor = Colors.purple,
@@ -99,11 +100,14 @@ class TopBanner extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  
+  const Home(String lang, {super.key});
+
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
 
+    // ignore: avoid_print
+    print(lang);
     return Scaffold(
       body: Column(
         children: [
@@ -120,6 +124,7 @@ class Home extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
   
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -127,7 +132,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  String lang = 'fr';
   int selectedIndex = 0;
 
   @override
@@ -136,16 +140,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = Home();
+        page = Home(lang);
         break;
       case 1:
-        page = ListPage();
+        page = ListPage(lang);
         break;
       case 2:
         page = MapPage();
         break;
       case 3:
-        page = AlertPage();
+        page = AlertPage(lang);
         break;
       case 4:
         page = LoginPage();
@@ -200,24 +204,13 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     );
   }
-  void changeLang() {
-    if (lang == "fr") {
-      setState(() {
-        lang = "en";
-      });
-    } else {
-      setState(() {
-        lang = "fr";
-      });
-    }
-  }
 }
 
 class IconButtonWidget extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
 
-  const IconButtonWidget({required this.icon, required this.onPressed});
+  const IconButtonWidget({super.key, required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -237,6 +230,8 @@ class IconButtonWidget extends StatelessWidget {
 }
 
 class MapPage extends StatelessWidget {
+  const MapPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -267,6 +262,8 @@ class MapPage extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -352,15 +349,19 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ListPage extends StatelessWidget {
+  const ListPage(String lang, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Animal Tracker List Page'),
+      child: Text(AppLocalization(lang: lang).translation("_listText")),
     );
   }
 }
 
 class AlertPage extends StatelessWidget {
+  const AlertPage(String lang, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -370,12 +371,13 @@ class AlertPage extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String lang = 'fr';
 
   @override
   Widget build(BuildContext context) {
@@ -420,9 +422,9 @@ class _LoginPageState extends State<LoginPage> {
                     AppLocalization(lang: lang).translation("_login"),
             )),
             ElevatedButton(
-                  onPressed: changeLang,
-                  child: Text(
-                    AppLocalization(lang: lang).translation("changeLanguage"),
+              onPressed: changeLang,
+              child: Text(
+                AppLocalization(lang: lang).translation("changeLanguage"),
             )),
           ],
         ),
