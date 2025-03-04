@@ -15,10 +15,7 @@ static uint8_t appKey[] = { 0xCE, 0xE4, 0xF3, 0xAA, 0x0D, 0x2A, 0x2A, 0x08, 0xEA
 
 uint16_t userChannelsMask[6]={ 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
 
-///////////////////////////////////////////////////
-//Some utilities for going into low power mode
 TimerEvent_t sleepTimer;
-//Records whether our sleep/low power timer expired
 bool sleepTimerExpired;
 
 static void wakeUp()
@@ -36,19 +33,6 @@ static void lowPowerSleep(uint32_t sleeptime)
   //So wait until our timer had expired
   while (!sleepTimerExpired) lowPowerHandler();
   TimerStop( &sleepTimer );
-}
-
-void send(uint8_t datalen, uint8_t *data, uint8_t port, bool confirmed)
-{
-    printf("\n\n");
-    for (size_t i = 0; i < datalen;i++)
-    {
-        if (i == 4 || i == 8) printf("\n");
-        printf("%02X", *data);
-        data++;  
-      }
-
-
 }
 
 Air530ZClass GPS;
@@ -83,23 +67,20 @@ void setup() {
     }
       delay(2000);  
   }
-
 }
 
 void loop()
 {
-    while (GPS.available() > 0)
-    {
-      GPS.encode(GPS.read());
-    }
+
+  while (GPS.available() > 0)
+  {
+    GPS.encode(GPS.read());
+  }
 
   readData(fullArray);
-
   sendData(fullArray);
 
-  send(12, fullArray, 1, 1);
-
-  lowPowerSleep(120000);  
+  delay(300000);
 }
 
 void readData(uint8_t * fullarray)
@@ -107,23 +88,26 @@ void readData(uint8_t * fullarray)
 
   int valueArray[valueCount];
 
-  valueArray[0] = (int) ((float) GPS.location.lat() * pow(10,6));
-  valueArray[1] = (int) ((float) GPS.location.lng() * pow(10,6));
-  valueArray[2] = (int) ((float) GPS.altitude.meters() * pow(10,2));
-  
-  Serial.print(valueArray[0]);
+  valueArray[0] = (int) (((float) GPS.location.lat()) * pow(10,6));
+  valueArray[1] = (int) (((float) GPS.location.lng()) * pow(10,6));
+  valueArray[2] = (int) (((float) GPS.altitude.meters()) * pow(10,2));
+
+  Serial.print("altitude = ");
+  Serial.print(GPS.altitude.meters(),2);
   Serial.println();
-  Serial.print(valueArray[1]);
+  Serial.print("latitude = ");
+  Serial.print(GPS.location.lat(),6);
   Serial.println();
-  Serial.print(valueArray[2]);
+  Serial.print("longitude = ");
+  Serial.print(GPS.location.lng(),6);
   Serial.println();
 
   for (size_t i = 0; i < valueCount; i++)
   {
-      fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
-      fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
-      fullArray[i*4+2] = (valueArray[i] >> 8)  & 0xFF;
-      fullArray[i*4+3] = (valueArray[i])       & 0xFF;
+    fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
+    fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
+    fullArray[i*4+2] = (valueArray[i] >> 8)  & 0xFF;
+    fullArray[i*4+3] = (valueArray[i])       & 0xFF;
   }
 
 }
