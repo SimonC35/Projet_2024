@@ -13,7 +13,13 @@
 #include "LoRaWanMinimal_APP.h"
 #include "Arduino.h"
 
-void sendData();
+#define valueCount 3
+
+void sendData(uint8_t * fullarray);
+
+void readData(uint8_t * fullarray);
+
+uint8_t fullArray[valueCount*4];
 
 /*
  * set LoraWan_RGB to Active,the RGB active in loraWan
@@ -54,17 +60,11 @@ static void lowPowerSleep(uint32_t sleeptime)
   TimerStop( &sleepTimer );
 }
 
-///////////////////////////////////////////////////
 Air530ZClass GPS;
 
 void setup() {
 	Serial.begin(115200);
 
-  if (ACTIVE_REGION==LORAMAC_REGION_AU915) {
-    //TTN uses sub-band 2 in AU915
-    LoRaWAN.setSubBand2();
-  }
- 
   LoRaWAN.begin(LORAWAN_CLASS, ACTIVE_REGION);
   
   //Enable ADR
@@ -74,8 +74,6 @@ void setup() {
     Serial.print("Joining... ");
     LoRaWAN.joinOTAA(appEui, appKey, devEui);
     if (!LoRaWAN.isJoined()) {
-      //In this example we just loop until we're joined, but you could
-      //also go and start doing other things and try again later
       Serial.println("JOIN FAILED! Sleeping for 30 seconds");
       lowPowerSleep(30000);   
     } else {
@@ -103,7 +101,6 @@ void setup() {
 
 }
 
-///////////////////////////////////////////////////
 void loop()
 {
     while (GPS.available() > 0)
@@ -111,12 +108,13 @@ void loop()
       GPS.encode(GPS.read());
     }
 
-  sendData();
+  readData(fullArray);
+
+  sendData(fullArray);
 
   lowPowerSleep(120000);  
 }
 
-///////////////////////////////////////////////////
 //Example of handling downlink data
 void downLinkDataHandle(McpsIndication_t *mcpsIndication)
 {
@@ -127,115 +125,32 @@ void downLinkDataHandle(McpsIndication_t *mcpsIndication)
   Serial.println();
 }
 
-void sendData()
+void readData(uint8_t * fullarray)
 {
-  Serial.println();
-  Serial.print("LAT: ");
-  Serial.print(GPS.location.lat(),6);
-  float lat = (float) GPS.location.lat();
-  int lat1 = (int) (lat * pow(10,5));
-  Serial.println();
-  Serial.print(lat1);
-  Serial.println();
-  uint8_t latbytes[4];
-  Serial.println();
 
-  latbytes[0] = (lat1 >> 24) & 0xFF;
-  latbytes[1] = (lat1 >> 16) & 0xFF;
-  latbytes[2] = (lat1 >> 8) & 0xFF;
-  latbytes[3] = (lat1 >> 0) & 0xFF;
+  int valueArray[valueCount];
 
-  char latstr[32];
-  sprintf(latstr,"\t\t%0b %0b %0b %0b",latbytes[0], latbytes[1], latbytes[2], latbytes[3]);
-  Serial.println(latstr);
-  sprintf(latstr, "%08b", lat1);
-  Serial.println(latstr);
-  sprintf(latstr,"%02X %02X %02X %02X",latbytes[0], latbytes[1], latbytes[2], latbytes[3]);
-  Serial.print(latstr);
-/*
-  char latstr[32];
-  sprintf(latstr,"%0b %0b%0b%0b%0b",latbytes[0], latbytes[1], latbytes[2], latbytes[3]);
-  Serial.println(latstr);
-  sprintf(latstr, "%08b", lat1);
-  Serial.println(latstr);
-  sprintf(latstr,"%02X %02X %02X %02X %02X",latbytes[0], latbytes[1], latbytes[2], latbytes[3]);
-//  sprintf(latstr,"%02X", lat1);
-  Serial.print(latstr);
-*/
-/*
-  Serial.println();
-  Serial.println();
-*/
-  Serial.println();
-  Serial.println();
-  Serial.print("LNG: ");
-  Serial.print(GPS.location.lng(),6);
-  float lng = (float) GPS.location.lng();
-  int lng1 = (int) (lng * pow(10,5));
-  Serial.println();
-  Serial.print(lng1);
-  Serial.println();
-  uint8_t lngbytes[4];
-  Serial.println();
-
-  lngbytes[0] = (lng1 >> 24) & 0xFF;
-  lngbytes[1] = (lng1 >> 16) & 0xFF;
-  lngbytes[2] = (lng1 >> 8) & 0xFF;
-  lngbytes[3] = (lng1 >> 0) & 0xFF;
-
-  char lngstr[32];
-  sprintf(latstr,"\t\t%0b %0b %0b %0b", lngbytes[0], lngbytes[1], lngbytes[2], lngbytes[3]);
-  Serial.println(lngstr);
-  sprintf(lngstr, "%08b", lng1);
-  Serial.println(lngstr);
-  sprintf(lngstr,"%02X %02X %02X %02X",lngbytes[0], lngbytes[1], lngbytes[2], lngbytes[3]);
-  Serial.print(lngstr);
-
-  Serial.println();
-  Serial.print("ALT: ");
-  Serial.print(GPS.altitude.meters());
-  float alt = (float) GPS.altitude.meters();
-  int alt1 = (int) (alt * pow(10,2));
-  Serial.println();
-  Serial.print(alt1);
-  Serial.println();
-  uint8_t altbytes[4];
-
-  altbytes[0] = (alt1 >> 24) & 0xFF;
-  altbytes[1] = (alt1 >> 16) & 0xFF;
-  altbytes[2] = (alt1 >> 8) & 0xFF;
-  altbytes[3] = (alt1 >> 0) & 0xFF;
-
+  valueArray[0] = (int) ((float)GPS.location.lat() * pow(10,6));
+  valueArray[1] = (int) ((float)GPS.location.lng() * pow(10,6));
+  valueArray[2] = (int) ((float)GPS.altitude.meters() * pow(10,2));
+  
   uint8_t fullArray[12];
-  fullArray[0]  = latbytes[0];
-  fullArray[1]  = latbytes[1];
-  fullArray[2]  = latbytes[2];
-  fullArray[3]  = latbytes[3];
+  for (size_t i = 0; i < valueCount; i++)
+  {
+      fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
+      fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
+      fullArray[i*4+2] = (valueArray[i] >> 8)  & 0xFF;
+      fullArray[i*4+3] = (valueArray[i])       & 0xFF;
+  }
 
-  fullArray[4]  = lngbytes[0];
-  fullArray[5]  = lngbytes[1];
-  fullArray[6]  = lngbytes[2];
-  fullArray[7]  = lngbytes[3];
+}
 
-  fullArray[8]  = altbytes[0];
-  fullArray[9]  = altbytes[1];
-  fullArray[10] = altbytes[2];
-  fullArray[11] = altbytes[3];
+void sendData(uint8_t * fullArray)
+{
 
-  char fArraystr[128];
-  Serial.println();
-  Serial.println();
-  sprintf(fArraystr,"Valeur full Array binaire : %0b %0b %0b %0b | %0b %0b %0b %0b %0b | %0b %0b %0b %0b", fullArray[0], fullArray[1], fullArray[2], fullArray[3], fullArray[4], fullArray[5], fullArray[6], fullArray[7],  fullArray[8], fullArray[9], fullArray[10], fullArray[11]);
-  Serial.println(fArraystr);
-  Serial.println();
-  sprintf(fArraystr,"Valeur full Array hex :     %02X %02X %02X %02X | %02X %02X %02X %02X | %02X %02X %02X %02X", fullArray[0], fullArray[1], fullArray[2], fullArray[3], fullArray[4], fullArray[5], fullArray[6], fullArray[7], fullArray[8], fullArray[9], fullArray[10], fullArray[11]);
-  Serial.print(fArraystr);
-  Serial.println();
   bool confirmed;
 
-
-
-  if (LoRaWAN.send(12, fullArray, 1, confirmed)) {
+  if (LoRaWAN.send(valueCount*4, fullArray, 1, confirmed)) {
     Serial.println("Send OK");
   } else {
     Serial.println("Send FAILED");

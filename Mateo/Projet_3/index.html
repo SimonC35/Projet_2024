@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap - Suivi Animal</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Suivi Animal sur OpenStreetMap</h1>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="device-info">
+                    <span id="device-id">ID Appareil: </span>
+                    <span id="battery-level">Batterie: </span>
+                </div>
+                <div class="controls">
+                    <button id="start-tracking">Démarrer le suivi</button>
+                    <button id="optimize-route">Optimiser le parcours</button>
+                </div>
+                <div class="info-panel">
+                    <h2>Informations énergétiques</h2>
+                    <div class="energy-stats">
+                        <div>
+                            <label>Consommation actuelle:</label>
+                            <span id="current-consumption">0 W</span>
+                        </div>
+                        <div>
+                            <label>Distance parcourue:</label>
+                            <span id="total-distance">0 km</span>
+                        </div>
+                        <div>
+                            <label>Estimation batterie restante:</label>
+                            <span id="estimated-battery">100%</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- La liste des tracés sera ajoutée ici dynamiquement -->
+            </div>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>
