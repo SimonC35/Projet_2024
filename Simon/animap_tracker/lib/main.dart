@@ -294,7 +294,8 @@ class MapPage extends StatelessWidget {
   }
 
   TileLayer get openStreetMapTileLayer => TileLayer(
-    urlTemplate: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    urlTemplate: 'https://.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    //urlTemplate: "https://umap.openstreetmap.fr/fr/map/testosm_1189050",
     userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
     subdomains: ['a', 'b', 'c'],
   );
@@ -482,3 +483,38 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 }
+/*
+
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: Text("Test OpenStreetMap")),
+        body: FlutterMap(
+          options: MapOptions(
+            initialCenter: LatLng(48.733333, -3.449757), // Félix Le Dantec
+            initialZoom: 13.0,
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+              fallbackUrl: "https://umap.openstreetmap.fr/fr/map/testosm_1189050",
+              //subdomains: ['a', 'b', 'c'],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+*/
