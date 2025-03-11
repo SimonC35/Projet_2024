@@ -61,11 +61,13 @@ void setup() {
   while(GPS.location.lat() == 0.0 || GPS.location.lng() == 0.0)
   {
     Serial.print("Non valid coordinates ! ");
+    Serial.print(getBatteryVoltage());
+    Serial.println();
     while (GPS.available() > 0)
     {
       GPS.encode(GPS.read());
     }
-      delay(2000);  
+      delay(15000);  
   }
 }
 
