@@ -1,0 +1,11 @@
+{
+  "name": "gps-tracking",
+  "version": "1.0.0",
+  "description": "GPS Animal Tracking",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "polyline": "^0.2.0"
+  }
+}
