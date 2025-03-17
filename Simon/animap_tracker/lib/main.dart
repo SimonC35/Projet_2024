@@ -7,44 +7,10 @@ import 'package:animap_tracker/localization.dart';
 // For OpenStreetMap
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-
-//import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 String lang = "en";
-/*
-MapController controller = MapController(
-                            initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
-                            areaLimit: BoundingBox( 
-                                east: 10.4922941, 
-                                north: 47.8084648, 
-                                south: 45.817995, 
-                                west:  5.9559113,
-                      ),
-            );
 
-// ignore: non_constant_identifier_names
-OSMFlutter( 
-    controler:mapController,
-    currentLocation: false,
-    road: Road(   
-      startIcon: MarkerIcon(
-      icon: Icon(
-        Icons.person,
-        size: 64,
-        color: Colors.brown,
-      ),),
-      roadColor: Colors.yellowAccent,
-    ),
-    markerIcon: MarkerIcon(
-      icon: Icon(
-        Icons.person_pin_circle,
-        color: Colors.blue,
-        size: 56,
-      ),
-    ),
-    initPosition: GeoPoint(latitude: 47.35387, longitude: 8.43609),
-  );
-*/
 void main() {
   runApp(MyApp());
 }
@@ -124,7 +90,7 @@ class TopBanner extends StatelessWidget {
           child: IconButtonWidget(
             icon: Icons.person,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
             },
           ),
         ),
@@ -268,9 +234,31 @@ class IconButtonWidget extends StatelessWidget {
   }
 }
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
   const MapPage({super.key});
 
+  @override
+  State<MapPage> createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse("https://umap.openstreetmap.fr/fr/map/testosm_1189050")); // Remplace XXXXX par l’ID de ta carte
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WebViewWidget(controller: _controller),
+    );
+  }
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -298,93 +286,7 @@ class MapPage extends StatelessWidget {
     userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
     subdomains: ['a', 'b', 'c'],
   );
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  
-  final TextEditingController _login = TextEditingController();
-    final TextEditingController _password = TextEditingController();
-
-  void initstate() {
-    super.initState();
-    _login.addListener(() {
-      final String text = _login.text.toLowerCase();
-      _login.value = _login.value.copyWith(
-        text: text,
-        selection: 
-          TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
-    _password.addListener(() {
-      final String text = _password.text.toLowerCase();
-      _password.value = _password.value.copyWith(
-        text: text,
-        selection: 
-          TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
-  }
-  @override
-  void dispose() {
-    _login.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        toolbarHeight: 150,
-      ),
-    );
-  }
-
-  Widget content() {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(200),
-      child: Column(
-        children: [
-          Text(
-            "Login",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            controller: _login,
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            "Password",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            controller: _password,
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-          ),
-        ],
-      ),
-    );
-  }
+  */
 }
 
 class ListPage extends StatelessWidget {
@@ -436,6 +338,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: AppLocalization(lang: lang).translation("_user"),
                 border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.person, size: 20, color: const Color.fromARGB(255, 66, 150, 101)),
               ),
             ),
 
@@ -447,6 +350,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: AppLocalization(lang: lang).translation("_pass"),
                 border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.lock, size: 20, color: const Color.fromARGB(255, 66, 150, 101)),
               ),
             ),
 
