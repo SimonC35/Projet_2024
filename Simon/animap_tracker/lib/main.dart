@@ -294,8 +294,7 @@ class MapPage extends StatelessWidget {
   }
 
   TileLayer get openStreetMapTileLayer => TileLayer(
-    urlTemplate: 'https://.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    //urlTemplate: "https://umap.openstreetmap.fr/fr/map/testosm_1189050",
+    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
     subdomains: ['a', 'b', 'c'],
   );
