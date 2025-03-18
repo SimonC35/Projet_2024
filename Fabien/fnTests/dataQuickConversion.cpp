@@ -5,20 +5,31 @@
 #include <iostream>
 #include <cmath>
 
-#define valueCount 3
-
+constexpr unsigned short int valueCount = 3;
+constexpr unsigned short int cardID = 1500;
 
 void send(uint8_t datalen, uint8_t *data, uint8_t port, bool confirmed)
 {
     printf("\n\n");
-    for (size_t i = 0; i < datalen;i++)
+    uint8_t * ptr = data;
+    for (size_t i = 0; i < datalen; i++)
     {
-        printf("%02X", *data);
-        data++;
-        if (i%4 == 0) printf("\n");
-    }
+        printf("%02X ", *ptr);
+        ptr++;
+        if ((i + 3) % 4 == 0 || i == 1) printf("\n");
+}
+}
 
-
+void printDebugInfo(uint8_t datalen, uint8_t *data)
+{
+    printf("\n\n");
+    uint8_t * ptr = data;
+    for (size_t i = 0; i < datalen; i++)
+    {
+        printf("%02X ", *ptr);
+        ptr++;
+        if ((i + 3) % 4 == 0 || i == 1) printf("\n");
+}
 }
 
 void intToUint8(const int a, uint8_t *array)
@@ -56,6 +67,14 @@ void checkFullArray(uint8_t arr[], size_t size)
 
 }
 
+void signWithId(uint8_t * fullArray, int cardID)
+{
+  fullArray[0] = (cardID >> 8) & 0xFF;
+  fullArray[1] = (cardID) & 0xFF;
+
+  printf("%02X || %02X", fullArray[0], fullArray[1]);
+}
+
 
 int main()
 {
@@ -67,9 +86,11 @@ int main()
     valueArray[1] = (int) ((float)lng() * pow(10,6)); 
     valueArray[2] = (int) ((float)meters() * pow(10,2));
 
-    uint8_t fullArray[valueCount * 4];
+    uint8_t fullArray[valueCount * 4 + 2];
 
-    for (size_t i = 0; i < valueCount; i++)
+    signWithId(fullArray,cardID);
+
+    for (size_t i = 2; i < valueCount; i++)
     {
         fullArray[i*4]   = (valueArray[i] >> 24) & 0xFF;
         fullArray[i*4+1] = (valueArray[i] >> 16) & 0xFF;
@@ -84,7 +105,7 @@ int main()
     }
 */
 
-    send(12, fullArray, 1, 1);
+    send(14, fullArray, 1, 1);
 
     return 0;
 }
