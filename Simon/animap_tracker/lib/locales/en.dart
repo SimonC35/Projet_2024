@@ -11,6 +11,7 @@ class EnLang {
     "_login": "Login",
 
     "_listText": "Maps lists",
+    "_alertText": "Alert page",
 
     "changeLanguage": "Français",
   };

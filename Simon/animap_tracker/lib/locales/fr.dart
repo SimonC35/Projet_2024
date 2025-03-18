@@ -11,6 +11,7 @@ class FrLang {
     "_login": "Se connecter",
     
     "_listText": "Liste des cartes",
+    "_alertText": "Alerte page",
 
     "changeLanguage": "Anglais",
   };

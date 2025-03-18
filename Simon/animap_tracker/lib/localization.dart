@@ -1,3 +1,4 @@
+// File English / French
 import 'package:animap_tracker/locales/en.dart';
 import 'package:animap_tracker/locales/fr.dart';
 
