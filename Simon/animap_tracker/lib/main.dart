@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Other file .dart
 import 'package:animap_tracker/home.dart';
@@ -14,7 +15,23 @@ import 'package:animap_tracker/localization.dart';
 String lang = "fr";
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NavigationProvider(),
+      child: MyApp(),
+    ),
+  );
+}
+
+class NavigationProvider extends ChangeNotifier {
+  int _currentIndex = 0;
+
+  int get currentIndex => _currentIndex;
+
+  void changeTab(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -35,91 +52,62 @@ class MyApp extends StatelessWidget {
         '/ListPage': (context) => ListPage(lang),
         '/MapPage': (context) => MapPage(),
         '/AlertPage': (context) => AlertPage(lang),
-        '/LoginPage': (context) =>LoginPage(),
+        '/LoginPage': (context) => LoginPage(),
       },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
-  
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    int currentIndex = context.watch<NavigationProvider>().currentIndex;
 
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = Home(lang);
-        break;
-      case 1:
-        page = ListPage(lang);
-        break;
-      case 2:
-        page = MapPage();
-        break;
-      case 3:
-        page = AlertPage(lang);
-        break;
-      case 4:
-        page = LoginPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
-    void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-      IconButton;
-    });
-  }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Center(
-            child: page,
+    return Scaffold(
+      body: IndexedStack(
+        index: currentIndex,
+        children: [
+          Home(lang), 
+          ListPage(lang), 
+          MapPage(), 
+          AlertPage(lang), 
+          LoginPage()
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: 30),
+            label: AppLocalization(lang: lang).translation("_home"),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 30),
-                label: AppLocalization(lang: lang).translation("_home"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.dehaze, size: 30),
-                label: AppLocalization(lang: lang).translation("_list"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.map, size: 30),
-                label: AppLocalization(lang: lang).translation("_map"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications, size: 30),
-                label: AppLocalization(lang: lang).translation("_alert"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings, size: 30),
-                label: AppLocalization(lang: lang).translation("_setting"),
-              ),
-            ],
-            currentIndex: selectedIndex,
-            selectedItemColor: const Color.fromARGB(255, 128, 38, 180),
-            unselectedItemColor: const Color.fromARGB(255, 62, 167, 185),
-            showUnselectedLabels: true,
-            onTap: onItemTapped,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dehaze, size: 30),
+            label: AppLocalization(lang: lang).translation("_list"),
           ),
-        );
-      }
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map, size: 30),
+            label: AppLocalization(lang: lang).translation("_map"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications, size: 30),
+            label: AppLocalization(lang: lang).translation("_alert"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings, size: 30),
+            label: AppLocalization(lang: lang).translation("_setting"),
+          ),
+        ],
+        selectedItemColor: const Color.fromARGB(255, 128, 38, 180),
+        unselectedItemColor: const Color.fromARGB(255, 62, 167, 185),
+        showUnselectedLabels: true,
+        currentIndex: currentIndex,
+        onTap: (index) {
+          context.read<NavigationProvider>().changeTab(index);
+        },
+      ),
     );
   }
 }

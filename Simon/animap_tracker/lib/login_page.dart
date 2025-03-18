@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
@@ -54,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             // ✅ Bouton Connexion
             ElevatedButton(
               onPressed: () {
+                // ignore: avoid_print
                 print("Connexion...");
               },
               child: Text(
@@ -79,5 +81,6 @@ class _LoginPageState extends State<LoginPage> {
         lang = "fr";
       });
     }
+    context.read<NavigationProvider>().changeTab(4);
   }
 }

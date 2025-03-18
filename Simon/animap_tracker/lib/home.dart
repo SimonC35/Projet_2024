@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
-
-// LoginPage => IconButtonWidget()
-import 'package:animap_tracker/login_page.dart';
 
 class Home extends StatefulWidget {
   const Home(String lang, {super.key});
@@ -16,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    var _height = MediaQuery.of(context).size.height;
+    var height_ = MediaQuery.of(context).size.height;
 
     // ignore: avoid_print
     print(lang);
@@ -25,7 +23,7 @@ class _HomeState extends State<Home> {
         children: [
           // Bordereau coloré avec dégradé
           TopBanner(
-            height: _height / 2 * 0.3,
+            height: height_ / 2 * 0.3,
             startColor: const Color.fromARGB(255, 49, 122, 78),
             endColor: const Color.fromARGB(255, 111, 173, 110),
           ),
@@ -35,8 +33,9 @@ class _HomeState extends State<Home> {
   }
 }
 
+// ignore: must_be_immutable
 class TopBanner extends StatelessWidget {
-  
+
   final double height;
   final Color startColor;
   final Color endColor;
@@ -69,7 +68,7 @@ class TopBanner extends StatelessWidget {
           child: IconButtonWidget(
             icon: Icons.person,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+              context.read<NavigationProvider>().changeTab(4);
             },
           ),
         ),
