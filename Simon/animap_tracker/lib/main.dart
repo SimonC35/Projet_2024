@@ -80,23 +80,23 @@ class MyHomePage extends StatelessWidget {
         
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 30),
+            icon: Icon(Icons.home, size: 35),
             label: AppLocalization(lang: lang).translation("_home"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dehaze, size: 30),
+            icon: Icon(Icons.dehaze, size: 35),
             label: AppLocalization(lang: lang).translation("_list"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map, size: 30),
+            icon: Icon(Icons.map, size: 35),
             label: AppLocalization(lang: lang).translation("_map"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, size: 30),
+            icon: Icon(Icons.notifications, size: 35),
             label: AppLocalization(lang: lang).translation("_alert"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings, size: 30),
+            icon: Icon(Icons.settings, size: 35),
             label: AppLocalization(lang: lang).translation("_setting"),
           ),
         ],

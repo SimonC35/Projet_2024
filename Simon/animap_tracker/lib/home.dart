@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
         children: [
           // Bordereau coloré avec dégradé
           TopBanner(
-            height: height_ / 2 * 0.3,
+            height: height_ / 2 * 0.35,
             startColor: const Color.fromARGB(255, 49, 122, 78),
             endColor: const Color.fromARGB(255, 111, 173, 110),
           ),
@@ -64,7 +64,7 @@ class TopBanner extends StatelessWidget {
         ),
         Positioned(
           top: 40, // Décalage depuis le haut
-          right: 20, // Décalage depuis la droite
+          right: 40, // Décalage depuis la droite
           child: IconButtonWidget(
             icon: Icons.person,
             onPressed: () {
@@ -73,7 +73,7 @@ class TopBanner extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20,
+          top: 35,
           left: 40,
           child: AssetImageWidget(imagePath: "asset/images/Map.png"),
         ),
@@ -93,7 +93,7 @@ class IconButtonWidget extends StatelessWidget {
     return IconButton(
       color: const Color.fromARGB(255, 134, 212, 131),
       onPressed: onPressed,
-      icon: Icon(icon, size: 30),
+      icon: Icon(icon, size: 45),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color.fromARGB(255, 50, 85, 64),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -115,7 +115,7 @@ class AssetImageWidget extends StatelessWidget {
     return Center(
       child: Image.asset(
         imagePath,
-        width: 70,
+        width: 60,
         height: 90,
         fit: BoxFit.cover,
       ),
