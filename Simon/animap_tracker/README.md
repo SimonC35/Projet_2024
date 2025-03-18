@@ -1,4 +1,4 @@
-# animap_tracker
+# Animap Tracker
 
 A new Flutter project.
 
