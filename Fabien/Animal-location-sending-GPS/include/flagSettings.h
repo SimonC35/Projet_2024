@@ -16,9 +16,9 @@ constexpr uint8_t FLAG_time = 7;
 
 constexpr uint8_t FLAGS[8] = {0b00000001, 0b00000010, 0b00000100, 0b00001000, 0b00010000, 0b00100000, 0b01000000, 0b10000000};
 
-constexpr uint8_t idDataSize      = 2; // 
-constexpr uint8_t coordsDataSize  = 8; // 
-constexpr uint8_t altDataSize     = 2; // 
+constexpr uint8_t idDataSize      = 2;
+constexpr uint8_t coordsDataSize  = 8;
+constexpr uint8_t altDataSize     = 2;
 constexpr uint8_t hdopDataSize = 1;
 constexpr uint8_t speedDataSize = 1;
 constexpr uint8_t courseDataSize = 1;

@@ -100,7 +100,7 @@ void setup() {
     {
       GPS.encode(GPS.read());
     }
-      delay(15000);  
+    delay(5000);  
   }
 }
 
@@ -110,37 +110,45 @@ void loop()
   {
     GPS.encode(GPS.read());
   }
+
   readData(fullArray);
 
 #ifdef DEBUG
   printDebugInfo(12, fullArray);
 #endif
 
-  lowPowerSleep(60000); //300000 - 5 minutes
+#ifndef NOLORAWAN
+  sendData(fullArray);
+#endif
+
+  lowPowerSleep(300000); //300000 - 5 minutes
 }
 
 void readData(uint8_t * fullarray)
 {
   uint8_t *ptr = fullArray;
-  for (int i = 0; i < 9; i++)
-  {
-    fullArray[0] = (cardID << 8) & 0xFF; fullArray[1] = cardID & 0xFF; ptr+=2;
-    if (flagSettings & FLAGS[FLAG_coords]) {
+  fullArray[0] = (cardID >> 8) & 0xFF; fullArray[1] = cardID & 0xFF; ptr+=2;
+
+  if (flagSettings & FLAGS[FLAG_coords]) {
       int valueArray[2];
       valueArray[0] = (int) (((float) GPS.location.lat()) * pow(10,5));
       valueArray[1] = (int) (((float) GPS.location.lng()) * pow(10,5));
       for (int i = 0; i < coordsDataSize; i++){
-        *ptr = (valueArray[i] << (24 - (i%4) * 8)) & 0xFF;
+        if (i < 4){
+        *ptr = (valueArray[0] >> (24 - (i%4) * 8)) & 0xFF;
+        }
+        else {
+        *ptr = (valueArray[1] >> (24 - (i%4) * 8)) & 0xFF;  
+        }
         ptr++;
       }
     }
     if (flagSettings & FLAGS[FLAG_alt])
     {
-      unsigned short altValue = (int) ((float) GPS.altitude.meters() * pow(10,2));
+      unsigned short altValue = (unsigned short int) ((float) GPS.altitude.meters() * pow(10,2));
       *ptr = (altValue << 8) & 0xFF;
       *(ptr++) = altValue & 0xFF;
     }
-  }
 
 }
 
@@ -150,7 +158,7 @@ void sendData(uint8_t * fullArray)
   bool confirmed;
 
 #ifndef NOLORAWAN
-  if (LoRaWAN.send(valueCount*4, fullArray, 1, confirmed)) {
+  if (LoRaWAN.send(12, fullArray, 1, confirmed)) {
     Serial.println("Send OK");
   } else {
     Serial.println("Send FAILED");
