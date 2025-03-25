@@ -16,8 +16,8 @@ constexpr uint8_t FLAG_time = 7;
 
 constexpr uint8_t FLAGS[8] = {0b00000001, 0b00000010, 0b00000100, 0b00001000, 0b00010000, 0b00100000, 0b01000000, 0b10000000};
 
-constexpr uint8_t idDataSize      = 2;
 constexpr uint8_t coordsDataSize  = 8;
+constexpr uint8_t idDataSize      = 2;
 constexpr uint8_t altDataSize     = 2;
 constexpr uint8_t hdopDataSize = 1;
 constexpr uint8_t speedDataSize = 1;
@@ -27,7 +27,7 @@ constexpr uint8_t ageDataSize = 1;
 constexpr uint8_t timeDataSize = 2;
 
 // Size in byte for every Data that are possible to send, order is below
-constexpr uint8_t dataSizes[] = {2, 8, 2, 1, 1 ,1, 1, 1, 2};
+constexpr uint8_t dataSizes[] = {8, 2, 2, 1, 1 ,1, 1, 1, 2};
 
 /* Positions in array = 
 idDataSize      0 || Size of id, unsigned short = 2 bytes 

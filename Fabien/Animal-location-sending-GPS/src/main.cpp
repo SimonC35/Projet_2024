@@ -3,6 +3,7 @@
 #include "Arduino.h"
 
 #include "flagSettings.h"
+#include "secret.h"
 
 constexpr unsigned short int cardID = 1; // TODO : Probably make this a variable value.
 
@@ -12,11 +13,7 @@ void readData(uint8_t * fullarray);
 uint8_t fullArray[16];
 
 
-#ifndef NOLORAWAN                                 // Credentials
-static uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x06, 0xD9, 0x8E };
-static uint8_t appEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x06, 0xD9, 0x8E };
-static uint8_t appKey[] = { 0xC7, 0x6E, 0xD6, 0x89, 0xD4, 0x89, 0x64, 0x32, 0xB3, 0x76, 0xFD, 0xF2, 0xA3, 0xC1, 0x9B, 0x96 };
-
+#ifndef NOLORAWAN
 uint16_t userChannelsMask[6]={ 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
 #endif
 
@@ -28,7 +25,7 @@ Air530ZClass GPS;           // declaration of the GPS
 void printDebugInfo(uint8_t datalen, uint8_t *data)
 {
   Serial.print("\n\n");
-  uint8_t *ptr = data;
+  uint8_t *ptr = &data[0];
   for (int i = 0; i < 12; i++)
   {
     Serial.printf("%02X", *ptr);
@@ -47,7 +44,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
     if (i == 7){ Serial.printf(" = %.5f ", GPS.location.lng());}
   }
   Serial.print("\nALT : ");
-  Serial.printf("%02X%02X", *ptr, *(ptr+1));
+  Serial.printf("%02X%02X", *ptr, *(ptr++));
   Serial.printf(" = %.2f \n\n", GPS.altitude.meters());
 }
 #endif
@@ -126,11 +123,14 @@ void loop()
 
 void readData(uint8_t * fullarray)
 {
+  uint8_t totalDataSize = 2;
+
   uint8_t *ptr = fullArray;
   fullArray[0] = (cardID >> 8) & 0xFF; fullArray[1] = cardID & 0xFF; ptr+=2;
 
   if (flagSettings & FLAGS[FLAG_coords]) {
       int valueArray[2];
+      totalDataSize += dataSizes[FLAG_coords];
       valueArray[0] = (int) (((float) GPS.location.lat()) * pow(10,5));
       valueArray[1] = (int) (((float) GPS.location.lng()) * pow(10,5));
       for (int i = 0; i < coordsDataSize; i++){
@@ -145,11 +145,12 @@ void readData(uint8_t * fullarray)
     }
     if (flagSettings & FLAGS[FLAG_alt])
     {
-      unsigned short altValue = (unsigned short int) ((float) GPS.altitude.meters() * pow(10,2));
-      *ptr = (altValue << 8) & 0xFF;
-      *(ptr++) = altValue & 0xFF;
+      int altValue = (int) (((float) GPS.altitude.meters()) * pow(10,2));
+      *ptr = (altValue >> 8) & 0xFF;
+      Serial.printf("VALEUR : %02X",*ptr);
+      *(ptr++) = (altValue >> 0) & 0xFF;
+      Serial.printf("%02X",*ptr);
     }
-
 }
 
 void sendData(uint8_t * fullArray)
