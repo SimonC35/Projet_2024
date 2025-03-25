@@ -1,25 +1,21 @@
+import 'package:animap_tracker/home.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
-import 'package:animap_tracker/account_page.dart';
 
 // For Language Anglais / Français
 import 'package:animap_tracker/localization.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(
+        AppLocalization(lang: lang).translation("_account"),
+      )),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -29,6 +25,16 @@ class _LoginPageState extends State<LoginPage> {
             Icon(Icons.lock, size: 80, color: const Color.fromARGB(255, 66, 150, 101)),
 
             SizedBox(height: 20),
+
+            TextField(
+              decoration: InputDecoration(
+                labelText: AppLocalization(lang: lang).translation("_mail"),
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.mail, size: 20, color: const Color.fromARGB(255, 66, 150, 101)),
+              ),
+            ),
+
+            SizedBox(height: 10),
 
             // 📧 Champ Email
             TextField(
@@ -53,48 +59,18 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: 20),
 
-            // ✅ Bouton Connexion
-            ElevatedButton(
-              onPressed: () {
-                // ignore: avoid_print
-                print("Connexion...");
-              },
-              child: Text(
-                    AppLocalization(lang: lang).translation("_login"),
-            )),
-            Divider(
-              color: Colors.black,
-              height: 50,
-            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AccountPage()),
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
                 );
               },
               child: Text(
                 AppLocalization(lang: lang).translation("_account"),
             )),
-            ElevatedButton(
-              onPressed: changeLang,
-              child: Text(
-                AppLocalization(lang: lang).translation("changeLanguage"),
-            )),
           ],
         ),
       ),
     );
-  }
-  void changeLang() {
-    if (lang == "fr") {
-      setState(() {
-        lang = "en";
-      });
-    } else {
-      setState(() {
-        lang = "fr";
-      });
-    }
-    context.read<NavigationProvider>().changeTab(4);
   }
 }

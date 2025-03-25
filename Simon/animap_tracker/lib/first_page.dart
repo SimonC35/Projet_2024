@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,14 +9,60 @@ import 'package:animap_tracker/account_page.dart';
 // For Language Anglais / Français
 import 'package:animap_tracker/localization.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+import 'package:http/http.dart' as http;
+
+class FirstPage extends StatefulWidget {
+  const FirstPage(String lang, {super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<FirstPage> createState() => _FirstPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _FirstPageState extends State<FirstPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+  String _errorMessage = '';
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
+
+    final url = Uri.parse("http://172.20.14.7:8000/api/login/"); // 🔥 Remplace par ton URL
+    final body = jsonEncode({
+      "email": "matts@matts.com",
+      "password": "matts",
+    });
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: body,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+      } else {
+        setState(() {
+          _errorMessage = "Identifiants incorrects.";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = "Erreur de connexion: $e";
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             // 🖼 Logo ou image (facultatif)
             Icon(Icons.lock, size: 80, color: const Color.fromARGB(255, 66, 150, 101)),
 
@@ -32,6 +80,8 @@ class _LoginPageState extends State<LoginPage> {
 
             // 📧 Champ Email
             TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: AppLocalization(lang: lang).translation("_user"),
                 border: OutlineInputBorder(),
@@ -43,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
 
             // 🔑 Champ Mot de passe
             TextField(
+              controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: AppLocalization(lang: lang).translation("_pass"),
@@ -52,16 +103,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             SizedBox(height: 20),
-
-            // ✅ Bouton Connexion
-            ElevatedButton(
-              onPressed: () {
-                // ignore: avoid_print
-                print("Connexion...");
-              },
-              child: Text(
+            if (_errorMessage.isNotEmpty)
+              Text(_errorMessage, style: TextStyle(color: Colors.red)),
+            SizedBox(height: 10),
+            _isLoading
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+                  onPressed: () {
+                    _login();
+                  },
+                  child: Text(
                     AppLocalization(lang: lang).translation("_login"),
-            )),
+                  )),
             Divider(
               color: Colors.black,
               height: 50,
