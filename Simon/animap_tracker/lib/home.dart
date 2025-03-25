@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
 
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+
 class Home extends StatefulWidget {
   const Home(String lang, {super.key});
 
@@ -27,8 +30,44 @@ class _HomeState extends State<Home> {
             startColor: const Color.fromARGB(255, 49, 122, 78),
             endColor: const Color.fromARGB(255, 111, 173, 110),
           ),
+          SizedBox(height: 40),
+          GestureDetector(
+            onTap: () {
+              context.read<NavigationProvider>().changeTab(2);
+            },
+            child: Container(
+              width: 400,
+              height: 200,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue, width: 10),
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: MapPreview(), // 📌 Miniature de la carte
+              ),
+          )
         ],
       ),
+    );
+  }
+}
+
+class MapPreview extends StatelessWidget {
+  const MapPreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterMap(
+      options: MapOptions(
+        initialCenter: LatLng(48.73137, -3.44936), // 📍 Paris
+        initialZoom: 15.0,
+        onTap: context.read<NavigationProvider>().changeTab(2),      //onTap: context.read<NavigationProvider>().changeTab(2),
+      ),
+      children: [
+        TileLayer(
+          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          subdomains: ['a', 'b', 'c'],
+        ),
+      ],
     );
   }
 }

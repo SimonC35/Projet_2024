@@ -3,12 +3,13 @@ import paho.mqtt.client as mqtt
 from django.db import connection
 from django.utils import timezone
 
+
 # Configuration MQTT
 MQTT_BROKER = "eu1.cloud.thethings.network"
 MQTT_PORT = 8883
 MQTT_USERNAME = "projet-animal-connecte@ttn"
-MQTT_PASSWORD = "NNSXS.EZ2QA7NXXEDUJ7FAVROO7HGHST4CRHB5V6O2ZIA.7VYYKUJIKTALUXYNKJDRI7UDQNIRQX72JEUY2Z3IDEFP7HJF6GGQ"
-MQTT_TOPIC = "v3/projet-animal-connecte@ttn/devices/animal-device-1/up"
+MQTT_PASSWORD = "NNSXS.VLVYHG6EIS3UTSMRHVOAGWP2FZ7MWHHNZMLN54I.SODX63XINITMXUYZRRV2ZYIJOYJ5VQSVJBZMBR37UM6YRC5C53SQ"
+MQTT_TOPIC = "v3/projet-animal-connecte@ttn/devices/animal-device-prototype-05/up"
 
 # Callback quand la connexion est établie
 def on_connect(client, userdata, flags, rc):
@@ -29,17 +30,18 @@ def on_message(client, userdata, msg):
         latitude = decoded_payload.get("latitude")
         longitude = decoded_payload.get("longitude")
         altitude = decoded_payload.get("altitude", 0)  # Si pas d'altitude, mettre 0
+        cardID = int(decoded_payload.get("cardID"))  # Si pas d'altitude, mettre 0
         
         if latitude is not None and longitude is not None:
-            print(f"Location - Latitude: {latitude}, Longitude: {longitude}, Altitude: {altitude}")
+            print(f"Location - Latitude: {latitude}, Longitude: {longitude}, Altitude: {altitude}, cardID: {cardID}")
 
             # Créer le format SQL d'insertion avec ST_GeomFromText pour les coordonnées
             timestamp = timezone.now().strftime('%Y-%m-%d %H:%M:%S')  # Format timestamp
-            location_wkt = f"POINT({longitude} {latitude} {altitude})"  # Formater la géométrie
+            location_wkt = f"POINT({longitude} {latitude})"  # Formater la géométrie {altitude}
             sql_query = f"""
-                INSERT INTO gps_data (date, location, hdop, speed, course, sats, age)
-                VALUES ('{timestamp}', ST_GeomFromText('{location_wkt}', 4326), NULL, NULL, NULL, NULL, NULL)
-                ON CONFLICT (date) DO NOTHING;
+                INSERT INTO "Donnee2" (date, location, hdop, speed, course, sats, id_objet_id)
+                VALUES ('{timestamp}', ST_GeomFromText('{location_wkt}', 4326), NULL, NULL, NULL, NULL, {int(cardID)}) 
+                ON CONFLICT (id_data) DO NOTHING;
             """
             
             # Exécuter la requête SQL dans la base de données PostgreSQL

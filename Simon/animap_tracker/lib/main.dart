@@ -7,6 +7,7 @@ import 'package:animap_tracker/list_page.dart';
 import 'package:animap_tracker/map_page.dart';
 import 'package:animap_tracker/alert_page.dart';
 import 'package:animap_tracker/login_page.dart';
+import 'package:animap_tracker/first_page.dart';
 
 // For Language Anglais / Français
 import 'package:animap_tracker/localization.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 49, 122, 78)),
       ),
       routes: {
-        '/': (context) => MyHomePage(),
+        '/': (context) => FirstPage(lang),
+        '/MyHomePage': (context) => MyHomePage(),
         '/Home': (context) => Home(lang),
         '/ListPage': (context) => ListPage(lang),
         '/MapPage': (context) => MapPage(),

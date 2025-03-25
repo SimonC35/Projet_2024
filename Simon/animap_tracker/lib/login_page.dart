@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
+import 'package:animap_tracker/account_page.dart';
 
 // For Language Anglais / Français
 import 'package:animap_tracker/localization.dart';
@@ -60,6 +61,19 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                     AppLocalization(lang: lang).translation("_login"),
+            )),
+            Divider(
+              color: Colors.black,
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AccountPage()),
+                );
+              },
+              child: Text(
+                AppLocalization(lang: lang).translation("_account"),
             )),
             ElevatedButton(
               onPressed: changeLang,

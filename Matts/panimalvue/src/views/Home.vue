@@ -36,6 +36,7 @@
   import MapWidget from "@/components/MapWidget.vue";
   
   export default {
+  
     name: "HomePage",
     components: {
       ListWidget,
