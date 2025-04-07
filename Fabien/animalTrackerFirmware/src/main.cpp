@@ -34,7 +34,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
   Serial.print("\n");
   Serial.printf("\n\nID  : %02X%02X = %d", data[0], data[1], cardID);
   ptr = &data[2];
-  for (size_t i = 0; i < 8; ++i)
+  for (short int i = 0; i < 8; ++i)
   {
     if (i == 0) Serial.print("\nLAT : "); 
     if (i == 4) Serial.print("\nLNG : ");
@@ -64,8 +64,16 @@ static void lowPowerSleep(uint32_t sleeptime)
   TimerStop( &sleepTimer );
 }
 
+void addToBuffer(uint8_t* &ptr, int32_t value, uint8_t size) {
+    for (int i = 0; i < size; i++) {
+        *ptr = (value >> (8 * (size - 1 - i))) & 0xFF;
+        ptr++;
+    }
+}
+
 void setup() {
 	Serial.begin(115200);
+
 #ifndef NOLORAWAN
   LoRaWAN.begin(LORAWAN_CLASS, ACTIVE_REGION);
   
@@ -126,15 +134,28 @@ void readGPSStoreAsBytes(uint8_t * fullarray)
   uint8_t totalDataSize = 2;
 
   uint8_t *ptr = fullArray;
-  fullArray[0] = (cardID >> 8) & 0xFF; fullArray[1] = cardID & 0xFF; ptr+=2;
+  fullArray[0] = (cardID >> 8) & 0xFF;
+  fullArray[1] = cardID & 0xFF;
+  ptr+=2;
 
+  #ifdef ENABLE_COORDS 
+    int32_t lat = (int32_t)(GPS.location.lat() * 100000);
+    int32_t lng = (int32_t)(GPS.location.lng() * 100000);
+    addToBuffer(ptr, lat, 4);
+    addToBuffer(ptr, lng, 4);
+    totalDataSize += 8;
+  #endif
+
+
+
+/*
   if (flagSettings & FLAGS[FLAG_coords]) {
       int valueArray[2];
       totalDataSize += dataSizes[FLAG_coords];
-      valueArray[0] = (int) (((float) GPS.location.lat()) * pow(10,5));
-      valueArray[1] = (int) (((float) GPS.location.lng()) * pow(10,5));
+      valueArray[0] = (int) (((float) GPS.location.lat()) * 100'000);
+      valueArray[1] = (int) (((float) GPS.location.lng()) * 100'000);
       for (int i = 0; i < coordsDataSize; i++){
-        if (i < 4 /* 4 = coordsDataSize/2*/){
+        if (i < 4){ /* 4 = coordsDataSize/2*//*
         *ptr = (valueArray[0] >> (24 - (i%4) * 8)) & 0xFF;
         }
         else {
@@ -145,18 +166,18 @@ void readGPSStoreAsBytes(uint8_t * fullarray)
     }
     if (flagSettings & FLAGS[FLAG_alt])
     {
-      short unsigned int altValue = (short unsigned int) (((float) GPS.altitude.meters()) * pow(10,2));
+      short unsigned int altValue = (short unsigned int) (((float) GPS.altitude.meters()) * 100);
       *ptr = (altValue >> 8);
       *(++ptr) = (altValue) & 0xFF;
     }
+*/
 }
 
 void sendData(uint8_t * fullArray)
 {
-
-  bool confirmed;
-
 #ifndef NOLORAWAN
+bool confirmed = false;
+
   if (LoRaWAN.send(12, fullArray, 1, confirmed)) {
     Serial.println("Send OK");
   } else {
