@@ -5,27 +5,36 @@ extern uint8_t dataSumSize;
 
 // definitions of flags position in the array below
 // E.G. : FLAG_coords would be used like : FLAGS[flags_coords] -> returning 0b0000'0001
-constexpr uint8_t FLAG_coords = 0;
-constexpr uint8_t FLAG_alt = 1;
-constexpr uint8_t FLAG_hdop = 2;
-constexpr uint8_t FLAG_speed = 3;
-constexpr uint8_t FLAG_course = 4;
-constexpr uint8_t FLAG_sats = 5;
-constexpr uint8_t FLAG_age = 6;
-constexpr uint8_t FLAG_time = 7;
+constexpr uint8_t FLAG_coords  = 0b0000'0001;
+constexpr uint8_t FLAG_alt     = 0b0000'0010;
+constexpr uint8_t FLAG_hdop    = 0b0000'0100;
+constexpr uint8_t FLAG_speed   = 0b0000'1000;
+constexpr uint8_t FLAG_course  = 0b0001'0000;
+constexpr uint8_t FLAG_sats    = 0b0010'0000;
+constexpr uint8_t FLAG_age     = 0b0100'0000;
+constexpr uint8_t FLAG_time    = 0b1000'0000;
 
-constexpr uint8_t FLAGS[8] = {0b0000'0001, 0b0000'0010, 0b0000'0100, 0b0000'1000, 0b0001'0000, 0b0010'0000, 0b0100'0000, 0b1000'0000};
+constexpr uint8_t FLAGS[8] = {
+    0b0000'0001,
+    0b0000'0010,
+    0b0000'0100,
+    0b0000'1000,
+    0b0001'0000,
+    0b0010'0000,
+    0b0100'0000,
+    0b1000'0000
+};
 
 /*
 constexpr uint8_t coordsDataSize  = 8;
 constexpr uint8_t idDataSize      = 2;
 constexpr uint8_t altDataSize     = 2;
-constexpr uint8_t hdopDataSize = 1;
-constexpr uint8_t speedDataSize = 1;
-constexpr uint8_t courseDataSize = 1;
-constexpr uint8_t SatsDataSize = 1;
-constexpr uint8_t ageDataSize = 1;
-constexpr uint8_t timeDataSize = 2;
+constexpr uint8_t hdopDataSize    = 1;
+constexpr uint8_t speedDataSize   = 1;
+constexpr uint8_t courseDataSize  = 1;
+constexpr uint8_t SatsDataSize    = 1;
+constexpr uint8_t ageDataSize     = 1;
+constexpr uint8_t timeDataSize    = 2;
 */
 
 /*
@@ -46,4 +55,4 @@ courseDataSize  5
 SatsDataSize    6
 ageDataSize     7
 timeDataSize    8
-*/                             
+*/
