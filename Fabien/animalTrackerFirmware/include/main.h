@@ -4,17 +4,17 @@
 #include "GPS_Air530Z.h"
 #include "LoRaWanMinimal_APP.h"
 #include "Arduino.h"
-#include "flagSettings.h"
 #include "secret.h"
+#include "config.h"
+#include "debug.h"
+#include "utils.h"
+#include "powerManagement.h"
 
-constexpr unsigned short int CARD_ID = 1;
-constexpr uint32_t SLEEP_TIME = 300000; // 5 minutes
-constexpr uint32_t RETRY_DELAY = 30000; // 30 seconds
+Air530ZClass GPS;
 
-void sendData(uint8_t *fullArray);
-void readData(uint8_t *fullArray);
-void setupLoRaWAN();
-void setupGPS();
-void readGPSStoreAsBytes(uint8_t *fullArray);
+double previousLatitude = 0.0;
+double previousLongitude = 0.0;
 
-#endif // MAIN_H
+uint8_t fullArray[PAYLOAD_SIZE] = {0};
+
+#endif
