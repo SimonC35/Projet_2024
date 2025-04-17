@@ -72,7 +72,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t hdop = *(ptr++);
-            Serial.printf("HDOP: %d\n", hdop);
+            Serial.printf("HDOP: %d\n", hdop / digitPrecision2);
             break;
         }
         case 0x04: {
@@ -82,7 +82,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t speed = *(ptr++);
-            Serial.printf("Speed: %d m/s\n", speed);
+            Serial.printf("Speed: %d m/s\n", speed / digitPrecision2);
             break;
         }
         case 0x05: { // Course
@@ -92,7 +92,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t course = *(ptr++);
-            Serial.printf("Course: %d degrees\n", course);
+            Serial.printf("Course: %.2f degrees\n", ((float)(course) / digitPrecision2) * 360 / 255);
             break;
         }
         case 0x06: { // Satellites

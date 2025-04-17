@@ -57,6 +57,7 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         ptr += sizeof(uint8_t);
 
         if (GPS.altitude.meters() >= 65535) tempUint16_t = 65535;
+        else if (GPS.altitude.meters() <= 0) tempUint16_t = 0;
         else {
         tempUint16_t = (uint16_t)(GPS.altitude.meters() * digitPrecision2);
         }
@@ -77,12 +78,10 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
 
-        Serial.printf("/!\\ HDOP  value: %d\n", GPS.hdop.value());
-
         if (GPS.hdop.value() >= 255) tempUint8_t = 255;
         else if (GPS.hdop.value() <= 0) tempUint8_t = 0;
         else {
-        tempUint8_t = (uint8_t)(GPS.hdop.value());
+        tempUint8_t = (uint8_t)(GPS.hdop.value() * digitPrecision1);
         }
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
@@ -106,6 +105,9 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         else {
         tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision2);
         }
+    
+        Serial.printf("/!\\ SPEED  value: %.5f\n", GPS.speed.mps());
+
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
@@ -123,7 +125,7 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
 
-        tempUint8_t = (uint8_t) (((GPS.course.deg() * 255) / 360) * digitPrecision2);
+        tempUint8_t = (uint8_t) (((GPS.course.deg() * 255) / 360));
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
@@ -142,7 +144,10 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         ptr += sizeof(uint8_t);
 
         if (GPS.satellites.value() >= 255) tempUint8_t = 255;
-        else { tempUint8_t = 0;
+        else if (GPS.satellites.value() <= 0) { tempUint8_t = 0;
+        }
+        else { 
+        tempUint8_t = (uint8_t) GPS.satellites.value();
         }
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
