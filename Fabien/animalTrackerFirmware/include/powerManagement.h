@@ -3,15 +3,18 @@
 
 #include "Arduino.h"
 
+void VextON(void);
+void VextOFF(void);
 
 typedef enum {
-    STATUS_LPM = 0,
-    STATUS_UPDATE_GPS
+    STATUS_INIT,
+    STATUS_LPM,
+    STATUS_UPDATE_GPS,
+    STATUS_SEND_DATA
 } dev_status;
 
 static TimerEvent_t autoGPS;
 extern dev_status mcu_status;
-dev_status mcu_status = STATUS_LPM;
-uint32_t starttime;
+extern uint32_t starttime;
 
 #endif

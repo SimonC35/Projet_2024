@@ -10,7 +10,6 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
 
     Serial.println("\n--- DEBUG PAYLOAD ---");
 
-    // Affichage des données brutes
     Serial.printf("RAW  : ");
     for (int i = 0; i < datalen; ++i) {
         Serial.printf("%02X ", data[i]);
@@ -19,13 +18,6 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
 
     uint8_t *ptr = data;
 
-    // Lecture de l'ID (2 octets)
-    uint16_t card_id;
-    memcpy(&card_id, ptr, sizeof(uint16_t));
-    ptr += sizeof(uint16_t);
-    Serial.printf("\nID   : %04X = %d\n", card_id, card_id);
-
-    // Lecture des données
     while (ptr < data + datalen) {
         if (ptr >= data + datalen) {
             Serial.println("Error: Pointer out of bounds.");

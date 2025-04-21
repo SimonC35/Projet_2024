@@ -1,0 +1,10 @@
+#ifndef GPS_H
+#define GPS_H
+
+#include "main.h"
+
+void readGPSStoreAsBytes(uint8_t *fullArray);
+void gpsUpdate(uint32_t timeout, uint32_t continuetime);
+void onAutoGPS();
+
+#endif
