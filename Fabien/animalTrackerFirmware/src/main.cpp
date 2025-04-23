@@ -6,129 +6,137 @@ uint8_t fullArray[PAYLOAD_SIZE] = {0};
 double previousLatitude = 0.0;
 double previousLongitude = 0.0;
 
-void VextON() {
-    pinMode(Vext, OUTPUT);
-    digitalWrite(Vext, LOW);
-}
-
-void VextOFF() {
-    pinMode(Vext, OUTPUT);
-    digitalWrite(Vext, HIGH);
-}
-
-void onAutoGPS() {
-    Serial.println("DEBUG: AutoGPS timer triggered. Updating mcu_status to STATUS_UPDATE_GPS.");
-    TimerStop(&autoGPS);
-    mcu_status = STATUS_UPDATE_GPS;
-}
-
 void readSendData() {
+    #ifdef DEBUG
+        Serial.println("DEBUG: Distance threshold exceeded, sending data...");
+    #endif
+    if (!GPS.location.isValid()) {
+        Serial.println("DEBUG : Cannot send data, GPS location invalid.");
+        mcu_status = STATE_SLEEP;
+        return;
+    }
+
     readGPSStoreAsBytes(fullArray);
     sendData(fullArray, PAYLOAD_SIZE);
+
+    previousLatitude = GPS.location.lat();
+    previousLongitude = GPS.location.lng();
+
+    mcu_status = STATE_SLEEP;
 }
 
-void lowPowerHandler() {
-    Serial.println("DEBUG: Entering low power mode...");
-    delay(GPS_SLEEPTIME);
-    mcu_status = STATUS_UPDATE_GPS;
-    Serial.println("DEBUG: Exiting low power mode.");
+void onSleepWake() {
+    mcu_status = STATE_GPS_ACQUIRE;
 }
 
-void gpsUpdate(uint32_t timeout, uint32_t continuetime) {
-    VextON();
-    delay(10);
-    GPS.begin();
+void gpsAcquire() {
+    #ifdef DEBUG
+        Serial.println("DEBUG: Acquiring GPS...");
+    #endif
 
-    starttime = millis();
-    while ((millis() - starttime) < timeout) {
-        while (GPS.available()) GPS.encode(GPS.read());
-        if (GPS.location.age() < 1000) break;
-    }
-
-    if (GPS.location.age() < 1000) {
-        starttime = millis();
-        while ((millis() - starttime) < continuetime) {
+        uint32_t start = millis();
+        while ((millis() - start) < GPS_UPDATE_TIMEOUT) {
             while (GPS.available()) GPS.encode(GPS.read());
+            if (GPS.location.age() < 1000) break;
         }
-    }
 
-    GPS.end();
-    VextOFF();
+        if (!GPS.location.isValid()) {
+    #ifdef DEBUG
+            Serial.println("DEBUG: Invalid GPS. Skipping send.");
+    #endif
+            mcu_status = STATE_SLEEP;
+            return;
+        }
 
-    TimerSetValue(&autoGPS, GPS_SLEEPTIME);
-    TimerStart(&autoGPS);
+        double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());
+
+    #ifdef DEBUG
+        Serial.printf("Previous: %.6f / %.6f\n", previousLatitude, previousLongitude);
+        Serial.printf("Current : %.6f / %.6f\n", GPS.location.lat(), GPS.location.lng());
+        Serial.printf("Distance: %.2f meters\n", distance);
+    #endif
+
+        if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) {
+            mcu_status = STATE_SEND_THRESHOLD_EXCEEDED;
+        } else {
+    #ifdef DEBUG
+            Serial.println("DEBUG: No significant movement.");
+    #endif
+            mcu_status = STATE_SLEEP;
+        }
 }
 
+void lowPowerSleep()
+{
+    #ifdef DEBUG
+        Serial.println("DEBUG: Entering low power mode...");
+    #endif
+    TimerStart(&sleepWakeTimer);
+    lowPowerHandler();
+
+    #ifdef DEBUG
+        Serial.println("DEBUG: Exiting low power mode, starting next cycle.");
+    #endif
+    
+    //delay(LPM_SLEEP_TIME);
+}
+
+void configureJoinTTN()
+{
+    #ifdef DEBUG
+        Serial.println("DEBUG: Attempting to Join TTN...");
+    #endif
+    LoRaWAN.setAdaptiveDR(false);
+    LoRaWAN.setFixedDR(DR_3);
+
+    while(!LoRaWAN.joinOTAA(appEui, appKey, devEui)){
+        #ifdef DEBUG
+            Serial.println("DEBUG: Failed to join TTN.");
+            Serial.printf("\nDEBUG: Retrying to join in %d seconds...", TTN_JOIN_FAIL_WAIT / 1000);
+            delay(TTN_JOIN_FAIL_WAIT);
+        #endif
+    }
+}
 
 
 void setup() {
     Serial.begin(115200);
     Serial.println("DEBUG: Setup started.");
 
-    gpsUpdate(GPS_INIT_TIMEOUT, GPS_CONTINUE_TIMEOUT);
+#ifndef NOLORAWAN
+    configureJoinTTN();
+#endif
 
-    TimerInit(&autoGPS, onAutoGPS);
-    TimerSetValue(&autoGPS, GPS_SLEEPTIME);
-    TimerStart(&autoGPS);
+    GPS.begin();
+    gpsAcquire();
 
-    mcu_status = STATUS_LPM;
+    TimerInit(&sleepWakeTimer, onSleepWake);
+    TimerSetValue(&sleepWakeTimer, LPM_SLEEP_TIME);
 
     if (GPS.location.isValid()) {
         previousLatitude = GPS.location.lat();
         previousLongitude = GPS.location.lng();
     }
+
+    mcu_status = STATE_SEND_THRESHOLD_EXCEEDED;
 }
 
 void loop() {
-        switch (mcu_status) {
-        case STATUS_UPDATE_GPS:
-            if (GPS.location.isValid()) {
-                double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());
-                if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) {
-                    readSendData();
-                    previousLatitude = GPS.location.lat();
-                    previousLongitude = GPS.location.lng();
-                }
-            }
-            TimerStop(&autoGPS);
-            TimerSetValue(&autoGPS, LPM_SLEEP_TIME);
-            TimerStart(&autoGPS);
-            mcu_status = STATUS_LPM;
+    switch (mcu_status) {
+        case STATE_GPS_ACQUIRE:
+            gpsAcquire();
             break;
 
-        case STATUS_LPM:
-            lowPowerHandler();
+        case STATE_SEND_THRESHOLD_EXCEEDED:
+            readSendData(); 
+            break;
+
+        case STATE_SLEEP:
+            lowPowerSleep();
             break;
 
         default:
-            mcu_status = STATUS_LPM;
+            mcu_status = STATE_SLEEP;
             break;
-    }
-    if (mcu_status == STATUS_UPDATE_GPS) {
-        if (GPS.location.isValid()) {
-            Serial.printf("DEBUG: Previous Lat: %.6f, Lng: %.6f\n", previousLatitude, previousLongitude);
-            Serial.printf("DEBUG: Current Lat: %.6f, Lng: %.6f\n", GPS.location.lat(), GPS.location.lng());
-
-            double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());
-            Serial.printf("DEBUG: Distance = %.2f m\n", distance);
-
-            if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) {
-                Serial.println("DEBUG: Movement detected. Sending data...");
-                readSendData();
-                previousLatitude = GPS.location.lat();
-                previousLongitude = GPS.location.lng();
-            } else {
-                Serial.println("DEBUG: No significant movement.");
-            }
-        } else {
-            Serial.println("DEBUG: Invalid GPS. Skipping send.");
-        }
-
-        TimerStop(&autoGPS);
-        TimerSetValue(&autoGPS, LPM_SLEEP_TIME);
-        TimerStart(&autoGPS);
-        mcu_status = STATUS_LPM;
-    } else if (mcu_status == STATUS_LPM) {
-        lowPowerHandler();
     }
 }

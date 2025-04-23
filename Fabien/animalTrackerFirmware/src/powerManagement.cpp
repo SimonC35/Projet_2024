@@ -3,7 +3,9 @@
 #include "low_power.h"
 
 uint32_t starttime;
-dev_status mcu_status = STATUS_INIT;
+device_state_t mcu_status = STATE_BOOT;
+TimerEvent_t sleepWakeTimer;
+
 /*
 void lowPowerHandler() {
 #ifdef DEBUG

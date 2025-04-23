@@ -3,12 +3,15 @@
 #include "Arduino.h"
 
 void printDebugInfo(uint8_t datalen, uint8_t *data) {
+
+
+
     if (data == nullptr || datalen == 0) {
         Serial.println("Error: Invalid data pointer or empty data length.");
         return;
     }
 
-    Serial.println("\n--- DEBUG PAYLOAD ---");
+    Serial.println("\n--- DEBUG PAYLOAD ---\n");
 
     Serial.printf("RAW  : ");
     for (int i = 0; i < datalen; ++i) {
@@ -54,7 +57,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             memcpy(&altitude, ptr, sizeof(uint16_t));
             ptr += sizeof(uint16_t);
 
-            Serial.printf("Altitude: %d meters\n", altitude);
+            Serial.printf("Altitude: %.1f meters\n", (float)((float) altitude / digitPrecision2));
             break;
         }
         case 0x03: { // HDOP
@@ -64,7 +67,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t hdop = *(ptr++);
-            Serial.printf("HDOP: %d\n", hdop / digitPrecision2);
+            Serial.printf("HDOP: %.1f\n", (float) ((float)hdop / digitPrecision1));
             break;
         }
         case 0x04: {
@@ -74,7 +77,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t speed = *(ptr++);
-            Serial.printf("Speed: %d m/s\n", speed / digitPrecision2);
+            Serial.printf("Speed: %.2f m/s\n", (float) ((float)speed / digitPrecision1));
             break;
         }
         case 0x05: { // Course
@@ -84,7 +87,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
             }
 
             uint8_t course = *(ptr++);
-            Serial.printf("Course: %.2f degrees\n", ((float)(course) / digitPrecision2) * 360 / 255);
+            Serial.printf("Course: %.2f degrees\n", ((float)(course) / digitPrecision2) / 255 * 360);
             break;
         }
         case 0x06: { // Satellites
@@ -106,5 +109,5 @@ void printDebugInfo(uint8_t datalen, uint8_t *data) {
 
     Serial.println("\n--------------------------");
     Serial.println("End of DEBUG PAYLOAD");
-    delay(30000);
+    delay(1000);
 }

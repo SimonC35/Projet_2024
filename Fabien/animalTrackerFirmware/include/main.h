@@ -2,14 +2,16 @@
 #define MAIN_H
 
 #include "GPS_Air530Z.h"
-#include "LoRaWanMinimal_APP.h"
 #include "Arduino.h"
+#include "LoRaWanMinimal_APP.h"
+
+#include "gps.h"
+#include "powerManagement.h"
+#include "loraWAN.h"
 #include "config.h"
 #include "debug.h"
 #include "utils.h"
-#include "powerManagement.h"
-#include "gps.h"
-#include "loraWAN.h"
+#include "secret.h"
 
 extern Air530ZClass GPS;
 

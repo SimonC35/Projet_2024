@@ -9,12 +9,11 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
 
 #ifdef GPS_COORDS
     if (GPS.location.isValid()) {
-        tempUint8_t = 0x01; // Identifier for GPS coordinates
+        tempUint8_t = 0x01;
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
 
         tempUint32_t = (uint32_t)(GPS.location.lat() * digitPrecision5);
-        tempUint32_t = 4872111;
         memcpy(ptr, &tempUint32_t, sizeof(uint32_t));
         ptr += sizeof(uint32_t);
 
@@ -23,7 +22,6 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
 #endif
 
         tempUint32_t = (uint32_t)(GPS.location.lng() * digitPrecision5);
-        tempUint32_t = -344997;
         memcpy(ptr, &tempUint32_t, sizeof(uint32_t));
         ptr += sizeof(uint32_t);
 
@@ -44,7 +42,6 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         else {
         tempUint16_t = (uint16_t)(GPS.altitude.meters() * digitPrecision2);
         }
-        tempUint16_t = 4220;
 
         memcpy(ptr, &tempUint16_t, sizeof(uint16_t));
         ptr += sizeof(uint16_t);
@@ -61,12 +58,13 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         tempUint8_t = 0x03; // Identifier for HDOP
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
-
         if (GPS.hdop.value() >= 255) tempUint8_t = 255;
         else if (GPS.hdop.value() <= 0) tempUint8_t = 0;
         else {
         tempUint8_t = (uint8_t)(GPS.hdop.value() * digitPrecision1);
         }
+
+
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
         ptr += sizeof(uint8_t);
@@ -87,7 +85,7 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
         if (GPS.speed.mps() >= 255) tempUint8_t = 255;
         else if (GPS.speed.mps() <= 0) tempUint8_t = 0;
         else {
-        tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision2);
+        tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision1);
         }
     
         Serial.printf("/!\\ SPEED  value: %.5f\n", GPS.speed.mps());
@@ -146,44 +144,3 @@ void readGPSStoreAsBytes(uint8_t *fullArray) {
     printDebugInfo(ptr - fullArray, fullArray);
 #endif
 }
-
-/*
-void gpsUpdate(uint32_t timeout, uint32_t continuetime) {
-
-    GPS.begin();
-    starttime = millis();
-    while ((millis() - starttime) < timeout) {
-        while (GPS.available() > 0) {
-            GPS.encode(GPS.read());
-        }
-
-        if (GPS.location.age() < 1000) {
-            break;
-        }
-    }
-
-    if (GPS.location.age() < 1000) {
-        starttime = millis();
-        while ((millis() - starttime) < continuetime) {
-            while (GPS.available() > 0) {
-                GPS.encode(GPS.read());
-            }
-        }
-    }
-
-    GPS.end();
-
-    TimerSetValue(&autoGPS, GPS_SLEEPTIME);
-    TimerStart(&autoGPS);
-}
-*/
-/*
-void onAutoGPS() {
-#ifdef DEBUG
-    Serial.println("DEBUG: AutoGPS timer triggered. Updating mcu_status to STATUS_UPDATE_GPS.");
-#endif
-
-    TimerStop(&autoGPS);
-    mcu_status = STATUS_UPDATE_GPS;
-}
-*/
