@@ -14,5 +14,8 @@ extern TimerEvent_t sleepWakeTimer;
 extern device_state_t mcu_status;
 extern uint32_t starttime;
 
+void lowPowerSleep();
+void onSleepWake();
+
 
 #endif

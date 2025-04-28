@@ -4,13 +4,13 @@
 #include "Arduino.h"
 
 constexpr uint16_t GPS_INIT_TIMEOUT = 60000; // 1 minute
-constexpr uint16_t GPS_SLEEPTIME = 60000; // 1 minute
+constexpr uint16_t GPS_SLEEPTIME = 180000; // 1 minute
 constexpr uint16_t GPS_UPDATE_TIMEOUT = 90000; // 1.5 minutes
 constexpr uint16_t GPS_CONTINUE_TIMEOUT = 50000; // 50 seconds
-constexpr uint32_t LPM_SLEEP_TIME = 60000; // 1 minute
+constexpr uint32_t LPM_SLEEP_TIME = 180000; // 3 minute
 constexpr uint16_t TTN_JOIN_FAIL_WAIT = 5000; // 5 seconds
 
-constexpr float DISTANCE_THRESHOLD = 0.0; // 0.0 meters for no threshold
+constexpr float DISTANCE_THRESHOLD = 5.0; // 0.0 meters for no threshold
 
 constexpr uint16_t RETRY_COUNT = 5;
 

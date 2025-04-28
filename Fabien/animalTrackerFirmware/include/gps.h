@@ -4,5 +4,6 @@
 #include "main.h"
 
 void readGPSStoreAsBytes(uint8_t *fullArray);
+void gpsAcquire();
 
 #endif

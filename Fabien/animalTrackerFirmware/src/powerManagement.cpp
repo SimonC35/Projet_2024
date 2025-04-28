@@ -6,20 +6,23 @@ uint32_t starttime;
 device_state_t mcu_status = STATE_BOOT;
 TimerEvent_t sleepWakeTimer;
 
-/*
-void lowPowerHandler() {
-#ifdef DEBUG
-    Serial.println("DEBUG: Entering low power mode...");
-#endif
+void lowPowerSleep()
+{
+    #ifdef DEBUG
+        Serial.println("DEBUG: Entering low power mode...");
+    #endif
+    TimerStart(&sleepWakeTimer);
+    lowPowerHandler();
 
-    delay(GPS_SLEEPTIME);  // ou un vrai sleep() si tu veux
-
-    mcu_status = STATUS_UPDATE_GPS;
-
-#ifdef DEBUG
-    Serial.println("DEBUG: Exiting low power mode, transitioning to STATUS_UPDATE_GPS.");
-#endif
+    #ifdef DEBUG
+        Serial.println("DEBUG: Exiting low power mode, starting next cycle.");
+    #endif
+    
+    //delay(LPM_SLEEP_TIME);
 }
 
+void onSleepWake()
+{
+    mcu_status = STATE_GPS_ACQUIRE;
+}
 
-*/

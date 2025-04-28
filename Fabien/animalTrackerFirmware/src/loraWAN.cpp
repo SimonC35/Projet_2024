@@ -6,6 +6,37 @@
 
 extern uint16_t userChannelsMask[6] = {0x00FF, 0, 0, 0, 0, 0};
 
+#ifndef NOLORAWAN 
+void configureJoinTTN()
+{
+
+    #ifdef DEBUG
+        Serial.println("DEBUG: Attempting to Join TTN...");
+    #endif
+
+    LoRaWAN.begin(CLASS_A, LORAMAC_REGION_EU868);
+    LoRaWAN.setAdaptiveDR(false);
+    LoRaWAN.setFixedDR(DR_3);
+    #ifdef DEBUG
+    Serial.println("DEBUG: LoRaWAN begin, DR set");
+    #endif
+
+    if(!LoRaWAN.isJoined())
+    {
+    while(!LoRaWAN.joinOTAA(appEui, appKey, devEui)){
+        #ifdef DEBUG
+            Serial.println("DEBUG: Failed to join TTN.");
+            Serial.printf("\nDEBUG: Retrying to join in %d seconds...", TTN_JOIN_FAIL_WAIT / 1000);
+        #endif
+        delay(TTN_JOIN_FAIL_WAIT);
+    }
+    }
+    else { return;}
+
+
+}
+#endif
+
 void sendData(uint8_t *fullArray, size_t length) {
 
 #ifdef DEBUG
