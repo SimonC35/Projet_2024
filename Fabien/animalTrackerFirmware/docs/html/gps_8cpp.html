@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>animal-tracker: Référence du fichier /home/jerta/Bureau/Projet/Debug&amp;TestAB02s/Projet_2024/Fabien/animalTrackerFirmware/src/gps.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">animal-tracker
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier gps.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Fichier de gestion de la logique du GPS.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;gps.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de gps.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="gps_8cpp__incl.png" border="0" usemap="#a_2home_2jerta_2Bureau_2Projet_2Debug_6TestAB02s_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2gps_8cpp" alt=""/></div>
+<map name="a_2home_2jerta_2Bureau_2Projet_2Debug_6TestAB02s_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2gps_8cpp" id="a_2home_2jerta_2Bureau_2Projet_2Debug_6TestAB02s_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2gps_8cpp">
+<area shape="rect" title="Fichier de gestion de la logique du GPS." alt="" coords="5,5,249,75"/>
+<area shape="rect" title=" " alt="" coords="99,123,156,148"/>
+<area shape="poly" title=" " alt="" coords="130,75,130,109,125,109,125,75"/>
+</map>
+</div>
+</div>
+<p><a href="gps_8cpp_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ab9850920892b5e65e55e0abb6ef29e5c" id="r_ab9850920892b5e65e55e0abb6ef29e5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a> (uint8_t *fullArray)</td></tr>
+<tr class="separator:ab9850920892b5e65e55e0abb6ef29e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a388b1647d2c11991865d4a1315847fa3" id="r_a388b1647d2c11991865d4a1315847fa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gps_8cpp.html#a388b1647d2c11991865d4a1315847fa3">gpsAcquire</a> ()</td></tr>
+<tr class="separator:a388b1647d2c11991865d4a1315847fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af599e1dd1a7fba187c3cc26b8df8c792" id="r_af599e1dd1a7fba187c3cc26b8df8c792"><td class="memItemLeft" align="right" valign="top">Air530ZClass&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></td></tr>
+<tr class="separator:af599e1dd1a7fba187c3cc26b8df8c792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5cbe348d725709e7d3ada96422e04d8" id="r_af5cbe348d725709e7d3ada96422e04d8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = 0.0</td></tr>
+<tr class="separator:af5cbe348d725709e7d3ada96422e04d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c87e8abead8833a75225ffefa9dbfe0" id="r_a3c87e8abead8833a75225ffefa9dbfe0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a> = 0.0</td></tr>
+<tr class="separator:a3c87e8abead8833a75225ffefa9dbfe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fichier de gestion de la logique du GPS. </p>
+<p>Contient les fonctions concernant le GPS.</p>
+<dl class="section author"><dt>Auteur</dt><dd>Fabien </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-04 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a388b1647d2c11991865d4a1315847fa3" name="a388b1647d2c11991865d4a1315847fa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a388b1647d2c11991865d4a1315847fa3">&#9670;&#160;</a></span>gpsAcquire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gpsAcquire </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00167">167</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  168</span>{</div>
+<div class="line"><span class="lineno">  169</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  170</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Acquiring GPS...&quot;</span>);</div>
+<div class="line"><span class="lineno">  171</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span>    uint32_t start = millis();</div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">while</span> ((millis() - start) &lt; GPS_UPDATE_TIMEOUT) {</div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">while</span> (GPS.available()) GPS.encode(GPS.read());</div>
+<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">if</span> (GPS.location.age() &lt; 1000) <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  177</span>    }</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">if</span> (!GPS.location.isValid()) {</div>
+<div class="line"><span class="lineno">  180</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  181</span>        Serial.println(<span class="stringliteral">&quot;DEBUG: Invalid GPS. Skipping send.&quot;</span>);</div>
+<div class="line"><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  183</span>        mcu_status = STATE_SLEEP;</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  185</span>    }</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordtype">double</span> distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());</div>
+<div class="line"><span class="lineno">  188</span> </div>
+<div class="line"><span class="lineno">  189</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  190</span>    Serial.printf(<span class="stringliteral">&quot;Previous: %.6f / %.6f\n&quot;</span>, previousLatitude, previousLongitude);</div>
+<div class="line"><span class="lineno">  191</span>    Serial.printf(<span class="stringliteral">&quot;Current : %.6f / %.6f\n&quot;</span>, GPS.location.lat(), GPS.location.lng());</div>
+<div class="line"><span class="lineno">  192</span>    Serial.printf(<span class="stringliteral">&quot;Distance: %.2f meters\n&quot;</span>, distance);</div>
+<div class="line"><span class="lineno">  193</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">if</span> (DISTANCE_THRESHOLD == 0.0 || distance &gt; DISTANCE_THRESHOLD) {</div>
+<div class="line"><span class="lineno">  196</span>        mcu_status = STATE_SEND_THRESHOLD_EXCEEDED;</div>
+<div class="line"><span class="lineno">  197</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  198</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  199</span>        Serial.println(<span class="stringliteral">&quot;DEBUG: No significant movement.&quot;</span>);</div>
+<div class="line"><span class="lineno">  200</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  201</span>        mcu_status = STATE_SLEEP;</div>
+<div class="line"><span class="lineno">  202</span>    }</div>
+<div class="line"><span class="lineno">  203</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab9850920892b5e65e55e0abb6ef29e5c" name="ab9850920892b5e65e55e0abb6ef29e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9850920892b5e65e55e0abb6ef29e5c">&#9670;&#160;</a></span>readGPSStoreAsBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readGPSStoreAsBytes </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>fullArray</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00020">20</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   21</span>{</div>
+<div class="line"><span class="lineno">   22</span> </div>
+<div class="line"><span class="lineno">   23</span>    uint8_t *ptr = fullArray;</div>
+<div class="line"><span class="lineno">   24</span> </div>
+<div class="line"><span class="lineno">   25</span>    uint8_t tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">   26</span>    uint16_t tempUint16_t = 0;</div>
+<div class="line"><span class="lineno">   27</span>    uint32_t tempUint32_t = 0;</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span><span class="preprocessor">#ifdef GPS_COORDS</span></div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">if</span> (GPS.location.isValid()) {</div>
+<div class="line"><span class="lineno">   31</span>        tempUint8_t = 0x01;</div>
+<div class="line"><span class="lineno">   32</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">   33</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>        tempUint32_t = (uint32_t)(GPS.location.lat() * digitPrecision5);</div>
+<div class="line"><span class="lineno">   36</span>        memcpy(ptr, &amp;tempUint32_t, <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><span class="lineno">   37</span>        ptr += <span class="keyword">sizeof</span>(uint32_t);</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   40</span>        Serial.printf(<span class="stringliteral">&quot;GPS Coordinates added: Lat=%d&quot;</span>, tempUint32_t);</div>
+<div class="line"><span class="lineno">   41</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>        tempUint32_t = (uint32_t)(GPS.location.lng() * digitPrecision5);</div>
+<div class="line"><span class="lineno">   44</span>        memcpy(ptr, &amp;tempUint32_t, <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><span class="lineno">   45</span>        ptr += <span class="keyword">sizeof</span>(uint32_t);</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   48</span>        Serial.printf(<span class="stringliteral">&quot; Lng=%d\n&quot;</span>, tempUint32_t);</div>
+<div class="line"><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   50</span>    }</div>
+<div class="line"><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span><span class="preprocessor">#ifdef GPS_ALT</span></div>
+<div class="line"><span class="lineno">   54</span>    <span class="keywordflow">if</span> (GPS.altitude.isValid()) {</div>
+<div class="line"><span class="lineno">   55</span>        tempUint8_t = 0x02;</div>
+<div class="line"><span class="lineno">   56</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">   57</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">if</span> (GPS.altitude.meters() &gt;= 65535) tempUint16_t = 65535;</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (GPS.altitude.meters() &lt;= 0) tempUint16_t = 0;</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   62</span>            tempUint16_t = (uint16_t)(GPS.altitude.meters() * digitPrecision2);</div>
+<div class="line"><span class="lineno">   63</span>        }</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        memcpy(ptr, &amp;tempUint16_t, <span class="keyword">sizeof</span>(uint16_t));</div>
+<div class="line"><span class="lineno">   66</span>        ptr += <span class="keyword">sizeof</span>(uint16_t);</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   69</span>        Serial.printf(<span class="stringliteral">&quot;Altitude added: %d meters\n&quot;</span>, tempUint16_t);</div>
+<div class="line"><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   71</span>    }</div>
+<div class="line"><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>    <span class="comment">// Add HDOP</span></div>
+<div class="line"><span class="lineno">   75</span><span class="preprocessor">#ifdef GPS_HDOP</span></div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> (GPS.hdop.isValid()) {</div>
+<div class="line"><span class="lineno">   77</span>        tempUint8_t = 0x03; <span class="comment">// Identifier for HDOP</span></div>
+<div class="line"><span class="lineno">   78</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">   79</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">if</span> (GPS.hdop.value() &gt;= 255) tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (GPS.hdop.value() &lt;= 0) tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   83</span>            tempUint8_t = (uint8_t)(GPS.hdop.value() * digitPrecision1);</div>
+<div class="line"><span class="lineno">   84</span>        }</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">   89</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   92</span>        Serial.printf(<span class="stringliteral">&quot;HDOP added: %d\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   94</span>    }</div>
+<div class="line"><span class="lineno">   95</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>    <span class="comment">// Add speed</span></div>
+<div class="line"><span class="lineno">   98</span><span class="preprocessor">#ifdef GPS_SPEED</span></div>
+<div class="line"><span class="lineno">   99</span>    <span class="keywordflow">if</span> (GPS.speed.isValid()) {</div>
+<div class="line"><span class="lineno">  100</span>        tempUint8_t = 0x04; <span class="comment">// Identifier for speed</span></div>
+<div class="line"><span class="lineno">  101</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  102</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (GPS.speed.mps() &gt;= 255) tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (GPS.speed.mps() &lt;= 0) tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  107</span>            tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision1);</div>
+<div class="line"><span class="lineno">  108</span>        }</div>
+<div class="line"><span class="lineno">  109</span> </div>
+<div class="line"><span class="lineno">  110</span>        Serial.printf(<span class="stringliteral">&quot;/!\\ SPEED  value: %.5f\n&quot;</span>, GPS.speed.mps());</div>
+<div class="line"><span class="lineno">  111</span> </div>
+<div class="line"><span class="lineno">  112</span> </div>
+<div class="line"><span class="lineno">  113</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  114</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  117</span>        Serial.printf(<span class="stringliteral">&quot;Speed added: %d m/s\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  118</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  119</span>    }</div>
+<div class="line"><span class="lineno">  120</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>    <span class="comment">// Add course</span></div>
+<div class="line"><span class="lineno">  123</span><span class="preprocessor">#ifdef GPS_COURSE</span></div>
+<div class="line"><span class="lineno">  124</span>    <span class="keywordflow">if</span> (GPS.course.isValid()) {</div>
+<div class="line"><span class="lineno">  125</span>        tempUint8_t = 0x05; <span class="comment">// Identifier for course</span></div>
+<div class="line"><span class="lineno">  126</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  127</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  128</span> </div>
+<div class="line"><span class="lineno">  129</span>        tempUint8_t = (uint8_t) (((GPS.course.deg() * 255) / 360));</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  132</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  135</span>        Serial.printf(<span class="stringliteral">&quot;Course added: %d degrees\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  136</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  137</span>    }</div>
+<div class="line"><span class="lineno">  138</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span><span class="preprocessor">#ifdef GPS_SATS</span></div>
+<div class="line"><span class="lineno">  141</span>    <span class="keywordflow">if</span> (GPS.satellites.isValid()) {</div>
+<div class="line"><span class="lineno">  142</span>        tempUint8_t = 0x06;</div>
+<div class="line"><span class="lineno">  143</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  144</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  145</span> </div>
+<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">if</span> (GPS.satellites.value() &gt;= 255) tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (GPS.satellites.value() &lt;= 0) {</div>
+<div class="line"><span class="lineno">  148</span>            tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  149</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  150</span>            tempUint8_t = (uint8_t) GPS.satellites.value();</div>
+<div class="line"><span class="lineno">  151</span>        }</div>
+<div class="line"><span class="lineno">  152</span> </div>
+<div class="line"><span class="lineno">  153</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  154</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  157</span>        Serial.printf(<span class="stringliteral">&quot;Satellites added: %d\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  158</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  159</span>    }</div>
+<div class="line"><span class="lineno">  160</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  163</span>    printDebugInfo(ptr - fullArray, fullArray);</div>
+<div class="line"><span class="lineno">  164</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  165</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="af599e1dd1a7fba187c3cc26b8df8c792" name="af599e1dd1a7fba187c3cc26b8df8c792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af599e1dd1a7fba187c3cc26b8df8c792">&#9670;&#160;</a></span>GPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Air530ZClass GPS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00013">13</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af5cbe348d725709e7d3ada96422e04d8" name="af5cbe348d725709e7d3ada96422e04d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5cbe348d725709e7d3ada96422e04d8">&#9670;&#160;</a></span>previousLatitude</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double previousLatitude = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00016">16</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c87e8abead8833a75225ffefa9dbfe0" name="a3c87e8abead8833a75225ffefa9dbfe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c87e8abead8833a75225ffefa9dbfe0">&#9670;&#160;</a></span>previousLongitude</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double previousLongitude = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00017">17</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
+</body>
+</html>

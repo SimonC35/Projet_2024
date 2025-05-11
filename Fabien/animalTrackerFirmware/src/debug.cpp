@@ -2,7 +2,8 @@
 #include "utils.h"
 #include "Arduino.h"
 
-void printDebugInfo(uint8_t datalen, uint8_t *data) {
+void printDebugInfo(uint8_t datalen, uint8_t *data)
+{
 
 
 

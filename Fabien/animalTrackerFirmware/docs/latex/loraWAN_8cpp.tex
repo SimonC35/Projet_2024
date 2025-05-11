@@ -1,0 +1,156 @@
+\doxysection{Référence du fichier /home/jerta/\+Bureau/\+Projet/\+Debug\&Test\+AB02s/\+Projet\+\_\+2024/\+Fabien/animal\+Tracker\+Firmware/src/lora\+WAN.cpp}
+\hypertarget{loraWAN_8cpp}{}\label{loraWAN_8cpp}\index{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/loraWAN.cpp@{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/loraWAN.cpp}}
+
+
+Fonctions en rapport avec Lo\+Ra\+WAN.  
+
+
+{\ttfamily \#include "{}secret.\+h"{}}\newline
+{\ttfamily \#include "{}config.\+h"{}}\newline
+{\ttfamily \#include "{}Lo\+Ra\+Wan\+Minimal\+\_\+\+APP.\+h"{}}\newline
+{\ttfamily \#include "{}gps.\+h"{}}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
+Graphe des dépendances par inclusion de lora\+WAN.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{loraWAN_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}{configure\+Join\+TTN}} ()
+\begin{DoxyCompactList}\small\item\em Initialiser la connexion Lo\+Ra\+WAN via OTAA pour TTN. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}{send\+Data}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}full\+Array, size\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Envoyer les données via le module Lo\+Ra de la carte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6}\label{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6} 
+uint16\+\_\+t {\bfseries user\+Channels\+Mask} \mbox{[}6\mbox{]} = \{0x00\+FF, 0, 0, 0, 0, 0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fonctions en rapport avec Lo\+Ra\+WAN. 
+
+\begin{DoxyAuthor}{Auteur}
+Prenom 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04 2025 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+Ce fichier contient les fonctions qui permettent la communication via Lo\+Ra. 
+
+Définition dans le fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}\label{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0} 
+\index{loraWAN.cpp@{loraWAN.cpp}!configureJoinTTN@{configureJoinTTN}}
+\index{configureJoinTTN@{configureJoinTTN}!loraWAN.cpp@{loraWAN.cpp}}
+\doxysubsubsection{\texorpdfstring{configureJoinTTN()}{configureJoinTTN()}}
+{\footnotesize\ttfamily void configure\+Join\+TTN (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialiser la connexion Lo\+Ra\+WAN via OTAA pour TTN. 
+
+Permet de réaliser la première communication entre la carte et le réseau The\+Things\+Network, permet le paramètrage de la carte et l\textquotesingle{}authentification de la carte auprès de TTN.
+
+\begin{DoxyNote}{Note}
+Les paramètres sont réglés pour l\textquotesingle{}europe en SF9 -\/ 125KHz. 
+\end{DoxyNote}
+
+
+Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00028}{28}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00032\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Attempting\ to\ Join\ TTN..."{}});}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ LoRaWAN.begin(CLASS\_A,\ LORAMAC\_REGION\_EU868);}
+\DoxyCodeLine{00036\ \ \ \ \ LoRaWAN.setAdaptiveDR(\textcolor{keyword}{false});}
+\DoxyCodeLine{00037\ \ \ \ \ LoRaWAN.setFixedDR(DR\_3);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{if}(!LoRaWAN.isJoined())\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!LoRaWAN.joinOTAA(appEui,\ appKey,\ devEui))\ \{}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Failed\ to\ join\ TTN."{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Retrying\ to\ join\ in\ \%d\ seconds..."{}},\ TTN\_JOIN\_FAIL\_WAIT\ /\ 1000);}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ delay(TTN\_JOIN\_FAIL\_WAIT);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}
+\Hypertarget{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}\label{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a} 
+\index{loraWAN.cpp@{loraWAN.cpp}!sendData@{sendData}}
+\index{sendData@{sendData}!loraWAN.cpp@{loraWAN.cpp}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}}
+{\footnotesize\ttfamily void send\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{full\+Array,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})}
+
+
+
+Envoyer les données via le module Lo\+Ra de la carte. 
+
+Sollicite le module Lo\+Ra pour envoyer les données GPS acquises. La fonction reçoit un tableau de données et sa taille, puis tente de les envoyés pendant retry\+Count tentative(s).
+
+\begin{DoxyNote}{Note}
+La fonction est non bloquante, en cas de réussite ou d\textquotesingle{}échec le système passera au cycle suivant. 
+\end{DoxyNote}
+
+
+Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00063}{63}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00067\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Sending\ GPS\ data..."{}});}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ Exemple\ :\ envoyer\ les\ données\ via\ Serial\ ou\ un\ autre\ protocole}}
+\DoxyCodeLine{00071\ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Latitude:\ \%.6f,\ Longitude:\ \%.6f\(\backslash\)n"{}},\ GPS.location.lat(),\ GPS.location.lng());}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifndef\ NOLORAWAN}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ confirmed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ retryCount\ =\ RETRY\_COUNT;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{while}\ (retryCount\ >\ 0)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LoRaWAN.send(PAYLOAD\_SIZE,\ fullArray,\ length,\ confirmed))\ \{}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ OK"{}});}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED,\ retrying..."{}});}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ retryCount-\/-\/;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{if}\ (retryCount\ ==\ 0)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED\ after\ retries"{}});}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ \}}
+
+\end{DoxyCode}
