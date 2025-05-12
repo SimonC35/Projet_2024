@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @brief Logique globale du système.
- * @author Prenom
+ * @author Fabien 
  * @date 04 2025
  * @version 1.0
  * 

@@ -40,10 +40,10 @@ void lowPowerSleep()
     Serial.println("DEBUG: Entering low power mode...");
 #endif
 
-    if (LPM_SLEEP_TIME > 90000 && LPM_SLEEP_TIME < 180000)
+    if (LPM_SLEEP_TIME >= 90000 && LPM_SLEEP_TIME < 180000)
     {
         #ifdef DEBUG
-            Serial.println("DEBUG: Sending command to GPS module to enter sleep mode. SLEEP TIME < 3 minutes.");
+            Serial.println("DEBUG: Sending command to GPS module to enter sleep mode. 1m30s <= SLEEP TIME < 3 minutes.");
         #endif
         GPS.sendcmd("$PGKC051,1*36<CR><LF>"); ///> $PGKC051,1*36<CR><LF> Enter standby low power consumption mode Arguments: Arg1: "0", stop mode “1", sleep mode
     } 
@@ -52,7 +52,7 @@ void lowPowerSleep()
         #ifdef DEBUG
             Serial.println("DEBUG: Fully stoping GPS module. SLEEP TIME >= 3 minutes.");
         #endif
-        GPS.end();
+        GPS.sendcmd("$PGKC051,0*37<CR><LF>"); ///> $PGKC051,0*36<CR><LF> Enter standby low power consumption mode Arguments: Arg1: "0", stop mode “1", sleep mode
     }
 
     #ifdef DEBUG
@@ -83,8 +83,7 @@ void onSleepWake()
         #ifdef DEBUG
             Serial.println("DEBUG: Fully starting GPS module. SLEEP TIME >= 3 minutes.");
         #endif
-        GPS.begin();
+        GPS.sendcmd("A");
     }
     mcuStatus = STATE_GPS_ACQUIRE;
 }
-

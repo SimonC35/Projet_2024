@@ -5,7 +5,7 @@
  * Ce fichier regroupe les inclusions nécessaires à l'exécution du programme principal.
  * Il centralise les dépendances logicielles et matérielles utilisées dans le fichier main.cpp.
  * 
- * @author Prénom NOM
+ * @author Fabien
  * @date 04 2025
  * @version 1.0
  */
