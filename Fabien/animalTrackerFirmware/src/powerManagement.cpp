@@ -15,6 +15,7 @@
 #include "low_power.h"
 #include "Arduino.h"
 #include "gps.h"
+#include "main.h"
 
 device_state_t mcuStatus = STATE_BOOT;
 TimerEvent_t sleepWakeTimer;
@@ -40,24 +41,19 @@ void lowPowerSleep()
     Serial.println("DEBUG: Entering low power mode...");
 #endif
 
-    if (LPM_SLEEP_TIME >= 90000 && LPM_SLEEP_TIME < 180000)
+    if (LPM_SLEEP_TIME >= GPS_UPDATE_TIMEOUT)
     {
         #ifdef DEBUG
-            Serial.println("DEBUG: Sending command to GPS module to enter sleep mode. 1m30s <= SLEEP TIME < 3 minutes.");
+            Serial.println("DEBUG: Sending command to GPS module to enter sleep mode. SLEEP_TIME > 1m30s");
         #endif
-        GPS.sendcmd("$PGKC051,1*36<CR><LF>"); ///> $PGKC051,1*36<CR><LF> Enter standby low power consumption mode Arguments: Arg1: "0", stop mode “1", sleep mode
-    } 
-    else if (LPM_SLEEP_TIME >= 180000)
-    {
-        #ifdef DEBUG
-            Serial.println("DEBUG: Fully stoping GPS module. SLEEP TIME >= 3 minutes.");
-        #endif
-        GPS.sendcmd("$PGKC051,0*37<CR><LF>"); ///> $PGKC051,0*36<CR><LF> Enter standby low power consumption mode Arguments: Arg1: "0", stop mode “1", sleep mode
+
+        GPS.sendcmd("$PGKC105,8*3F");
     }
 
     #ifdef DEBUG
         Serial.printf("\nDEBUG: Starting to sleep for %d seconds...", LPM_SLEEP_TIME / 1000);
     #endif
+
     TimerStart(&sleepWakeTimer);
     lowPowerHandler();
 
@@ -71,19 +67,13 @@ void onSleepWake()
     #ifdef DEBUG
     Serial.println("DEBUG: Exiting low power mode, starting next cycle.");
     #endif
-    if (LPM_SLEEP_TIME > 90000 && LPM_SLEEP_TIME < 180000)
+    if (LPM_SLEEP_TIME >= GPS_UPDATE_TIMEOUT)
     {
         #ifdef DEBUG
             Serial.println("DEBUG: Waking GPS module from sleep mode, sending byte to module. 1.5 minutes < SLEEP TIME < 3 minutes.");
         #endif
         GPS.sendcmd("A");
     }
-    else if (LPM_SLEEP_TIME >= 180000)
-    {
-        #ifdef DEBUG
-            Serial.println("DEBUG: Fully starting GPS module. SLEEP TIME >= 3 minutes.");
-        #endif
-        GPS.sendcmd("A");
-    }
+    
     mcuStatus = STATE_GPS_ACQUIRE;
 }

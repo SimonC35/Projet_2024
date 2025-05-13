@@ -18,9 +18,9 @@
 
 constexpr uint16_t GPS_INIT_TIMEOUT = 60000;
 
-constexpr uint16_t GPS_UPDATE_TIMEOUT = 180000;
+constexpr uint16_t GPS_UPDATE_TIMEOUT = 90000;
 
-constexpr uint32_t LPM_SLEEP_TIME = 181000; 
+constexpr uint32_t LPM_SLEEP_TIME = 90001; 
 
 constexpr uint16_t TTN_JOIN_FAIL_WAIT = 5000;
 
