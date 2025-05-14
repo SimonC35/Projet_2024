@@ -60,7 +60,7 @@ class MapPreview extends StatelessWidget {
       options: MapOptions(
         initialCenter: LatLng(48.73137, -3.44936), // 📍 Paris
         initialZoom: 15.0,
-        onTap: context.read<NavigationProvider>().changeTab(2),      //onTap: context.read<NavigationProvider>().changeTab(2),
+        //onTap: context.read<NavigationProvider>().changeTab(2),      //onTap: context.read<NavigationProvider>().changeTab(2),
       ),
       children: [
         TileLayer(

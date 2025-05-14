@@ -15,6 +15,7 @@ import 'package:animap_tracker/localization.dart';
 // Global language variable
 String lang = "fr";
 
+// Initialisation du Provider
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -48,8 +49,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 49, 122, 78)),
       ),
       routes: {
-        '/': (context) => FirstPage(lang),
-        '/MyHomePage': (context) => MyHomePage(),
+        '/': (context) => MyHomePage(),
         '/Home': (context) => Home(lang),
         '/ListPage': (context) => ListPage(lang),
         '/MapPage': (context) => MapPage(),
