@@ -1,4 +1,3 @@
-import 'package:animap_tracker/home.dart';
 import 'package:flutter/material.dart';
 
 // Main Class => global var (lang)

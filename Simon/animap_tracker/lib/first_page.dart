@@ -32,8 +32,8 @@ class _FirstPageState extends State<FirstPage> {
 
     final url = Uri.parse("http://172.20.14.7:8000/api/login/"); // 🔥 Remplace par ton URL
     final body = jsonEncode({
-      "email": "matts@matts.com",
-      "password": "matts",
+      "email": _emailController,           // matts@matts.com   simon@simon.com
+      "password": _passwordController,     // matts             felix22
     });
 
     try {

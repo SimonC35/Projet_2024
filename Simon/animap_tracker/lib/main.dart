@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 49, 122, 78)),
       ),
       routes: {
-        '/': (context) => MyHomePage(),
+        '/': (context) => FirstPage(lang),
         '/Home': (context) => Home(lang),
         '/ListPage': (context) => ListPage(lang),
         '/MapPage': (context) => MapPage(),
