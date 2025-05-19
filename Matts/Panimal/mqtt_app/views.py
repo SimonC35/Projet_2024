@@ -75,15 +75,15 @@ def register(request):
 
     try:
         with connection.cursor() as cursor:
-            # 🔹 Vérifier si l'email existe déjà
+            #  Vérifier si l'email existe déjà
             cursor.execute('SELECT 1 FROM "Compte" WHERE mail = %s', [email])
             if cursor.fetchone():
                 return Response({"error": "Cet email est déjà utilisé."}, status=status.HTTP_400_BAD_REQUEST)
 
-            # 🔹 Hachage du mot de passe avant insertion
+            #  Hachage du mot de passe avant insertion
             hashed_password = make_password(password)
 
-            # 🔹 Insertion du nouvel utilisateur
+            #  Insertion du nouvel utilisateur
             cursor.execute(
                 'INSERT INTO "Compte" (nom, mail, passwd) VALUES (%s, %s, %s)',
                 [nom, email, hashed_password]
@@ -118,7 +118,7 @@ def login(request):
 
         user_id, hashed_password = user
 
-        # 🔹 Vérification du mot de passe haché
+        #  Vérification du mot de passe haché
         if check_password(password, hashed_password):
             refresh = RefreshToken()
             refresh["user_id"] = user_id  

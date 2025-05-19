@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 
 
-# 🔹 TABLE COMPTE (Utilisateurs)
+#  TABLE COMPTE (Utilisateurs)
 class Compte(models.Model):
     email = models.EmailField(unique=True)
     nom = models.CharField(max_length=100)
@@ -15,19 +15,19 @@ class Compte(models.Model):
 
 
 
-# 🔹 TABLE OBJET (Objets suivis)
+#  TABLE OBJET (Objets suivis)
 class Objet(models.Model):
     id_objet = models.AutoField(primary_key=True)
     nom_objet = models.CharField(max_length=100)
 
     class Meta:
-        db_table = "objet"
+        db_table = "Objet"
 
     def __str__(self):
         return self.nom_objet
 
 
-# 🔹 TABLE DONNÉE (Données GPS)
+#  TABLE DONNÉE (Données GPS)
 class Donnee(models.Model):
     id_data = models.AutoField(primary_key=True)
     date = models.DateTimeField()
@@ -45,7 +45,7 @@ class Donnee(models.Model):
         return f"{self.date} - {self.location}"
 
 
-# 🔹 TABLE AFFECTATION (Relation Compte ↔ Objet)
+#  TABLE AFFECTATION (Relation Compte ↔ Objet)
 class Affectation(models.Model):
     utilisateur = models.ForeignKey(Compte, on_delete=models.CASCADE)
     objet = models.ForeignKey(Objet, on_delete=models.CASCADE)
