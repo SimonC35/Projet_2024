@@ -16,9 +16,7 @@
 
 #include "Arduino.h"
 
-constexpr uint16_t GPS_INIT_TIMEOUT = 60000;
-
-constexpr uint16_t GPS_UPDATE_TIMEOUT = 90000;
+constexpr uint32_t GPS_UPDATE_TIMEOUT = 90000;
 
 constexpr uint32_t LPM_SLEEP_TIME = 90001; 
 
@@ -30,7 +28,6 @@ constexpr uint16_t RETRY_COUNT = 5;
 
 #define BASE_SIZE 1 
 
-// -------------------- GPS Payload Details --------------------
 
 #ifdef GPS_COORDS
 constexpr uint8_t GPS_COORDS_SIZE = 9;

@@ -34,7 +34,6 @@ void setup()
     configureJoinTTN();
 #endif
 
-    GPS.begin();
     gpsAcquire();
 
     configureTimer();
@@ -47,8 +46,6 @@ void setup()
     } else {
         mcuStatus = STATE_GPS_ACQUIRE;
     }
-
-
 }
 
 /**
@@ -61,6 +58,7 @@ void setup()
  */
 void loop()
 {
+    Serial.printf("\n\n/!\\ Start of the loop() function /!\\\n\n");
     switch (mcuStatus) {
     case STATE_GPS_ACQUIRE:
         gpsAcquire();

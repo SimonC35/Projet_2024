@@ -166,9 +166,12 @@ void readGPSStoreAsBytes(uint8_t *fullArray)
 
 void gpsAcquire()
 {
-#ifdef DEBUG
-    Serial.println("DEBUG: Acquiring GPS...");
-#endif
+    GPS.begin();
+    delay(1000);
+
+    #ifdef DEBUG
+        Serial.println("DEBUG: Acquiring GPS...");
+    #endif
 
     uint32_t start = millis();
     while ((millis() - start) < GPS_UPDATE_TIMEOUT) {
@@ -177,27 +180,27 @@ void gpsAcquire()
     }
 
     if (!GPS.location.isValid()) {
-#ifdef DEBUG
-        Serial.println("DEBUG: Invalid GPS. Skipping send.");
-#endif
+    #ifdef DEBUG
+            Serial.println("DEBUG: Invalid GPS. Skipping send.");
+    #endif
         mcuStatus = STATE_SLEEP;
         return;
     }
 
     double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());
 
-#ifdef DEBUG
-    Serial.printf("Previous: %.6f / %.6f\n", previousLatitude, previousLongitude);
-    Serial.printf("Current : %.6f / %.6f\n", GPS.location.lat(), GPS.location.lng());
-    Serial.printf("Distance: %.2f meters\n", distance);
-#endif
+    #ifdef DEBUG
+        Serial.printf("Previous: %.6f / %.6f\n", previousLatitude, previousLongitude);
+        Serial.printf("Current : %.6f / %.6f\n", GPS.location.lat(), GPS.location.lng());
+        Serial.printf("Distance: %.2f meters\n", distance);
+    #endif
 
     if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) {
         mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED;
     } else {
-#ifdef DEBUG
-        Serial.println("DEBUG: No significant movement.");
-#endif
+    #ifdef DEBUG
+            Serial.println("DEBUG: No significant movement.");
+    #endif
         mcuStatus = STATE_SLEEP;
     }
 }
