@@ -22,7 +22,8 @@ extern uint16_t userChannelsMask[6] = {0x00FF, 0, 0, 0, 0, 0};
  * Permet de réaliser la première communication entre la carte et le réseau TheThingsNetwork,
  *  permet le paramètrage de la carte et l'authentification de la carte auprès de TTN.
  * 
- * @note Les paramètres sont réglés pour l'europe en SF9 - 125KHz. 
+ * @note Les paramètres sont réglés pour l'europe en SF9 - 125KHz.
+ * @todo Ajouter un paramètrage des variables LoRaWAN pour une plus grande flexibilité 
  */
 #ifndef NOLORAWAN
 void configureJoinTTN()
@@ -67,29 +68,27 @@ void sendData(uint8_t *fullArray, size_t length)
     Serial.println("DEBUG: Sending GPS data...");
 #endif
 
-    // Exemple : envoyer les données via Serial ou un autre protocole
-    Serial.printf("Latitude: %.6f, Longitude: %.6f\n", GPS.location.lat(), GPS.location.lng());
-#ifndef NOLORAWAN
+    #ifndef NOLORAWAN
     bool confirmed = false;
     int retryCount = RETRY_COUNT;
 
     while (retryCount > 0) {
         if (LoRaWAN.send(PAYLOAD_SIZE, fullArray, length, confirmed)) {
-#ifdef DEBUG
-            Serial.println("Send OK");
-#endif
+    #ifdef DEBUG
+                Serial.println("Send OK");
+    #endif
             break;
         } else {
-#ifdef DEBUG
-            Serial.println("Send FAILED, retrying...");
-#endif
+    #ifdef DEBUG
+                Serial.println("Send FAILED, retrying...");
+    #endif
             retryCount--;
         }
     }
-#ifdef DEBUG
-    if (retryCount == 0) {
-        Serial.println("Send FAILED after retries");
-    }
-#endif
+    #ifdef DEBUG
+        if (retryCount == 0) {
+            Serial.println("Send FAILED after retries");
+        }
+    #endif
 #endif
 }

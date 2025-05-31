@@ -16,7 +16,7 @@
  * 
  * Configure les interfaces de communication (série, LoRa), initialise le GPS, 
  * le timer de réveil, et réalise une première tentative d’acquisition de position. 
- * Si un fix GPS est valide, la position est stockée pour référence future.
+ * Si un fix GPS est valide, la position est stockée pour une vérification future de la distance parcourue.
  * 
  * @note Cette fonction est appelée une seule fois au démarrage du microcontrôleur.
  * 
@@ -58,7 +58,9 @@ void setup()
  */
 void loop()
 {
+    #ifdef DEBUG
     Serial.printf("\n\n/!\\ Start of the loop() function /!\\\n\n");
+    #endif DEBUG
     switch (mcuStatus) {
     case STATE_GPS_ACQUIRE:
         gpsAcquire();

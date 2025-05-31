@@ -16,36 +16,52 @@ Air530ZClass GPS;
 double previousLatitude = 0.0;
 double previousLongitude = 0.0;
 
+/**
+ * @brief Lit les variables fournies par le module GPS et les stocke sous forme d'octets
+ * 
+ * En fonction des flags de compilation présent, cette fonction ajoute dans le tableau passé en paramètre 
+ * les valeurs fournies par le module GPS.
+ * 
+ * Par souci de performance, trois variables temporaires de taille 1, 2 et 4 octets sont allouées 
+ * et réutilisées selon la taille des données à traiter. Les valeurs sont transformées pour conserver 
+ * uniquement la précision utile et éventuellement les rééchelonnées.
+ * 
+ * @note Cette fonction est appelée lorsque le système est dans l'état STATE_SEND_THRESHOLD_EXCEEDED.
+ */
 
 void readGPSStoreAsBytes(uint8_t *fullArray)
 {
 
-    uint8_t *ptr = fullArray;
+    uint8_t *ptr = fullArray; // ptr est un pointeur de type octet non signé (uint8_t) qui pointe vers l'adresse de début de fullArray
 
     uint8_t tempUint8_t = 0;
     uint16_t tempUint16_t = 0;
     uint32_t tempUint32_t = 0;
+    int32_t tempInt32_t = 0;
 
-#ifdef GPS_COORDS
-    if (GPS.location.isValid()) {
-        tempUint8_t = 0x01;
-        memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
-        ptr += sizeof(uint8_t);
+#ifdef GPS_COORDS 
+    if (GPS.location.isValid()) { // Si les coordonnées sont valides, le traitement est effectué
+        tempUint8_t = 0x01;       // Ajout de l'identifiant 1 correspondant aux coordonnées GPS (latitude, longitude)
+        memcpy(ptr, &tempUint8_t, sizeof(uint8_t)); // Copie vers ptr de l'identifiant
+        ptr += sizeof(uint8_t); // Avancer le pointeur pour préparer la copie des autres données (memcpy ne modifie pas la position du pointeur il faut donc incrémenter)
 
-        tempUint32_t = (uint32_t)(GPS.location.lat() * digitPrecision5);
-        memcpy(ptr, &tempUint32_t, sizeof(uint32_t));
-        ptr += sizeof(uint32_t);
+        tempInt32_t = (int32_t)(GPS.location.lat() * digitPrecision5);
+        // Conversion de la latitude : 
+        // Multiplication par 100'000 pour conserver une précision de 5 chiffres après la virgule
+        // Cast en entier signée
+        memcpy(ptr, &tempInt32_t, sizeof(int32_t)); // Copie de la latitude convertie vers ptr sur 4 octets
+        ptr += sizeof(int32_t); // Avancer le pointeur pour préparer la copie des autres données 
 
 #ifdef DEBUG
-        Serial.printf("GPS Coordinates added: Lat=%d", tempUint32_t);
+        Serial.printf("GPS Coordinates added: Lat=%d", tempInt32_t);
 #endif
 
-        tempUint32_t = (uint32_t)(GPS.location.lng() * digitPrecision5);
-        memcpy(ptr, &tempUint32_t, sizeof(uint32_t));
-        ptr += sizeof(uint32_t);
+        tempInt32_t = (int32_t)(GPS.location.lng() * digitPrecision5);
+        memcpy(ptr, &tempInt32_t, sizeof(int32_t));
+        ptr += sizeof(int32_t);
 
 #ifdef DEBUG
-        Serial.printf(" Lng=%d\n", tempUint32_t);
+        Serial.printf(" Lng=%d\n", tempInt32_t);
 #endif
     }
 #endif
