@@ -1,5 +1,5 @@
 \doxysection{data\+Sender.\+cpp}
-\hypertarget{dataSender_8cpp_source}{}\label{dataSender_8cpp_source}\index{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/dataSender.cpp@{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/dataSender.cpp}}
+\hypertarget{dataSender_8cpp_source}{}\label{dataSender_8cpp_source}\index{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/dataSender.cpp@{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/dataSender.cpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}dataSender.h"{}}}
@@ -13,13 +13,13 @@
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00009}00009\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Distance\ threshold\ exceeded,\ sending\ data..."{}});}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00012}00012\ \ \ \ \ readGPSStoreAsBytes(fullArray);}
+\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00012}00012\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_ab9850920892b5e65e55e0abb6ef29e5c}{readGPSStoreAsBytes}}(fullArray);}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}{sendData}}(fullArray,\ PAYLOAD\_SIZE);}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00015}00015\ \ \ \ \ previousLatitude\ =\ GPS.location.lat();}
-\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00016}00016\ \ \ \ \ previousLongitude\ =\ GPS.location.lng();}
+\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00015}00015\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}}\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat();}
+\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00016}00016\ \ \ \ \ previousLongitude\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng();}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00017}00017\ }
-\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00018}00018\ \ \ \ \ mcu\_status\ =\ STATE\_SLEEP;}
+\DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00018}00018\ \ \ \ \ mcuStatus\ =\ STATE\_SLEEP;}
 \DoxyCodeLine{\Hypertarget{dataSender_8cpp_source_l00019}00019\ \}}
 
 \end{DoxyCode}

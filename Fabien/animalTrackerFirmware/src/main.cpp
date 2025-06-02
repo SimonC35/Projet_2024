@@ -31,20 +31,20 @@ void setup()
 #endif
 
 #ifndef NOLORAWAN
-    configureJoinTTN();
+    configureJoinTTN(); // Configuration de la liaison TTN
 #endif
 
-    gpsAcquire();
+    gpsAcquire(); // Première acquisition des données GPS
 
-    configureTimer();
+    configureTimer(); // Configuration du timer
 
-    if (GPS.location.isValid()) {
-        previousLatitude = GPS.location.lat();
+    if (GPS.location.isValid()) { // Vérification de la validité de la position
+        previousLatitude = GPS.location.lat(); // Sauvegarde de la position pour future comparaison
         previousLongitude = GPS.location.lng();
-        mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED;
+        mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED; // Passe de la carte dans l'état STATE_SEND_THRESHOLD_EXCEEDED dans le cas ou les coordonnées sont valides
 
     } else {
-        mcuStatus = STATE_GPS_ACQUIRE;
+        mcuStatus = STATE_GPS_ACQUIRE; // Dans le cas ou les coordonnées ne sont pas valides la carte est mise dans l'état STATE_GPS_ACQUIRE, l'état sommeil
     }
 }
 
@@ -59,8 +59,9 @@ void setup()
 void loop()
 {
     #ifdef DEBUG
-    Serial.printf("\n\n/!\\ Start of the loop() function /!\\\n\n");
+    Serial.printf("------------------------\n\n/!\\ Start of the loop() function /!\\\n\n");
     #endif DEBUG
+
     switch (mcuStatus) {
     case STATE_GPS_ACQUIRE:
         gpsAcquire();
@@ -74,7 +75,7 @@ void loop()
         lowPowerSleep();
         break;
 
-    default:
+    default:    // Cas par défaut, la carte est mise en sommeil si l'état est inconnu ou corrompu
         mcuStatus = STATE_SLEEP;
         break;
     }

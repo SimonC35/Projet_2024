@@ -4,7 +4,6 @@
 #include "Arduino.h"
 
 typedef enum {
-    STATE_BOOT,
     STATE_GPS_ACQUIRE,
     STATE_SEND_THRESHOLD_EXCEEDED,
     STATE_SLEEP

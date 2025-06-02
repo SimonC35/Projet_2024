@@ -1,10 +1,12 @@
 \doxysection{main.\+cpp}
-\hypertarget{main_8cpp_source}{}\label{main_8cpp_source}\index{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/main.cpp@{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/main.cpp}}
+\hypertarget{main_8cpp_source}{}\label{main_8cpp_source}\index{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/main.cpp@{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/main.cpp}}
 \mbox{\hyperlink{main_8cpp}{Aller à la documentation de ce fichier.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00011}00011\ }
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}main.h"{}}}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00024}00024\ }
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00025}\mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{00025}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}}()}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00026}00026\ \{}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00027}00027\ }
@@ -17,38 +19,43 @@
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}{configureJoinTTN}}();}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00035}00035\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00036}00036\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00037}00037\ \ \ \ \ GPS.begin();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00038}00038\ \ \ \ \ gpsAcquire();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00039}00039\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00040}00040\ \ \ \ \ configureTimer();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00041}00041\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (GPS.location.isValid())\ \{}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ previousLatitude\ =\ GPS.location.lat();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ previousLongitude\ =\ GPS.location.lng();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ mcu\_status\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00046}00046\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00047}00047\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00048}00048\ \}}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00058}\mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{00058}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}}()}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00059}00059\ \{}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{switch}\ (mcu\_status)\ \{}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_GPS\_ACQUIRE:}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ gpsAcquire();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00037}00037\ \ \ \ \ gpsAcquire();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configureTimer}}();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}}\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ previousLongitude\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00046}00046\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_GPS\_ACQUIRE;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00059}\mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{00059}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}}()}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00061}00061\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00062}00062\ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n/!\(\backslash\)\(\backslash\)\ Start\ of\ the\ loop()\ function\ /!\(\backslash\)\(\backslash\)\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00063}00063\ \textcolor{preprocessor}{\ \ \ \ \#endif\ DEBUG}}
 \DoxyCodeLine{\Hypertarget{main_8cpp_source_l00064}00064\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SEND\_THRESHOLD\_EXCEEDED:}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ readSendData();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SLEEP:}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ lowPowerSleep();}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00072}00072\ }
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ mcu\_status\ =\ STATE\_SLEEP;}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00076}00076\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{switch}\ (mcuStatus)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_GPS\_ACQUIRE:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ gpsAcquire();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SEND\_THRESHOLD\_EXCEEDED:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ readSendData();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SLEEP:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ lowPowerSleep();}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SLEEP;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00082}00082\ \}}
 
 \end{DoxyCode}

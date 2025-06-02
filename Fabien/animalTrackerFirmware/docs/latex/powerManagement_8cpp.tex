@@ -1,0 +1,157 @@
+\doxysection{Référence du fichier /home/jerta/\+Bureau/\+Projet/\+Projet\+\_\+2024/\+Fabien/animal\+Tracker\+Firmware/src/power\+Management.cpp}
+\hypertarget{powerManagement_8cpp}{}\label{powerManagement_8cpp}\index{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/powerManagement.cpp@{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/powerManagement.cpp}}
+
+
+Gestion de l\textquotesingle{}energie.  
+
+
+{\ttfamily \#include "{}power\+Management.\+h"{}}\newline
+{\ttfamily \#include "{}config.\+h"{}}\newline
+{\ttfamily \#include "{}hw.\+h"{}}\newline
+{\ttfamily \#include "{}low\+\_\+power.\+h"{}}\newline
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+{\ttfamily \#include "{}gps.\+h"{}}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
+Graphe des dépendances par inclusion de power\+Management.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{powerManagement_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configure\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em Initialiser la connexion Lo\+Ra\+WAN via OTAA pour TTN. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{powerManagement_8cpp_a112e1e720a7d68f090262d492643f1a8}{low\+Power\+Sleep}} ()
+\item 
+void \mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{on\+Sleep\+Wake}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+device\+\_\+state\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcu\+Status}} = STATE\+\_\+\+BOOT
+\item 
+Timer\+Event\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleep\+Wake\+Timer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Gestion de l\textquotesingle{}energie. 
+
+\begin{DoxyAuthor}{Auteur}
+Prenom 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+05 2025 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+Ce fichier contient les fonctions permettant de gérer l\textquotesingle{}énergie et l\textquotesingle{}activation / désactivation de certains composants. 
+
+Définition dans le fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}\index{powerManagement.cpp@{powerManagement.cpp}!configureTimer@{configureTimer}}
+\index{configureTimer@{configureTimer}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{configureTimer()}{configureTimer()}}
+{\footnotesize\ttfamily \label{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3} 
+void configure\+Timer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialiser la connexion Lo\+Ra\+WAN via OTAA pour TTN. 
+
+Permet de réaliser la première communication entre la carte et le réseau The\+Things\+Network, permet le paramètrage de la carte et l\textquotesingle{}authentification de la carte auprès de TTN.
+
+\begin{DoxyNote}{Note}
+Les paramètres sont réglés pour l\textquotesingle{}europe en SF9 -\/ 125KHz. 
+\end{DoxyNote}
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00032}{32}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ TimerInit(\&sleepWakeTimer,\ onSleepWake);}
+\DoxyCodeLine{00035\ \ \ \ \ TimerSetValue(\&sleepWakeTimer,\ LPM\_SLEEP\_TIME);}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}
+\Hypertarget{powerManagement_8cpp_a112e1e720a7d68f090262d492643f1a8}\index{powerManagement.cpp@{powerManagement.cpp}!lowPowerSleep@{lowPowerSleep}}
+\index{lowPowerSleep@{lowPowerSleep}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{lowPowerSleep()}{lowPowerSleep()}}
+{\footnotesize\ttfamily \label{powerManagement_8cpp_a112e1e720a7d68f090262d492643f1a8} 
+void low\+Power\+Sleep (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00038}{38}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00041\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Entering\ low\ power\ mode..."{}});}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Starting\ to\ sleep\ for\ \%d\ seconds..."{}},\ LPM\_SLEEP\_TIME\ /\ 1000);}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.end();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ TimerStart(\&sleepWakeTimer);}
+\DoxyCodeLine{00051\ \ \ \ \ lowPowerHandler();}
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}
+\Hypertarget{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}\index{powerManagement.cpp@{powerManagement.cpp}!onSleepWake@{onSleepWake}}
+\index{onSleepWake@{onSleepWake}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{onSleepWake()}{onSleepWake()}}
+{\footnotesize\ttfamily \label{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2} 
+void on\+Sleep\+Wake (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00054}{54}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00057\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Exiting\ low\ power\ mode,\ starting\ next\ cycle."{}});}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ mcuStatus\ =\ STATE\_GPS\_ACQUIRE;}
+\DoxyCodeLine{00061\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Documentation des variables}
+\Hypertarget{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}\index{powerManagement.cpp@{powerManagement.cpp}!mcuStatus@{mcuStatus}}
+\index{mcuStatus@{mcuStatus}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{mcuStatus}{mcuStatus}}
+{\footnotesize\ttfamily \label{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400} 
+device\+\_\+state\+\_\+t mcu\+Status = STATE\+\_\+\+BOOT}
+
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00020}{20}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+
+\Hypertarget{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}\index{powerManagement.cpp@{powerManagement.cpp}!sleepWakeTimer@{sleepWakeTimer}}
+\index{sleepWakeTimer@{sleepWakeTimer}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{sleepWakeTimer}{sleepWakeTimer}}
+{\footnotesize\ttfamily \label{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02} 
+Timer\+Event\+\_\+t sleep\+Wake\+Timer}
+
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00021}{21}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+

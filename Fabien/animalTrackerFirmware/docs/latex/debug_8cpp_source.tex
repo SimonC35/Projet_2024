@@ -1,5 +1,5 @@
 \doxysection{debug.\+cpp}
-\hypertarget{debug_8cpp_source}{}\label{debug_8cpp_source}\index{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp@{/home/jerta/Bureau/Projet/Debug\&TestAB02s/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp}}
+\hypertarget{debug_8cpp_source}{}\label{debug_8cpp_source}\index{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp@{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}debug.h"{}}}
@@ -62,7 +62,7 @@
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&altitude,\ ptr,\ \textcolor{keyword}{sizeof}(uint16\_t));}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint16\_t);}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Altitude:\ \%.1f\ meters\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})((float)\ altitude\ /\ digitPrecision2));}
+\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Altitude:\ \%.1f\ meters\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})((\textcolor{keywordtype}{float})\ altitude\ /\ digitPrecision2));}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x03:\ \{\ \textcolor{comment}{//\ HDOP}}
@@ -72,7 +72,7 @@
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00069}00069\ }
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ hdop\ =\ *(ptr++);}
-\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}HDOP:\ \%.1f\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((float)hdop\ /\ digitPrecision1));}
+\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}HDOP:\ \%.1f\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((\textcolor{keywordtype}{float})hdop\ /\ digitPrecision1));}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x04:\ \{}
@@ -82,7 +82,7 @@
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00079}00079\ }
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ speed\ =\ *(ptr++);}
-\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Speed:\ \%.2f\ m/s\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((float)speed\ /\ digitPrecision1));}
+\DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Speed:\ \%.2f\ m/s\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((\textcolor{keywordtype}{float})speed\ /\ digitPrecision1));}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{debug_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x05:\ \{\ \textcolor{comment}{//\ Course}}

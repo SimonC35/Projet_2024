@@ -15,9 +15,15 @@
 #include "low_power.h"
 #include "Arduino.h"
 #include "gps.h"
-#include "main.h"
 
-device_state_t mcuStatus = STATE_BOOT;
+/**
+ * Variable mcuStatus pour garder en mémoire l'état actuel de la carte
+ */
+device_state_t mcuStatus = STATE_SLEEP;
+
+/**
+ * Objet TimerEvent_t utilisé pour gérer le timer de mise en veille/réveil.
+ */
 TimerEvent_t sleepWakeTimer;
 
 
@@ -31,8 +37,8 @@ TimerEvent_t sleepWakeTimer;
  */
 void configureTimer()
 {
-    TimerInit(&sleepWakeTimer, onSleepWake);
-    TimerSetValue(&sleepWakeTimer, LPM_SLEEP_TIME);
+    TimerInit(&sleepWakeTimer, onSleepWake); // Armement du timer sleepWakeTimer, avec pour fonction de callback onSleepWake() qui est appellé à la fin du timer
+    TimerSetValue(&sleepWakeTimer, LPM_SLEEP_TIME); // Armement du timer sleepWakeTimer, avec comme temps la variable fournie par config.h LPM_SLEEP_TIME
 }
 
 void lowPowerSleep()
@@ -45,12 +51,19 @@ void lowPowerSleep()
         Serial.printf("\nDEBUG: Starting to sleep for %d seconds...", LPM_SLEEP_TIME / 1000);
     #endif
 
-    GPS.end();
+    GPS.end(); // Eteindre complétement le GPS via la méthode end()
 
-    TimerStart(&sleepWakeTimer);
-    lowPowerHandler();
+    TimerStart(&sleepWakeTimer); // Démarrage du Timer
+    lowPowerHandler(); // Passage du du processeur en deepSleep
 }
 
+/**
+ * @brief Réveil implicite du processeur réveiller par la fin du timer
+ * 
+ * Une fois le temps du timer écoulée, cette fonction qui est une fonction de callback aux yeux du timer est appellée
+ * 
+ * @note La fonction met la carte dans l'état STATE_GPS_ACQUIRE, car après un réveil il faut reccomencer le cycle en réalisant une acquisition de donnée
+ */
 void onSleepWake()
 {
     #ifdef DEBUG

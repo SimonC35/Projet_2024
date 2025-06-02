@@ -4,9 +4,6 @@
 
 void printDebugInfo(uint8_t datalen, uint8_t *data)
 {
-
-
-
     if (data == nullptr || datalen == 0) {
         Serial.println("Error: Invalid data pointer or empty data length.");
         return;
@@ -32,17 +29,18 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
         Serial.printf("\nIdentifier: 0x%02X\n", identifier);
 
         switch (identifier) {
-        case 0x01: { // GPS Coordinates
+        case 0x01: { // coordonnées
             if (ptr + 2 * sizeof(uint32_t) > data + datalen) {
                 Serial.println("Error: Insufficient data for GPS coordinates.");
                 return;
             }
 
-            uint32_t latitude, longitude;
-            memcpy(&latitude, ptr, sizeof(uint32_t));
-            ptr += sizeof(uint32_t);
-            memcpy(&longitude, ptr, sizeof(uint32_t));
-            ptr += sizeof(uint32_t);
+            int32_t latitude, longitude;
+            memcpy(&latitude, ptr, sizeof(int32_t));
+            ptr += sizeof(int32_t);
+
+            memcpy(&longitude, ptr, sizeof(int32_t));
+            ptr += sizeof(int32_t);
 
             Serial.printf("Latitude: %d\n", latitude);
             Serial.printf("Longitude: %d\n", longitude);
@@ -58,7 +56,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
             memcpy(&altitude, ptr, sizeof(uint16_t));
             ptr += sizeof(uint16_t);
 
-            Serial.printf("Altitude: %.1f meters\n", (float)((float) altitude / digitPrecision2));
+            Serial.printf("Altitude: %d meters\n", altitude);
             break;
         }
         case 0x03: { // HDOP
@@ -68,7 +66,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
             }
 
             uint8_t hdop = *(ptr++);
-            Serial.printf("HDOP: %.1f\n", (float) ((float)hdop / digitPrecision1));
+            Serial.printf("HDOP: %.2f\n", (float) ((float)hdop / 10.0));
             break;
         }
         case 0x04: {
@@ -88,7 +86,7 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
             }
 
             uint8_t course = *(ptr++);
-            Serial.printf("Course: %.2f degrees\n", ((float)(course) / digitPrecision2) / 255 * 360);
+            Serial.printf("Course: %.2f degrees\n", (course * 360.0) / 255.0 );
             break;
         }
         case 0x06: { // Satellites

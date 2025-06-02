@@ -64,11 +64,17 @@ void configureJoinTTN()
 void sendData(uint8_t *fullArray, size_t length)
 {
 
+    #ifdef DEBUG
+    #ifdef NOLORAWAN
+    Serial.println("\nDEBUG: would sendData at this point");
+    #endif
+    #endif
+
+
+    #ifndef NOLORAWAN
 #ifdef DEBUG
     Serial.println("DEBUG: Sending GPS data...");
 #endif
-
-    #ifndef NOLORAWAN
     bool confirmed = false;
     int retryCount = RETRY_COUNT;
 
