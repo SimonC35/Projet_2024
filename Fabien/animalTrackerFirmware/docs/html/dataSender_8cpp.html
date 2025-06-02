@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>animal-tracker: Référence du fichier /home/jerta/Bureau/Projet/Projet_2024/Fabien/animalTrackerFirmware/src/dataSender.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">animal-tracker
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier dataSender.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Fonction regroupant la logique de lecture du GPS et envoi.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;dataSender.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de dataSender.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="dataSender_8cpp__incl.png" border="0" usemap="#a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2dataSender_8cpp" alt=""/></div>
+<map name="a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2dataSender_8cpp" id="a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2dataSender_8cpp">
+<area shape="rect" title="Fonction regroupant la logique de lecture du GPS et envoi." alt="" coords="5,5,229,84"/>
+<area shape="rect" title=" " alt="" coords="64,132,170,160"/>
+<area shape="poly" title=" " alt="" coords="120,84,120,116,114,116,114,84"/>
+</map>
+</div>
+</div>
+<p><a href="dataSender_8cpp_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:af8a7557c706cb0a798661f2b2d09d9ef" id="r_af8a7557c706cb0a798661f2b2d09d9ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8a7557c706cb0a798661f2b2d09d9ef">readSendData</a> ()</td></tr>
+<tr class="memdesc:af8a7557c706cb0a798661f2b2d09d9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réaliser la transformation des données et l'envoi des données via LoRa.  <br /></td></tr>
+<tr class="separator:af8a7557c706cb0a798661f2b2d09d9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4a5313711bb5c7540f8522e60a914147" id="r_a4a5313711bb5c7540f8522e60a914147"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a5313711bb5c7540f8522e60a914147">fullArray</a> [PAYLOAD_SIZE] = {0}</td></tr>
+<tr class="separator:a4a5313711bb5c7540f8522e60a914147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fonction regroupant la logique de lecture du GPS et envoi. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Fabien </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>04 2025 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="dataSender_8cpp_source.html">dataSender.cpp</a>.</p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="af8a7557c706cb0a798661f2b2d09d9ef" name="af8a7557c706cb0a798661f2b2d09d9ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a7557c706cb0a798661f2b2d09d9ef">&#9670;&#160;</a></span>readSendData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readSendData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Réaliser la transformation des données et l'envoi des données via LoRa. </p>
+<p>Dans un premier temps réalise la lecture et la transformation des valeurs via les méthodes concernés fournies par le GPS. Réalise un envoie LoRa en utilisant le tableau d'octets fullArray comme buffer pour stockés les valeurs. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="dataSender_8cpp_source.html#l00025">25</a> du fichier <a class="el" href="dataSender_8cpp_source.html">dataSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>{</div>
+<div class="line"><span class="lineno">   27</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   28</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Distance threshold exceeded, sending data...&quot;</span>);</div>
+<div class="line"><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>    <a class="code hl_function" href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a>(<a class="code hl_variable" href="#a4a5313711bb5c7540f8522e60a914147">fullArray</a>); <span class="comment">// Lecture &amp; transformation des valeurs</span></div>
+<div class="line"><span class="lineno">   32</span>    <a class="code hl_function" href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a>(<a class="code hl_variable" href="#a4a5313711bb5c7540f8522e60a914147">fullArray</a>, PAYLOAD_SIZE); <span class="comment">// Envoi des valeurs </span></div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>    <a class="code hl_variable" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(); <span class="comment">// Stockage des coordonnées actuelle pour future comparaison</span></div>
+<div class="line"><span class="lineno">   35</span>    <a class="code hl_variable" href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng(); </div>
+<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   37</span>    <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP; <span class="comment">// Passage dans l&#39;état STATE_SLEEP une fois l&#39;envoi réalisé qu&#39;il soit un échec ou une réussite</span></div>
+<div class="line"><span class="lineno">   38</span>}</div>
+<div class="ttc" id="adataSender_8cpp_html_a4a5313711bb5c7540f8522e60a914147"><div class="ttname"><a href="#a4a5313711bb5c7540f8522e60a914147">fullArray</a></div><div class="ttdeci">uint8_t fullArray[PAYLOAD_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="dataSender_8cpp_source.html#l00016">dataSender.cpp:16</a></div></div>
+<div class="ttc" id="agps_8cpp_html_a3c87e8abead8833a75225ffefa9dbfe0"><div class="ttname"><a href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a></div><div class="ttdeci">double previousLongitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00027">gps.cpp:27</a></div></div>
+<div class="ttc" id="agps_8cpp_html_ab9850920892b5e65e55e0abb6ef29e5c"><div class="ttname"><a href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a></div><div class="ttdeci">void readGPSStoreAsBytes(uint8_t *fullArray)</div><div class="ttdoc">Lit les variables fournies par le module GPS et les stocke sous forme d&#39;octets.</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00042">gps.cpp:42</a></div></div>
+<div class="ttc" id="agps_8cpp_html_af599e1dd1a7fba187c3cc26b8df8c792"><div class="ttname"><a href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></div><div class="ttdeci">Air530ZClass GPS</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00017">gps.cpp:17</a></div></div>
+<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00022">gps.cpp:22</a></div></div>
+<div class="ttc" id="aloraWAN_8cpp_html_aac25dd8510adc6a52c8e08015151ed6a"><div class="ttname"><a href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a></div><div class="ttdeci">void sendData(uint8_t *fullArray, size_t length)</div><div class="ttdoc">Envoyer les données via le module LoRa de la carte.</div><div class="ttdef"><b>Definition</b> <a href="loraWAN_8cpp_source.html#l00068">loraWAN.cpp:68</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_aba4c8fc4a7e4cc4be5f1774da46d4400"><div class="ttname"><a href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a></div><div class="ttdeci">device_state_t mcuStatus</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00022">powerManagement.cpp:22</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a4a5313711bb5c7540f8522e60a914147" name="a4a5313711bb5c7540f8522e60a914147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5313711bb5c7540f8522e60a914147">&#9670;&#160;</a></span>fullArray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t fullArray[PAYLOAD_SIZE] = {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Variable fullArray pour le stockage des valeurs fournies par le GPS La taille PAYLOAD_SIZE est calculé à la compilation dans config.h selon les flags présent la taille est modifié </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="dataSender_8cpp_source.html#l00016">16</a> du fichier <a class="el" href="dataSender_8cpp_source.html">dataSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>{0};</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

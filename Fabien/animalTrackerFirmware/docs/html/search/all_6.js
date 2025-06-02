@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['powermanagement_2ecpp_0',['powerManagement.cpp',['../powerManagement_8cpp.html',1,'']]],
-  ['previouslatitude_1',['previousLatitude',['../gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8',1,'gps.cpp']]]
+  ['onsleepwake_0',['onSleepWake',['../powerManagement_8cpp.html#afe5177a2733f72b910ff49b82b1fd2e2',1,'powerManagement.cpp']]]
 ];

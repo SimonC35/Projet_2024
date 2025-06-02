@@ -150,27 +150,30 @@ Fonctions</h2></td></tr>
 <p class="definition">Définition à la ligne <a class="el" href="main_8cpp_source.html#l00059">59</a> du fichier <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   60</span>{</div>
 <div class="line"><span class="lineno">   61</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   62</span>    Serial.printf(<span class="stringliteral">&quot;\n\n/!\\ Start of the loop() function /!\\\n\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   62</span>    Serial.printf(<span class="stringliteral">&quot;------------------------\n\n/!\\ Start of the loop() function /!\\\n\n&quot;</span>);</div>
 <div class="line"><span class="lineno">   63</span><span class="preprocessor">    #endif DEBUG</span></div>
 <div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">switch</span> (mcuStatus) {</div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">switch</span> (<a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a>) {</div>
 <div class="line"><span class="lineno">   66</span>    <span class="keywordflow">case</span> STATE_GPS_ACQUIRE:</div>
-<div class="line"><span class="lineno">   67</span>        gpsAcquire();</div>
+<div class="line"><span class="lineno">   67</span>        <a class="code hl_function" href="gps_8cpp.html#a388b1647d2c11991865d4a1315847fa3">gpsAcquire</a>();</div>
 <div class="line"><span class="lineno">   68</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   69</span> </div>
 <div class="line"><span class="lineno">   70</span>    <span class="keywordflow">case</span> STATE_SEND_THRESHOLD_EXCEEDED:</div>
-<div class="line"><span class="lineno">   71</span>        readSendData();</div>
+<div class="line"><span class="lineno">   71</span>        <a class="code hl_function" href="dataSender_8cpp.html#af8a7557c706cb0a798661f2b2d09d9ef">readSendData</a>();</div>
 <div class="line"><span class="lineno">   72</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   73</span> </div>
 <div class="line"><span class="lineno">   74</span>    <span class="keywordflow">case</span> STATE_SLEEP:</div>
 <div class="line"><span class="lineno">   75</span>        lowPowerSleep();</div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   77</span> </div>
-<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">   79</span>        mcuStatus = STATE_SLEEP;</div>
+<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">default</span>:    <span class="comment">// Cas par défaut, la carte est mise en sommeil si l&#39;état est inconnu ou corrompu</span></div>
+<div class="line"><span class="lineno">   79</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP;</div>
 <div class="line"><span class="lineno">   80</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">   81</span>    }</div>
 <div class="line"><span class="lineno">   82</span>}</div>
+<div class="ttc" id="adataSender_8cpp_html_af8a7557c706cb0a798661f2b2d09d9ef"><div class="ttname"><a href="dataSender_8cpp.html#af8a7557c706cb0a798661f2b2d09d9ef">readSendData</a></div><div class="ttdeci">void readSendData()</div><div class="ttdoc">Réaliser la transformation des données et l&#39;envoi des données via LoRa.</div><div class="ttdef"><b>Definition</b> <a href="dataSender_8cpp_source.html#l00025">dataSender.cpp:25</a></div></div>
+<div class="ttc" id="agps_8cpp_html_a388b1647d2c11991865d4a1315847fa3"><div class="ttname"><a href="gps_8cpp.html#a388b1647d2c11991865d4a1315847fa3">gpsAcquire</a></div><div class="ttdeci">void gpsAcquire()</div><div class="ttdoc">Lit les variables fournies par le module GPS et les stocke sous forme d&#39;octets.</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00212">gps.cpp:212</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_aba4c8fc4a7e4cc4be5f1774da46d4400"><div class="ttname"><a href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a></div><div class="ttdeci">device_state_t mcuStatus</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00022">powerManagement.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -202,26 +205,27 @@ Fonctions</h2></td></tr>
 <div class="line"><span class="lineno">   31</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   32</span> </div>
 <div class="line"><span class="lineno">   33</span><span class="preprocessor">#ifndef NOLORAWAN</span></div>
-<div class="line"><span class="lineno">   34</span>    <a class="code hl_function" href="loraWAN_8cpp.html#aaa9f2c9bc4be8ea8857231146ec620a0">configureJoinTTN</a>();</div>
+<div class="line"><span class="lineno">   34</span>    <a class="code hl_function" href="loraWAN_8cpp.html#aaa9f2c9bc4be8ea8857231146ec620a0">configureJoinTTN</a>(); <span class="comment">// Configuration de la liaison TTN</span></div>
 <div class="line"><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>    gpsAcquire();</div>
+<div class="line"><span class="lineno">   37</span>    <a class="code hl_function" href="gps_8cpp.html#a388b1647d2c11991865d4a1315847fa3">gpsAcquire</a>(); <span class="comment">// Première acquisition des données GPS</span></div>
 <div class="line"><span class="lineno">   38</span> </div>
-<div class="line"><span class="lineno">   39</span>    <a class="code hl_function" href="powerManagement_8cpp.html#abb6608094cd8dbee51a1db2c6ee283a3">configureTimer</a>();</div>
+<div class="line"><span class="lineno">   39</span>    <a class="code hl_function" href="powerManagement_8cpp.html#abb6608094cd8dbee51a1db2c6ee283a3">configureTimer</a>(); <span class="comment">// Configuration du timer</span></div>
 <div class="line"><span class="lineno">   40</span> </div>
-<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) {</div>
-<div class="line"><span class="lineno">   42</span>        <a class="code hl_variable" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat();</div>
-<div class="line"><span class="lineno">   43</span>        previousLongitude = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng();</div>
-<div class="line"><span class="lineno">   44</span>        mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED;</div>
+<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) { <span class="comment">// Vérification de la validité de la position</span></div>
+<div class="line"><span class="lineno">   42</span>        <a class="code hl_variable" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(); <span class="comment">// Sauvegarde de la position pour future comparaison</span></div>
+<div class="line"><span class="lineno">   43</span>        <a class="code hl_variable" href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng();</div>
+<div class="line"><span class="lineno">   44</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SEND_THRESHOLD_EXCEEDED; <span class="comment">// Passe de la carte dans l&#39;état STATE_SEND_THRESHOLD_EXCEEDED dans le cas ou les coordonnées sont valides</span></div>
 <div class="line"><span class="lineno">   45</span> </div>
 <div class="line"><span class="lineno">   46</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   47</span>        mcuStatus = STATE_GPS_ACQUIRE;</div>
+<div class="line"><span class="lineno">   47</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_GPS_ACQUIRE; <span class="comment">// Dans le cas ou les coordonnées ne sont pas valides la carte est mise dans l&#39;état STATE_GPS_ACQUIRE, l&#39;état sommeil</span></div>
 <div class="line"><span class="lineno">   48</span>    }</div>
 <div class="line"><span class="lineno">   49</span>}</div>
+<div class="ttc" id="agps_8cpp_html_a3c87e8abead8833a75225ffefa9dbfe0"><div class="ttname"><a href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a></div><div class="ttdeci">double previousLongitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00027">gps.cpp:27</a></div></div>
 <div class="ttc" id="agps_8cpp_html_af599e1dd1a7fba187c3cc26b8df8c792"><div class="ttname"><a href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></div><div class="ttdeci">Air530ZClass GPS</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00017">gps.cpp:17</a></div></div>
-<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00024">gps.cpp:24</a></div></div>
-<div class="ttc" id="aloraWAN_8cpp_html_aaa9f2c9bc4be8ea8857231146ec620a0"><div class="ttname"><a href="loraWAN_8cpp.html#aaa9f2c9bc4be8ea8857231146ec620a0">configureJoinTTN</a></div><div class="ttdeci">void configureJoinTTN()</div><div class="ttdoc">Initialiser la connexion LoRaWAN via OTAA pour TTN.</div><div class="ttdef"><b>Definition</b> <a href="loraWAN_8cpp_source.html#l00029">loraWAN.cpp:29</a></div></div>
-<div class="ttc" id="apowerManagement_8cpp_html_abb6608094cd8dbee51a1db2c6ee283a3"><div class="ttname"><a href="powerManagement_8cpp.html#abb6608094cd8dbee51a1db2c6ee283a3">configureTimer</a></div><div class="ttdeci">void configureTimer()</div><div class="ttdoc">Initialiser la connexion LoRaWAN via OTAA pour TTN.</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00032">powerManagement.cpp:32</a></div></div>
+<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00022">gps.cpp:22</a></div></div>
+<div class="ttc" id="aloraWAN_8cpp_html_aaa9f2c9bc4be8ea8857231146ec620a0"><div class="ttname"><a href="loraWAN_8cpp.html#aaa9f2c9bc4be8ea8857231146ec620a0">configureJoinTTN</a></div><div class="ttdeci">void configureJoinTTN()</div><div class="ttdoc">Initialiser la connexion LoRaWAN via OTAA pour TTN.</div><div class="ttdef"><b>Definition</b> <a href="loraWAN_8cpp_source.html#l00033">loraWAN.cpp:33</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_abb6608094cd8dbee51a1db2c6ee283a3"><div class="ttname"><a href="powerManagement_8cpp.html#abb6608094cd8dbee51a1db2c6ee283a3">configureTimer</a></div><div class="ttdeci">void configureTimer()</div><div class="ttdoc">Initialiser la connexion LoRaWAN via OTAA pour TTN.</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00038">powerManagement.cpp:38</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

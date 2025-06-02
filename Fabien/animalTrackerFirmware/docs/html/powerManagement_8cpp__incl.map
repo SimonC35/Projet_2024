@@ -1,17 +1,15 @@
 <map id="/home/jerta/Bureau/Projet/Projet_2024/Fabien/animalTrackerFirmware/src/powerManagement.cpp" name="/home/jerta/Bureau/Projet/Projet_2024/Fabien/animalTrackerFirmware/src/powerManagement.cpp">
-<area shape="rect" id="Node000001" title="Gestion de l&#39;energie." alt="" coords="300,5,523,84"/>
+<area shape="rect" id="Node000001" title="Gestion de l&#39;energie." alt="" coords="249,5,473,84"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,132,165,160"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="300,82,144,130,142,124,299,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,87,137,129,135,124,252,82"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="189,132,261,160"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="340,87,264,127,262,122,337,82"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="309,87,257,125,254,120,306,82"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="285,132,336,160"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,86,336,123,333,119,370,82"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="344,86,326,119,322,117,339,83"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="360,132,463,160"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="414,84,414,116,409,116,409,84"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="383,83,400,117,396,119,378,86"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="487,132,571,160"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="459,83,504,120,500,124,456,87"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="428,82,495,122,492,126,426,87"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="594,132,650,160"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="495,82,582,123,580,128,493,87"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="674,132,741,160"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="525,81,661,126,659,131,523,86"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="464,82,580,126,578,131,463,87"/>
 </map>

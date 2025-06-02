@@ -1,7 +1,7 @@
 /**
  * @file powerManagement.cpp
  * @brief Gestion de l'energie.
- * @author Prenom
+ * @author Fabien
  * @date 05 2025
  * @version 1.0
  * 

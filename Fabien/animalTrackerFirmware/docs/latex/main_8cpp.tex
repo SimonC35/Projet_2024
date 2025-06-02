@@ -64,24 +64,24 @@ Définition à la ligne \mbox{\hyperlink{main_8cpp_source_l00059}{59}} du fichie
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00060\ \{}
 \DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00062\ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n/!\(\backslash\)\(\backslash\)\ Start\ of\ the\ loop()\ function\ /!\(\backslash\)\(\backslash\)\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{00062\ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n/!\(\backslash\)\(\backslash\)\ Start\ of\ the\ loop()\ function\ /!\(\backslash\)\(\backslash\)\(\backslash\)n\(\backslash\)n"{}});}
 \DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \#endif\ DEBUG}}
 \DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{switch}\ (mcuStatus)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}})\ \{}
 \DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_GPS\_ACQUIRE:}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ gpsAcquire();}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gps_8cpp_a388b1647d2c11991865d4a1315847fa3}{gpsAcquire}}();}
 \DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00069\ }
 \DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SEND\_THRESHOLD\_EXCEEDED:}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ readSendData();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dataSender_8cpp_af8a7557c706cb0a798661f2b2d09d9ef}{readSendData}}();}
 \DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00073\ }
 \DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{case}\ STATE\_SLEEP:}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ lowPowerSleep();}
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SLEEP;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \ \textcolor{comment}{//\ Cas\ par\ défaut,\ la\ carte\ est\ mise\ en\ sommeil\ si\ l'état\ est\ inconnu\ ou\ corrompu}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SLEEP;}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00081\ \ \ \ \ \}}
 \DoxyCodeLine{00082\ \}}
@@ -116,20 +116,20 @@ Définition à la ligne \mbox{\hyperlink{main_8cpp_source_l00025}{25}} du fichie
 \DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ NOLORAWAN}}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}{configureJoinTTN}}();}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}{configureJoinTTN}}();\ \textcolor{comment}{//\ Configuration\ de\ la\ liaison\ TTN}}
 \DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ gpsAcquire();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_a388b1647d2c11991865d4a1315847fa3}{gpsAcquire}}();\ \textcolor{comment}{//\ Première\ acquisition\ des\ données\ GPS}}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configureTimer}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configureTimer}}();\ \textcolor{comment}{//\ Configuration\ du\ timer}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}}\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat();}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ previousLongitude\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng();}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{\ \textcolor{comment}{//\ Vérification\ de\ la\ validité\ de\ la\ position}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}}\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat();\ \textcolor{comment}{//\ Sauvegarde\ de\ la\ position\ pour\ future\ comparaison}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gps_8cpp_a3c87e8abead8833a75225ffefa9dbfe0}{previousLongitude}}\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;\ \textcolor{comment}{//\ Passe\ de\ la\ carte\ dans\ l'état\ STATE\_SEND\_THRESHOLD\_EXCEEDED\ dans\ le\ cas\ ou\ les\ coordonnées\ sont\ valides}}
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_GPS\_ACQUIRE;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_GPS\_ACQUIRE;\ \textcolor{comment}{//\ Dans\ le\ cas\ ou\ les\ coordonnées\ ne\ sont\ pas\ valides\ la\ carte\ est\ mise\ dans\ l'état\ STATE\_GPS\_ACQUIRE,\ l'état\ sommeil}}
 \DoxyCodeLine{00048\ \ \ \ \ \}}
 \DoxyCodeLine{00049\ \}}
 

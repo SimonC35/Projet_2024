@@ -1,3 +1,11 @@
+/**
+ * @file gps.h
+ * @brief Définition des fonctions en rapport avec le GPS
+ * 
+ * @author Fabien
+ * @date 04 2025
+ * @version 1.0
+ */
 #ifndef GPS_H
 #define GPS_H
 
@@ -7,9 +15,18 @@
 #include "config.h"
 #include "powerManagement.h"
 
+/**
+ * Création d'une instance de la classe Air530ZClass nommée GPS,
+ * utilisée pour interagir avec le module GPS Air530Z.
+ */
 extern Air530ZClass GPS;
-
+/**
+ * Variable extern définit dans le .cpp associé pour stocker la latitude précédente de localisation GPS.
+ */
 extern double previousLatitude;
+/**
+ * Variable extern définit dans le .cpp associé pour stocker la longitude précédente de localisation GPS.
+ */
 extern double previousLongitude;
 
 void readGPSStoreAsBytes(uint8_t *fullArray);

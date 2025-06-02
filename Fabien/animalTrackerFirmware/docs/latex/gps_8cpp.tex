@@ -16,10 +16,10 @@ Graphe des dépendances par inclusion de gps.\+cpp\+:\nopagebreak
 \doxysubsubsection*{Fonctions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{gps_8cpp_ab9850920892b5e65e55e0abb6ef29e5c}{read\+GPSStore\+As\+Bytes}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}full\+Array)
+void \mbox{\hyperlink{gps_8cpp_ab9850920892b5e65e55e0abb6ef29e5c}{read\+GPSStore\+As\+Bytes}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{full\+Array}})
 \begin{DoxyCompactList}\small\item\em Lit les variables fournies par le module GPS et les stocke sous forme d\textquotesingle{}octets. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gps_8cpp_a388b1647d2c11991865d4a1315847fa3}{gps\+Acquire}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Lit les variables fournies par le module GPS et les stocke sous forme d\textquotesingle{}octets. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -57,49 +57,66 @@ void gps\+Acquire (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00191}{191}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
+Lit les variables fournies par le module GPS et les stocke sous forme d\textquotesingle{}octets. 
+
+Cette fonction réalise l\textquotesingle{}acquisition des données du GPS, c\textquotesingle{}est à dire l\textquotesingle{}allumage de celui-\/ci
+
+\begin{DoxyNote}{Note}
+Cette fonction est appelée lorsque le système est dans l\textquotesingle{}état STATE\+\_\+\+GPS\+\_\+\+ACQUIRE. 
+\end{DoxyNote}
+
+
+Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00212}{212}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00192\ \{}
-\DoxyCodeLine{00193\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.begin();}
-\DoxyCodeLine{00194\ \ \ \ \ delay(1000);}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Acquiring\ GPS..."{}});}
-\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \ \ \ \ uint32\_t\ start\ =\ millis();}
-\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{while}\ ((millis()\ -\/\ start)\ <\ GPS\_UPDATE\_TIMEOUT)\ \{}
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.available())\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.encode(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.read());}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.age()\ <\ 1000)\ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00204\ \ \ \ \ \}}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{}
-\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Invalid\ GPS.\ Skipping\ send."{}});}
-\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SLEEP;}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00212\ \ \ \ \ \}}
-\DoxyCodeLine{00213\ }
-\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.distanceBetween(\mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}},\ previousLongitude,\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat(),\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng());}
+\DoxyCodeLine{00213\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.begin();\ \textcolor{comment}{//\ Démarrage\ du\ GPS,\ mise\ en\ tension\ via\ les\ broches\ nécessaire,\ initialisation\ baudrate}}
 \DoxyCodeLine{00215\ }
 \DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Previous:\ \%.6f\ /\ \%.6f\(\backslash\)n"{}},\ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}},\ previousLongitude);}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Current\ :\ \%.6f\ /\ \%.6f\(\backslash\)n"{}},\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat(),\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng());}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Distance:\ \%.2f\ meters\(\backslash\)n"{}},\ distance);}
-\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Acquiring\ GPS..."{}});}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ uint32\_t\ start\ =\ millis();\ \textcolor{comment}{//\ Stockage\ du\ temps\ de\ départ,\ millisecondes\ depuis\ le\ lancement\ de\ la\ carte.}}
 \DoxyCodeLine{00221\ }
-\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{if}\ (DISTANCE\_THRESHOLD\ ==\ 0.0\ ||\ distance\ >\ DISTANCE\_THRESHOLD)\ \{}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;}
-\DoxyCodeLine{00224\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ No\ significant\ movement."{}});}
-\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ mcuStatus\ =\ STATE\_SLEEP;}
-\DoxyCodeLine{00229\ \ \ \ \ \}}
-\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{while}\ ((millis()\ -\/\ start)\ <\ GPS\_UPDATE\_TIMEOUT)\ \{\ \textcolor{comment}{//\ Timer\ simple.\ millis()\ (temps\ actuel)\ -\/\ start\ donne\ le\ temps\ écoulé\ dans\ le\ contexte\ du\ timer.}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ ce\ temps\ viens\ à\ dépasser\ GPS\_UPDATE\_TIME\ alors\ sortie\ de\ boucle}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.available())\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.encode(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.read());}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tant\ que\ des\ données\ sont\ disponibles\ dans\ le\ flux\ GPS,\ on\ lit\ et\ on\ décode.}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GPS.read()\ lit\ le\ flux\ série\ NMEA\ fournit\ par\ le\ GPS}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GPS.encode()\ interprète\ pour\ mettre\ à\ jour\ des\ attributs\ interne\ à\ l'objet\ GPS}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.age()\ <\ 1000)\ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ Si\ la\ position\ GPS\ est\ récente,\ on\ considère\ qu'elle\ est\ présente,\ sortie\ de\ la\ boucle}}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{\ \ \textcolor{comment}{//\ Si\ la\ position\ est\ invalide,\ passage\ de\ la\ carte\ dans\ l'état\ STATE\_SLEEP\ et\ sortie\ de\ la\ fonction}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Invalid\ GPS.\ Skipping\ send."{}});}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SLEEP;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00240\ \ \ \ \ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.distanceBetween(\mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}},\ \mbox{\hyperlink{gps_8cpp_a3c87e8abead8833a75225ffefa9dbfe0}{previousLongitude}},\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat(),\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng());\ \textcolor{comment}{//\ Calcul\ de\ la\ distance\ parcourue}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Previous:\ \%.6f\ /\ \%.6f\(\backslash\)n"{}},\ \mbox{\hyperlink{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8}{previousLatitude}},\ \mbox{\hyperlink{gps_8cpp_a3c87e8abead8833a75225ffefa9dbfe0}{previousLongitude}});}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Current\ :\ \%.6f\ /\ \%.6f\(\backslash\)n"{}},\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat(),\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng());\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Distance:\ \%.2f\ meters\(\backslash\)n"{}},\ distance);}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{if}\ (DISTANCE\_THRESHOLD\ ==\ 0.0\ ||\ distance\ >\ DISTANCE\_THRESHOLD)\ \{\ \textcolor{comment}{//\ Si\ la\ distance\ parcourue\ est\ supérieur\ au\ seuil\ déclaré\ dans}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ config.h\ (DISTANCE\_THRESHOLD)\ alors\ on\ passe\ la\ carte\ dans\ l'état\ STATE\_SEND\_THRESHOLD\_EXCEEDED}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SEND\_THRESHOLD\_EXCEEDED;}
+\DoxyCodeLine{00253\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ Dans\ le\ cas\ ou\ la\ distance\ parcourue\ n'est\ pas\ suffisante,\ on\ passe\ la\ carte\ dans\ l'état\ STATE\_SLEEP}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ No\ significant\ movement."{}});}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SLEEP;}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \}}
 
 \end{DoxyCode}
 \Hypertarget{gps_8cpp_ab9850920892b5e65e55e0abb6ef29e5c}\index{gps.cpp@{gps.cpp}!readGPSStoreAsBytes@{readGPSStoreAsBytes}}
@@ -119,161 +136,162 @@ Par souci de performance, trois variables temporaires de taille 1, 2 et 4 octets
 \begin{DoxyNote}{Note}
 Cette fonction est appelée lorsque le système est dans l\textquotesingle{}état STATE\+\_\+\+SEND\+\_\+\+THRESHOLD\+\_\+\+EXCEEDED. 
 \end{DoxyNote}
+Variable 1 octet non signé pour traitement temporaire
 
+Variable 2 octets non signés pour traitement temporaire
 
-Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00040}{40}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
+Variable 4 octets non signés pour traitement temporaire
+
+Variable 4 octets signées pour traitement temporaire
+
+Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00042}{42}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00041\ \{}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ uint8\_t\ *ptr\ =\ fullArray;\ \textcolor{comment}{//\ ptr\ est\ un\ pointeur\ de\ type\ octet\ non\ signé\ (uint8\_t)\ qui\ pointe\ vers\ l'adresse\ de\ début\ de\ fullArray}}
+\DoxyCodeLine{00043\ \{}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ tempUint8\_t\ =\ 0;}
-\DoxyCodeLine{00046\ \ \ \ \ uint16\_t\ tempUint16\_t\ =\ 0;}
-\DoxyCodeLine{00047\ \ \ \ \ uint32\_t\ tempUint32\_t\ =\ 0;}
-\DoxyCodeLine{00048\ \ \ \ \ int32\_t\ tempInt32\_t\ =\ 0;}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ GPS\_COORDS\ }}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{\ \textcolor{comment}{//\ Si\ les\ coordonnées\ sont\ valides,\ le\ traitement\ est\ effectué}}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x01;\ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ de\ l'identifiant\ 1\ correspondant\ aux\ coordonnées\ GPS\ (latitude,\ longitude)}}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));\ \textcolor{comment}{//\ Copie\ vers\ ptr\ de\ l'identifiant}}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);\ \textcolor{comment}{//\ Avancer\ le\ pointeur\ pour\ préparer\ la\ copie\ des\ autres\ données\ (memcpy\ ne\ modifie\ pas\ la\ position\ du\ pointeur\ il\ faut\ donc\ incrémenter)}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ tempInt32\_t\ =\ (int32\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat()\ *\ digitPrecision5);}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Conversion\ de\ la\ latitude\ :\ }}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Multiplication\ par\ 100'000\ pour\ conserver\ une\ précision\ de\ 5\ chiffres\ après\ la\ virgule}}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cast\ en\ entier\ signée}}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempInt32\_t,\ \textcolor{keyword}{sizeof}(int32\_t));\ \textcolor{comment}{//\ Copie\ de\ la\ latitude\ convertie\ vers\ ptr\ sur\ 4\ octets}}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);\ \textcolor{comment}{//\ Avancer\ le\ pointeur\ pour\ préparer\ la\ copie\ des\ autres\ données\ }}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}GPS\ Coordinates\ added:\ Lat=\%d"{}},\ tempInt32\_t);}
-\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ tempInt32\_t\ =\ (int32\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng()\ *\ digitPrecision5);}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempInt32\_t,\ \textcolor{keyword}{sizeof}(int32\_t));}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\ Lng=\%d\(\backslash\)n"{}},\ tempInt32\_t);}
-\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00074\ \ \ \ \ \}}
-\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifdef\ GPS\_ALT}}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.isValid())\ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x02;}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ *ptr\ =\ \mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{fullArray}};\ \textcolor{comment}{//\ ptr\ est\ un\ pointeur\ de\ type\ octet\ non\ signé\ (uint8\_t)\ qui\ pointe\ vers\ l'adresse\ de\ début\ de\ fullArray}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ uint8\_t\ tempUint8\_t\ =\ 0;}
+\DoxyCodeLine{00054\ \ \ \ \ uint16\_t\ tempUint16\_t\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ uint32\_t\ tempUint32\_t\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ int32\_t\ tempInt32\_t\ =\ 0;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ GPS\_COORDS}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.isValid())\ \{\ \textcolor{comment}{//\ Si\ les\ coordonnées\ sont\ valides,\ le\ traitement\ est\ effectué}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x01;\ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ de\ l'identifiant\ 1\ correspondant\ aux\ coordonnées\ GPS\ (latitude,\ longitude)}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));\ \textcolor{comment}{//\ Copie\ vers\ ptr\ de\ l'identifiant}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);\ \textcolor{comment}{//\ Avancer\ le\ pointeur\ pour\ préparer\ la\ copie\ des\ autres\ données\ (memcpy\ ne\ modifie\ pas\ la\ position\ du\ pointeur\ il\ faut\ donc\ incrémenter)}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ tempInt32\_t\ =\ (int32\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lat()\ *\ digitPrecision5);\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempInt32\_t,\ \textcolor{keyword}{sizeof}(int32\_t));\ \textcolor{comment}{//\ Copie\ de\ la\ latitude\ convertie\ vers\ ptr\ sur\ 4\ octets}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);\ \textcolor{comment}{//\ Avancer\ le\ pointeur\ pour\ préparer\ la\ copie\ des\ autres\ données\ }}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}GPS\ Coordinates\ added:\ Lat=\%d"{}},\ tempInt32\_t);}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters()\ >=\ 65535)\ tempUint16\_t\ =\ 65535;}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters()\ <=\ 0)\ tempUint16\_t\ =\ 0;}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint16\_t\ =\ (uint16\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters()\ *\ digitPrecision2);}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint16\_t,\ \textcolor{keyword}{sizeof}(uint16\_t));}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint16\_t);}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Altitude\ added:\ \%d\ meters\(\backslash\)n"{}},\ tempUint16\_t);}
-\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00095\ \ \ \ \ \}}
-\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ Add\ HDOP}}
-\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifdef\ GPS\_HDOP}}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.isValid())\ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x03;\ \textcolor{comment}{//\ Identifier\ for\ HDOP}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ >=\ 255)\ tempUint8\_t\ =\ 255;}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ <=\ 0)\ tempUint8\_t\ =\ 0;}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ *\ digitPrecision1);}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Opération\ similaire\ à\ la\ latitude}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ tempInt32\_t\ =\ (int32\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.location.lng()\ *\ digitPrecision5);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempInt32\_t,\ \textcolor{keyword}{sizeof}(int32\_t));}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\ Lng=\%d\(\backslash\)n"{}},\ tempInt32\_t);}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifdef\ GPS\_ALT}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.isValid())\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x02;\ \textcolor{comment}{//\ Identifiant\ 2\ pour\ l'altitude}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters()\ >=\ 65535.0)\ tempUint16\_t\ =\ 65535;\ \textcolor{comment}{//\ Dans\ le\ cas\ ou\ l'altitude\ dépasse\ la\ taille\ de\ 2\ octets\ non\ signés\ (65\ 535m)}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ celle-\/ci\ est\ mise\ a\ 65535}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters()\ <=\ 0)\ tempUint16\_t\ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ Si\ l'altitude\ fournie\ est\ négative\ l'altitude\ est\ mise\ à\ 0}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint16\_t\ =\ (uint16\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.altitude.meters());\ \textcolor{comment}{//\ Dans\ le\ cas\ ou\ l'altitude\ est\ entre\ les\ bornes\ 65\ 535\ et\ 0\ on\ l'encode\ correctement}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint16\_t,\ \textcolor{keyword}{sizeof}(uint16\_t));\ \textcolor{comment}{//\ Copie\ vers\ le\ pointeur}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint16\_t);\ \textcolor{comment}{//\ Avancer\ le\ pointeur}}
 \DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}HDOP\ added:\ \%d\(\backslash\)n"{}},\ tempUint8\_t);}
-\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00118\ \ \ \ \ \}}
-\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ Add\ speed}}
-\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#ifdef\ GPS\_SPEED}}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.isValid())\ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x04;\ \textcolor{comment}{//\ Identifier\ for\ speed}}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ >=\ 255)\ tempUint8\_t\ =\ 255;}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ <=\ 0)\ tempUint8\_t\ =\ 0;}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ *\ digitPrecision1);}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}/!\(\backslash\)\(\backslash\)\ SPEED\ \ value:\ \%.5f\(\backslash\)n"{}},\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps());}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Altitude\ added:\ \%d\ meters\(\backslash\)n"{}},\ tempUint16\_t);}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#ifdef\ GPS\_HDOP}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.isValid())\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x03;\ \textcolor{comment}{//\ Identifiant\ 3\ pour\ le\ HDOP}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ >\ 2550)\ tempUint8\_t\ =\ 255;\ \textcolor{comment}{//\ Borne\ 255\ }}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ <=\ 0)\ tempUint8\_t\ =\ 0;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.hdop.value()\ /\ digitPrecision1);\ \textcolor{comment}{//\ Division\ par\ 10\ pour\ une\ précision\ de\ 1\ chiffre\ après\ la\ virgule.}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}HDOP\ added:\ \%d\(\backslash\)n"{}},\ tempUint8\_t);}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Speed\ added:\ \%d\ m/s\(\backslash\)n"{}},\ tempUint8\_t);}
-\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00143\ \ \ \ \ \}}
-\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{comment}{//\ Add\ course}}
-\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifdef\ GPS\_COURSE}}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.isValid())\ \{}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x05;\ \textcolor{comment}{//\ Identifier\ for\ course}}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)\ (((\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.deg()\ *\ 255)\ /\ 360));}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Course\ added:\ \%d\ degrees\(\backslash\)n"{}},\ tempUint8\_t);}
-\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00161\ \ \ \ \ \}}
-\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#ifdef\ GPS\_SATS}}
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.isValid())\ \{}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x06;}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value()\ >=\ 255)\ tempUint8\_t\ =\ 255;}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value()\ <=\ 0)\ \{}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0;}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value();}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Satellites\ added:\ \%d\(\backslash\)n"{}},\ tempUint8\_t);}
-\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00183\ \ \ \ \ \}}
-\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00185\ }
-\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00187\ \ \ \ \ printDebugInfo(ptr\ -\/\ fullArray,\ fullArray);}
-\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifdef\ GPS\_SPEED}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.isValid())\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x04;\ \textcolor{comment}{//\ Identifiant\ 4\ pour\ la\ vitesse}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ >=\ 255)\ tempUint8\_t\ =\ 255;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ <=\ 0)\ tempUint8\_t\ =\ 0;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)(\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.speed.mps()\ *\ digitPrecision1);\ \textcolor{comment}{//\ Précision\ conservé\ respectant\ la\ précision\ fournie\ par\ la\ documentation}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Speed\ added:\ \%d\ m/s\(\backslash\)n"{}},\ tempUint8\_t);}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#ifdef\ GPS\_COURSE}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.isValid())\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x05;\ \textcolor{comment}{//\ Identifiant\ 5\ pour\ le\ cap}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.deg()\ >=\ 360)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 255;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.deg()\ <\ 0)\ tempUint8\_t\ =\ 0;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ tempUint8\_t\ =\ (uint8\_t)\ (((\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.course.deg()\ *\ 255)\ /\ 360));\ \}\ \textcolor{comment}{//\ Réechelonnage\ des\ degréees\ du\ cap\ de\ [0,360]\ vers\ [0,255]}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Course\ added:\ \%d\ degrees\(\backslash\)n"{}},\ tempUint8\_t);}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00175\ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#ifdef\ GPS\_SATS}}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.isValid())\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0x06;\ \textcolor{comment}{//\ Identifiant\ 6\ pour\ le\ nombre\ de\ sattelite}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value()\ >=\ 255)\ tempUint8\_t\ =\ 255;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value()\ <=\ 0)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ 0;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ tempUint8\_t\ =\ (uint8\_t)\ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.satellites.value();}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ memcpy(ptr,\ \&tempUint8\_t,\ \textcolor{keyword}{sizeof}(uint8\_t));}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Satellites\ added:\ \%d\(\backslash\)n"{}},\ tempUint8\_t);}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00201\ \ \ \ \ \mbox{\hyperlink{debug_8cpp_afb7b00e564cdcca52f03bafc40e170b1}{printDebugInfo}}(ptr\ -\/\ \mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{fullArray}},\ \mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{fullArray}});\ \textcolor{comment}{//\ ptr\ =\ adresse\ de\ fin.\ fullArray\ =\ adresse\ de\ début.\ L'opération\ :\ fin\ -\/\ début\ donne\ la\ taille}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00203\ \}}
 
 \end{DoxyCode}
 
@@ -295,9 +313,9 @@ Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00017}{17}} du fichier
 {\footnotesize\ttfamily \label{gps_8cpp_af5cbe348d725709e7d3ada96422e04d8} 
 double previous\+Latitude = 0.\+0}
 
-Variables pour stocker les coordonnées précédentes de localisation GPS. Ces valeurs permettent de comparer la position actuelle avec la position précédente, par exemple pour calculer une distance parcourue ou détecter un mouvement. 
+Variable pour stocker la latitude précédente de localisation GPS. 
 
-Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00024}{24}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00022}{22}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
 
 \Hypertarget{gps_8cpp_a3c87e8abead8833a75225ffefa9dbfe0}\index{gps.cpp@{gps.cpp}!previousLongitude@{previousLongitude}}
 \index{previousLongitude@{previousLongitude}!gps.cpp@{gps.cpp}}
@@ -305,7 +323,7 @@ Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00024}{24}} du fichier
 {\footnotesize\ttfamily \label{gps_8cpp_a3c87e8abead8833a75225ffefa9dbfe0} 
 double previous\+Longitude = 0.\+0}
 
+Variable pour stocker la longitude précédente de localisation GPS. 
 
-
-Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00025}{25}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{gps_8cpp_source_l00027}{27}} du fichier \mbox{\hyperlink{gps_8cpp_source}{gps.\+cpp}}.
 

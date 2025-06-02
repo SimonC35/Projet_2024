@@ -17,7 +17,7 @@
 #include "Arduino.h"
 #include "LoRaWanMinimal_APP.h"
 
-// Modules internes du projet
+// Librairies internes du projet
 #include "gps.h"              ///< Gestion du module GPS
 #include "powerManagement.h"  ///< Fonctions liées à l'économie d'énergie
 #include "loraWAN.h"          ///< Configuration et communication LoRaWAN

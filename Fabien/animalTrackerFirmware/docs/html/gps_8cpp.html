@@ -113,10 +113,11 @@ Graphe des dépendances par inclusion de gps.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Fonctions</h2></td></tr>
-<tr class="memitem:ab9850920892b5e65e55e0abb6ef29e5c" id="r_ab9850920892b5e65e55e0abb6ef29e5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a> (uint8_t *fullArray)</td></tr>
+<tr class="memitem:ab9850920892b5e65e55e0abb6ef29e5c" id="r_ab9850920892b5e65e55e0abb6ef29e5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a> (uint8_t *<a class="el" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>)</td></tr>
 <tr class="memdesc:ab9850920892b5e65e55e0abb6ef29e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les variables fournies par le module GPS et les stocke sous forme d'octets.  <br /></td></tr>
 <tr class="separator:ab9850920892b5e65e55e0abb6ef29e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a388b1647d2c11991865d4a1315847fa3" id="r_a388b1647d2c11991865d4a1315847fa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a388b1647d2c11991865d4a1315847fa3">gpsAcquire</a> ()</td></tr>
+<tr class="memdesc:a388b1647d2c11991865d4a1315847fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les variables fournies par le module GPS et les stocke sous forme d'octets.  <br /></td></tr>
 <tr class="separator:a388b1647d2c11991865d4a1315847fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -151,48 +152,62 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00191">191</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  192</span>{</div>
-<div class="line"><span class="lineno">  193</span>    <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.begin();</div>
-<div class="line"><span class="lineno">  194</span>    delay(1000);</div>
-<div class="line"><span class="lineno">  195</span> </div>
-<div class="line"><span class="lineno">  196</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  197</span>        Serial.println(<span class="stringliteral">&quot;DEBUG: Acquiring GPS...&quot;</span>);</div>
-<div class="line"><span class="lineno">  198</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  199</span> </div>
-<div class="line"><span class="lineno">  200</span>    uint32_t start = millis();</div>
-<div class="line"><span class="lineno">  201</span>    <span class="keywordflow">while</span> ((millis() - start) &lt; GPS_UPDATE_TIMEOUT) {</div>
-<div class="line"><span class="lineno">  202</span>        <span class="keywordflow">while</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.available()) <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.encode(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.read());</div>
-<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.age() &lt; 1000) <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  204</span>    }</div>
-<div class="line"><span class="lineno">  205</span> </div>
-<div class="line"><span class="lineno">  206</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) {</div>
-<div class="line"><span class="lineno">  207</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  208</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: Invalid GPS. Skipping send.&quot;</span>);</div>
-<div class="line"><span class="lineno">  209</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  210</span>        mcuStatus = STATE_SLEEP;</div>
-<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  212</span>    }</div>
-<div class="line"><span class="lineno">  213</span> </div>
-<div class="line"><span class="lineno">  214</span>    <span class="keywordtype">double</span> distance = <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.distanceBetween(<a class="code hl_variable" href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a>, previousLongitude, <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(), <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng());</div>
+<p>Lit les variables fournies par le module GPS et les stocke sous forme d'octets. </p>
+<p>Cette fonction réalise l'acquisition des données du GPS, c'est à dire l'allumage de celui-ci</p>
+<dl class="section note"><dt>Note</dt><dd>Cette fonction est appelée lorsque le système est dans l'état STATE_GPS_ACQUIRE. </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00212">212</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  213</span>{</div>
+<div class="line"><span class="lineno">  214</span>    <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.begin(); <span class="comment">// Démarrage du GPS, mise en tension via les broches nécessaire, initialisation baudrate</span></div>
 <div class="line"><span class="lineno">  215</span> </div>
 <div class="line"><span class="lineno">  216</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  217</span>        Serial.printf(<span class="stringliteral">&quot;Previous: %.6f / %.6f\n&quot;</span>, <a class="code hl_variable" href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a>, previousLongitude);</div>
-<div class="line"><span class="lineno">  218</span>        Serial.printf(<span class="stringliteral">&quot;Current : %.6f / %.6f\n&quot;</span>, <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(), <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng());</div>
-<div class="line"><span class="lineno">  219</span>        Serial.printf(<span class="stringliteral">&quot;Distance: %.2f meters\n&quot;</span>, distance);</div>
-<div class="line"><span class="lineno">  220</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  217</span>        Serial.println(<span class="stringliteral">&quot;DEBUG: Acquiring GPS...&quot;</span>);</div>
+<div class="line"><span class="lineno">  218</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  219</span> </div>
+<div class="line"><span class="lineno">  220</span>    uint32_t start = millis(); <span class="comment">// Stockage du temps de départ, millisecondes depuis le lancement de la carte.</span></div>
 <div class="line"><span class="lineno">  221</span> </div>
-<div class="line"><span class="lineno">  222</span>    <span class="keywordflow">if</span> (DISTANCE_THRESHOLD == 0.0 || distance &gt; DISTANCE_THRESHOLD) {</div>
-<div class="line"><span class="lineno">  223</span>        mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED;</div>
-<div class="line"><span class="lineno">  224</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  225</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  226</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: No significant movement.&quot;</span>);</div>
-<div class="line"><span class="lineno">  227</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  228</span>        mcuStatus = STATE_SLEEP;</div>
-<div class="line"><span class="lineno">  229</span>    }</div>
-<div class="line"><span class="lineno">  230</span>}</div>
+<div class="line"><span class="lineno">  222</span>    <span class="keywordflow">while</span> ((millis() - start) &lt; GPS_UPDATE_TIMEOUT) { <span class="comment">// Timer simple. millis() (temps actuel) - start donne le temps écoulé dans le contexte du timer.</span></div>
+<div class="line"><span class="lineno">  223</span>        <span class="comment">// Si ce temps viens à dépasser GPS_UPDATE_TIME alors sortie de boucle</span></div>
+<div class="line"><span class="lineno">  224</span> </div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">while</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.available()) <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.encode(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.read());</div>
+<div class="line"><span class="lineno">  226</span>            <span class="comment">// Tant que des données sont disponibles dans le flux GPS, on lit et on décode.</span></div>
+<div class="line"><span class="lineno">  227</span>            <span class="comment">// GPS.read() lit le flux série NMEA fournit par le GPS</span></div>
+<div class="line"><span class="lineno">  228</span>            <span class="comment">// GPS.encode() interprète pour mettre à jour des attributs interne à l&#39;objet GPS</span></div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>  </div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.age() &lt; 1000) <span class="keywordflow">break</span>; <span class="comment">// Si la position GPS est récente, on considère qu&#39;elle est présente, sortie de la boucle</span></div>
+<div class="line"><span class="lineno">  232</span>    }</div>
+<div class="line"><span class="lineno">  233</span> </div>
+<div class="line"><span class="lineno">  234</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) {  <span class="comment">// Si la position est invalide, passage de la carte dans l&#39;état STATE_SLEEP et sortie de la fonction</span></div>
+<div class="line"><span class="lineno">  235</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  236</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: Invalid GPS. Skipping send.&quot;</span>);</div>
+<div class="line"><span class="lineno">  237</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  238</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP;</div>
+<div class="line"><span class="lineno">  239</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  240</span>    }</div>
+<div class="line"><span class="lineno">  241</span> </div>
+<div class="line"><span class="lineno">  242</span>    <span class="keywordtype">double</span> distance = <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.distanceBetween(<a class="code hl_variable" href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a>, <a class="code hl_variable" href="#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a>, <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(), <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng()); <span class="comment">// Calcul de la distance parcourue</span></div>
+<div class="line"><span class="lineno">  243</span> </div>
+<div class="line"><span class="lineno">  244</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  245</span>        Serial.printf(<span class="stringliteral">&quot;Previous: %.6f / %.6f\n&quot;</span>, <a class="code hl_variable" href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a>, <a class="code hl_variable" href="#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a>);</div>
+<div class="line"><span class="lineno">  246</span>        Serial.printf(<span class="stringliteral">&quot;Current : %.6f / %.6f\n&quot;</span>, <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(), <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng()); </div>
+<div class="line"><span class="lineno">  247</span>        Serial.printf(<span class="stringliteral">&quot;Distance: %.2f meters\n&quot;</span>, distance);</div>
+<div class="line"><span class="lineno">  248</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  249</span> </div>
+<div class="line"><span class="lineno">  250</span>    <span class="keywordflow">if</span> (DISTANCE_THRESHOLD == 0.0 || distance &gt; DISTANCE_THRESHOLD) { <span class="comment">// Si la distance parcourue est supérieur au seuil déclaré dans</span></div>
+<div class="line"><span class="lineno">  251</span>        <span class="comment">// config.h (DISTANCE_THRESHOLD) alors on passe la carte dans l&#39;état STATE_SEND_THRESHOLD_EXCEEDED</span></div>
+<div class="line"><span class="lineno">  252</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SEND_THRESHOLD_EXCEEDED;</div>
+<div class="line"><span class="lineno">  253</span>    } <span class="keywordflow">else</span> { <span class="comment">// Dans le cas ou la distance parcourue n&#39;est pas suffisante, on passe la carte dans l&#39;état STATE_SLEEP</span></div>
+<div class="line"><span class="lineno">  254</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  255</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: No significant movement.&quot;</span>);</div>
+<div class="line"><span class="lineno">  256</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  257</span>        <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP;</div>
+<div class="line"><span class="lineno">  258</span>    }</div>
+<div class="line"><span class="lineno">  259</span>}</div>
+<div class="ttc" id="agps_8cpp_html_a3c87e8abead8833a75225ffefa9dbfe0"><div class="ttname"><a href="#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a></div><div class="ttdeci">double previousLongitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00027">gps.cpp:27</a></div></div>
 <div class="ttc" id="agps_8cpp_html_af599e1dd1a7fba187c3cc26b8df8c792"><div class="ttname"><a href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></div><div class="ttdeci">Air530ZClass GPS</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00017">gps.cpp:17</a></div></div>
-<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00024">gps.cpp:24</a></div></div>
+<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00022">gps.cpp:22</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_aba4c8fc4a7e4cc4be5f1774da46d4400"><div class="ttname"><a href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a></div><div class="ttdeci">device_state_t mcuStatus</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00022">powerManagement.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -215,157 +230,158 @@ Variables</h2></td></tr>
 <p>En fonction des flags de compilation présent, cette fonction ajoute dans le tableau passé en paramètre les valeurs fournies par le module GPS.</p>
 <p>Par souci de performance, trois variables temporaires de taille 1, 2 et 4 octets sont allouées et réutilisées selon la taille des données à traiter. Les valeurs sont transformées pour conserver uniquement la précision utile et éventuellement les rééchelonnées.</p>
 <dl class="section note"><dt>Note</dt><dd>Cette fonction est appelée lorsque le système est dans l'état STATE_SEND_THRESHOLD_EXCEEDED. </dd></dl>
+<p>Variable 1 octet non signé pour traitement temporaire</p>
+<p>Variable 2 octets non signés pour traitement temporaire</p>
+<p>Variable 4 octets non signés pour traitement temporaire</p>
+<p>Variable 4 octets signées pour traitement temporaire</p>
 
-<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00040">40</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   41</span>{</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>    uint8_t *ptr = fullArray; <span class="comment">// ptr est un pointeur de type octet non signé (uint8_t) qui pointe vers l&#39;adresse de début de fullArray</span></div>
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00042">42</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>{</div>
 <div class="line"><span class="lineno">   44</span> </div>
-<div class="line"><span class="lineno">   45</span>    uint8_t tempUint8_t = 0;</div>
-<div class="line"><span class="lineno">   46</span>    uint16_t tempUint16_t = 0;</div>
-<div class="line"><span class="lineno">   47</span>    uint32_t tempUint32_t = 0;</div>
-<div class="line"><span class="lineno">   48</span>    int32_t tempInt32_t = 0;</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span><span class="preprocessor">#ifdef GPS_COORDS </span></div>
-<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) { <span class="comment">// Si les coordonnées sont valides, le traitement est effectué</span></div>
-<div class="line"><span class="lineno">   52</span>        tempUint8_t = 0x01;       <span class="comment">// Ajout de l&#39;identifiant 1 correspondant aux coordonnées GPS (latitude, longitude)</span></div>
-<div class="line"><span class="lineno">   53</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t)); <span class="comment">// Copie vers ptr de l&#39;identifiant</span></div>
-<div class="line"><span class="lineno">   54</span>        ptr += <span class="keyword">sizeof</span>(uint8_t); <span class="comment">// Avancer le pointeur pour préparer la copie des autres données (memcpy ne modifie pas la position du pointeur il faut donc incrémenter)</span></div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>        tempInt32_t = (int32_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat() * digitPrecision5);</div>
-<div class="line"><span class="lineno">   57</span>        <span class="comment">// Conversion de la latitude : </span></div>
-<div class="line"><span class="lineno">   58</span>        <span class="comment">// Multiplication par 100&#39;000 pour conserver une précision de 5 chiffres après la virgule</span></div>
-<div class="line"><span class="lineno">   59</span>        <span class="comment">// Cast en entier signée</span></div>
-<div class="line"><span class="lineno">   60</span>        memcpy(ptr, &amp;tempInt32_t, <span class="keyword">sizeof</span>(int32_t)); <span class="comment">// Copie de la latitude convertie vers ptr sur 4 octets</span></div>
-<div class="line"><span class="lineno">   61</span>        ptr += <span class="keyword">sizeof</span>(int32_t); <span class="comment">// Avancer le pointeur pour préparer la copie des autres données </span></div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   64</span>        Serial.printf(<span class="stringliteral">&quot;GPS Coordinates added: Lat=%d&quot;</span>, tempInt32_t);</div>
-<div class="line"><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>        tempInt32_t = (int32_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng() * digitPrecision5);</div>
-<div class="line"><span class="lineno">   68</span>        memcpy(ptr, &amp;tempInt32_t, <span class="keyword">sizeof</span>(int32_t));</div>
-<div class="line"><span class="lineno">   69</span>        ptr += <span class="keyword">sizeof</span>(int32_t);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   72</span>        Serial.printf(<span class="stringliteral">&quot; Lng=%d\n&quot;</span>, tempInt32_t);</div>
-<div class="line"><span class="lineno">   73</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   74</span>    }</div>
-<div class="line"><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span><span class="preprocessor">#ifdef GPS_ALT</span></div>
-<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.isValid()) {</div>
-<div class="line"><span class="lineno">   79</span>        tempUint8_t = 0x02;</div>
-<div class="line"><span class="lineno">   80</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">   81</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   45</span>    uint8_t *ptr = <a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>; <span class="comment">// ptr est un pointeur de type octet non signé (uint8_t) qui pointe vers l&#39;adresse de début de fullArray</span></div>
+<div class="line"><span class="lineno">   46</span></div>
+<div class="line"><span class="lineno">   50</span>    uint8_t tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">   54</span>    uint16_t tempUint16_t = 0;    </div>
+<div class="line"><span class="lineno">   58</span>    uint32_t tempUint32_t = 0;    </div>
+<div class="line"><span class="lineno">   62</span>    int32_t tempInt32_t = 0;</div>
+<div class="line"><span class="lineno">   63</span> </div>
+<div class="line"><span class="lineno">   64</span><span class="preprocessor">#ifdef GPS_COORDS</span></div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.isValid()) { <span class="comment">// Si les coordonnées sont valides, le traitement est effectué</span></div>
+<div class="line"><span class="lineno">   66</span>        tempUint8_t = 0x01;       <span class="comment">// Ajout de l&#39;identifiant 1 correspondant aux coordonnées GPS (latitude, longitude)</span></div>
+<div class="line"><span class="lineno">   67</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t)); <span class="comment">// Copie vers ptr de l&#39;identifiant</span></div>
+<div class="line"><span class="lineno">   68</span>        ptr += <span class="keyword">sizeof</span>(uint8_t); <span class="comment">// Avancer le pointeur pour préparer la copie des autres données (memcpy ne modifie pas la position du pointeur il faut donc incrémenter)</span></div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        tempInt32_t = (int32_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat() * digitPrecision5); </div>
+<div class="line"><span class="lineno">   76</span>        memcpy(ptr, &amp;tempInt32_t, <span class="keyword">sizeof</span>(int32_t)); <span class="comment">// Copie de la latitude convertie vers ptr sur 4 octets</span></div>
+<div class="line"><span class="lineno">   77</span>        ptr += <span class="keyword">sizeof</span>(int32_t); <span class="comment">// Avancer le pointeur pour préparer la copie des autres données </span></div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   80</span>        Serial.printf(<span class="stringliteral">&quot;GPS Coordinates added: Lat=%d&quot;</span>, tempInt32_t);</div>
+<div class="line"><span class="lineno">   81</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters() &gt;= 65535) tempUint16_t = 65535;</div>
-<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters() &lt;= 0) tempUint16_t = 0;</div>
-<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   86</span>            tempUint16_t = (uint16_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters() * digitPrecision2);</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        memcpy(ptr, &amp;tempUint16_t, <span class="keyword">sizeof</span>(uint16_t));</div>
-<div class="line"><span class="lineno">   90</span>        ptr += <span class="keyword">sizeof</span>(uint16_t);</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   93</span>        Serial.printf(<span class="stringliteral">&quot;Altitude added: %d meters\n&quot;</span>, tempUint16_t);</div>
-<div class="line"><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   95</span>    }</div>
-<div class="line"><span class="lineno">   96</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>    <span class="comment">// Add HDOP</span></div>
-<div class="line"><span class="lineno">   99</span><span class="preprocessor">#ifdef GPS_HDOP</span></div>
-<div class="line"><span class="lineno">  100</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.isValid()) {</div>
-<div class="line"><span class="lineno">  101</span>        tempUint8_t = 0x03; <span class="comment">// Identifier for HDOP</span></div>
-<div class="line"><span class="lineno">  102</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  103</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() &gt;= 255) tempUint8_t = 255;</div>
-<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() &lt;= 0) tempUint8_t = 0;</div>
-<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  107</span>            tempUint8_t = (uint8_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() * digitPrecision1);</div>
-<div class="line"><span class="lineno">  108</span>        }</div>
+<div class="line"><span class="lineno">   83</span>        <span class="comment">// Opération similaire à la latitude</span></div>
+<div class="line"><span class="lineno">   84</span>        tempInt32_t = (int32_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng() * digitPrecision5);</div>
+<div class="line"><span class="lineno">   85</span>        memcpy(ptr, &amp;tempInt32_t, <span class="keyword">sizeof</span>(int32_t));</div>
+<div class="line"><span class="lineno">   86</span>        ptr += <span class="keyword">sizeof</span>(int32_t);</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   89</span>        Serial.printf(<span class="stringliteral">&quot; Lng=%d\n&quot;</span>, tempInt32_t);</div>
+<div class="line"><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   91</span>    }</div>
+<div class="line"><span class="lineno">   92</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span><span class="preprocessor">#ifdef GPS_ALT</span></div>
+<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.isValid()) {</div>
+<div class="line"><span class="lineno">   96</span>        tempUint8_t = 0x02; <span class="comment">// Identifiant 2 pour l&#39;altitude</span></div>
+<div class="line"><span class="lineno">   97</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">   98</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters() &gt;= 65535.0) tempUint16_t = 65535; <span class="comment">// Dans le cas ou l&#39;altitude dépasse la taille de 2 octets non signés (65 535m)</span></div>
+<div class="line"><span class="lineno">  101</span>                                                                    <span class="comment">// celle-ci est mise a 65535</span></div>
+<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters() &lt;= 0) tempUint16_t = 0;      <span class="comment">// Si l&#39;altitude fournie est négative l&#39;altitude est mise à 0</span></div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  104</span>            tempUint16_t = (uint16_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.altitude.meters()); <span class="comment">// Dans le cas ou l&#39;altitude est entre les bornes 65 535 et 0 on l&#39;encode correctement</span></div>
+<div class="line"><span class="lineno">  105</span>        }</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        memcpy(ptr, &amp;tempUint16_t, <span class="keyword">sizeof</span>(uint16_t)); <span class="comment">// Copie vers le pointeur</span></div>
+<div class="line"><span class="lineno">  108</span>        ptr += <span class="keyword">sizeof</span>(uint16_t); <span class="comment">// Avancer le pointeur</span></div>
 <div class="line"><span class="lineno">  109</span> </div>
-<div class="line"><span class="lineno">  110</span> </div>
-<div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  113</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  116</span>        Serial.printf(<span class="stringliteral">&quot;HDOP added: %d\n&quot;</span>, tempUint8_t);</div>
-<div class="line"><span class="lineno">  117</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  118</span>    }</div>
-<div class="line"><span class="lineno">  119</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  120</span> </div>
-<div class="line"><span class="lineno">  121</span>    <span class="comment">// Add speed</span></div>
-<div class="line"><span class="lineno">  122</span><span class="preprocessor">#ifdef GPS_SPEED</span></div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.isValid()) {</div>
-<div class="line"><span class="lineno">  124</span>        tempUint8_t = 0x04; <span class="comment">// Identifier for speed</span></div>
-<div class="line"><span class="lineno">  125</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  126</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() &gt;= 255) tempUint8_t = 255;</div>
-<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() &lt;= 0) tempUint8_t = 0;</div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  131</span>            tempUint8_t = (uint8_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() * digitPrecision1);</div>
-<div class="line"><span class="lineno">  132</span>        }</div>
-<div class="line"><span class="lineno">  133</span> </div>
-<div class="line"><span class="lineno">  134</span>        Serial.printf(<span class="stringliteral">&quot;/!\\ SPEED  value: %.5f\n&quot;</span>, <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps());</div>
+<div class="line"><span class="lineno">  110</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  111</span>        Serial.printf(<span class="stringliteral">&quot;Altitude added: %d meters\n&quot;</span>, tempUint16_t);</div>
+<div class="line"><span class="lineno">  112</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="line"><span class="lineno">  114</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span><span class="preprocessor">#ifdef GPS_HDOP</span></div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.isValid()) {</div>
+<div class="line"><span class="lineno">  118</span>        tempUint8_t = 0x03; <span class="comment">// Identifiant 3 pour le HDOP</span></div>
+<div class="line"><span class="lineno">  119</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  120</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() &gt; 2550) tempUint8_t = 255; <span class="comment">// Borne 255 </span></div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() &lt;= 0) tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  124</span>            tempUint8_t = (uint8_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.hdop.value() / digitPrecision1); <span class="comment">// Division par 10 pour une précision de 1 chiffre après la virgule.</span></div>
+<div class="line"><span class="lineno">  125</span>        }</div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  128</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  129</span> </div>
+<div class="line"><span class="lineno">  130</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  131</span>        Serial.printf(<span class="stringliteral">&quot;HDOP added: %d\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  132</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  133</span>    }</div>
+<div class="line"><span class="lineno">  134</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  135</span> </div>
-<div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  138</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  139</span> </div>
-<div class="line"><span class="lineno">  140</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  141</span>        Serial.printf(<span class="stringliteral">&quot;Speed added: %d m/s\n&quot;</span>, tempUint8_t);</div>
-<div class="line"><span class="lineno">  142</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  143</span>    }</div>
-<div class="line"><span class="lineno">  144</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>    <span class="comment">// Add course</span></div>
-<div class="line"><span class="lineno">  147</span><span class="preprocessor">#ifdef GPS_COURSE</span></div>
-<div class="line"><span class="lineno">  148</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.isValid()) {</div>
-<div class="line"><span class="lineno">  149</span>        tempUint8_t = 0x05; <span class="comment">// Identifier for course</span></div>
-<div class="line"><span class="lineno">  150</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  151</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>        tempUint8_t = (uint8_t) (((<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.deg() * 255) / 360));</div>
-<div class="line"><span class="lineno">  154</span> </div>
-<div class="line"><span class="lineno">  155</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  156</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  159</span>        Serial.printf(<span class="stringliteral">&quot;Course added: %d degrees\n&quot;</span>, tempUint8_t);</div>
-<div class="line"><span class="lineno">  160</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  161</span>    }</div>
-<div class="line"><span class="lineno">  162</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  163</span> </div>
-<div class="line"><span class="lineno">  164</span><span class="preprocessor">#ifdef GPS_SATS</span></div>
-<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.isValid()) {</div>
-<div class="line"><span class="lineno">  166</span>        tempUint8_t = 0x06;</div>
-<div class="line"><span class="lineno">  167</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  168</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  169</span> </div>
-<div class="line"><span class="lineno">  170</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value() &gt;= 255) tempUint8_t = 255;</div>
-<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value() &lt;= 0) {</div>
-<div class="line"><span class="lineno">  172</span>            tempUint8_t = 0;</div>
-<div class="line"><span class="lineno">  173</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  174</span>            tempUint8_t = (uint8_t) <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value();</div>
-<div class="line"><span class="lineno">  175</span>        }</div>
-<div class="line"><span class="lineno">  176</span> </div>
-<div class="line"><span class="lineno">  177</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
-<div class="line"><span class="lineno">  178</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
-<div class="line"><span class="lineno">  179</span> </div>
-<div class="line"><span class="lineno">  180</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  181</span>        Serial.printf(<span class="stringliteral">&quot;Satellites added: %d\n&quot;</span>, tempUint8_t);</div>
-<div class="line"><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  183</span>    }</div>
-<div class="line"><span class="lineno">  184</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  185</span> </div>
-<div class="line"><span class="lineno">  186</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">  187</span>    printDebugInfo(ptr - fullArray, fullArray);</div>
-<div class="line"><span class="lineno">  188</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  189</span>}</div>
+<div class="line"><span class="lineno">  136</span><span class="preprocessor">#ifdef GPS_SPEED</span></div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.isValid()) {</div>
+<div class="line"><span class="lineno">  138</span>        tempUint8_t = 0x04; <span class="comment">// Identifiant 4 pour la vitesse</span></div>
+<div class="line"><span class="lineno">  139</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  140</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() &gt;= 255) tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() &lt;= 0) tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  145</span>            tempUint8_t = (uint8_t)(<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.speed.mps() * digitPrecision1); <span class="comment">// Précision conservé respectant la précision fournie par la documentation</span></div>
+<div class="line"><span class="lineno">  146</span>        }</div>
+<div class="line"><span class="lineno">  147</span> </div>
+<div class="line"><span class="lineno">  148</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  149</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  150</span> </div>
+<div class="line"><span class="lineno">  151</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  152</span>        Serial.printf(<span class="stringliteral">&quot;Speed added: %d m/s\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  153</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  154</span>    }</div>
+<div class="line"><span class="lineno">  155</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span><span class="preprocessor">#ifdef GPS_COURSE</span></div>
+<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.isValid()) {</div>
+<div class="line"><span class="lineno">  159</span>        tempUint8_t = 0x05; <span class="comment">// Identifiant 5 pour le cap</span></div>
+<div class="line"><span class="lineno">  160</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  161</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.deg() &gt;= 360)</div>
+<div class="line"><span class="lineno">  164</span>        {</div>
+<div class="line"><span class="lineno">  165</span>            tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">  166</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.deg() &lt; 0) tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">else</span> { tempUint8_t = (uint8_t) (((<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.course.deg() * 255) / 360)); } <span class="comment">// Réechelonnage des degréees du cap de [0,360] vers [0,255]</span></div>
+<div class="line"><span class="lineno">  168</span>             </div>
+<div class="line"><span class="lineno">  169</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  170</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  171</span> </div>
+<div class="line"><span class="lineno">  172</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  173</span>        Serial.printf(<span class="stringliteral">&quot;Course added: %d degrees\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  174</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  175</span>    }</div>
+<div class="line"><span class="lineno">  176</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  177</span> </div>
+<div class="line"><span class="lineno">  178</span><span class="preprocessor">#ifdef GPS_SATS</span></div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.isValid()) {</div>
+<div class="line"><span class="lineno">  180</span>        tempUint8_t = 0x06; <span class="comment">// Identifiant 6 pour le nombre de sattelite</span></div>
+<div class="line"><span class="lineno">  181</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  182</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value() &gt;= 255) tempUint8_t = 255;</div>
+<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value() &lt;= 0) {</div>
+<div class="line"><span class="lineno">  186</span>            tempUint8_t = 0;</div>
+<div class="line"><span class="lineno">  187</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  188</span>            tempUint8_t = (uint8_t) <a class="code hl_variable" href="#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.satellites.value();</div>
+<div class="line"><span class="lineno">  189</span>        }</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>        memcpy(ptr, &amp;tempUint8_t, <span class="keyword">sizeof</span>(uint8_t));</div>
+<div class="line"><span class="lineno">  192</span>        ptr += <span class="keyword">sizeof</span>(uint8_t);</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  195</span>        Serial.printf(<span class="stringliteral">&quot;Satellites added: %d\n&quot;</span>, tempUint8_t);</div>
+<div class="line"><span class="lineno">  196</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  197</span>    }</div>
+<div class="line"><span class="lineno">  198</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  199</span> </div>
+<div class="line"><span class="lineno">  200</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">  201</span>    <a class="code hl_function" href="debug_8cpp.html#afb7b00e564cdcca52f03bafc40e170b1">printDebugInfo</a>(ptr - <a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>, <a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>); <span class="comment">// ptr = adresse de fin. fullArray = adresse de début. L&#39;opération : fin - début donne la taille</span></div>
+<div class="line"><span class="lineno">  202</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  203</span>}</div>
+<div class="ttc" id="adataSender_8cpp_html_a4a5313711bb5c7540f8522e60a914147"><div class="ttname"><a href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a></div><div class="ttdeci">uint8_t fullArray[PAYLOAD_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="dataSender_8cpp_source.html#l00016">dataSender.cpp:16</a></div></div>
+<div class="ttc" id="adebug_8cpp_html_afb7b00e564cdcca52f03bafc40e170b1"><div class="ttname"><a href="debug_8cpp.html#afb7b00e564cdcca52f03bafc40e170b1">printDebugInfo</a></div><div class="ttdeci">void printDebugInfo(uint8_t datalen, uint8_t *data)</div><div class="ttdoc">Affichage des informations de debug.</div><div class="ttdef"><b>Definition</b> <a href="debug_8cpp_source.html#l00019">debug.cpp:19</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -398,9 +414,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Variables pour stocker les coordonnées précédentes de localisation GPS. Ces valeurs permettent de comparer la position actuelle avec la position précédente, par exemple pour calculer une distance parcourue ou détecter un mouvement. </p>
+<p>Variable pour stocker la latitude précédente de localisation GPS. </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00024">24</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00022">22</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
 
 </div>
 </div>
@@ -415,8 +431,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Variable pour stocker la longitude précédente de localisation GPS. </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00025">25</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="gps_8cpp_source.html#l00027">27</a> du fichier <a class="el" href="gps_8cpp_source.html">gps.cpp</a>.</p>
 
 </div>
 </div>

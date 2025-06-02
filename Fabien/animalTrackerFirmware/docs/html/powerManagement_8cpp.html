@@ -103,27 +103,24 @@ $(function(){ initResizable(false); });
 <code>#include &quot;low_power.h&quot;</code><br />
 <code>#include &quot;Arduino.h&quot;</code><br />
 <code>#include &quot;gps.h&quot;</code><br />
-<code>#include &quot;main.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Graphe des dépendances par inclusion de powerManagement.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="powerManagement_8cpp__incl.png" border="0" usemap="#a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2powerManagement_8cpp" alt=""/></div>
 <map name="a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2powerManagement_8cpp" id="a_2home_2jerta_2Bureau_2Projet_2Projet__2024_2Fabien_2animalTrackerFirmware_2src_2powerManagement_8cpp">
-<area shape="rect" title="Gestion de l&#39;energie." alt="" coords="300,5,523,84"/>
+<area shape="rect" title="Gestion de l&#39;energie." alt="" coords="249,5,473,84"/>
 <area shape="rect" title=" " alt="" coords="5,132,165,160"/>
-<area shape="poly" title=" " alt="" coords="300,82,144,130,142,124,299,77"/>
+<area shape="poly" title=" " alt="" coords="254,87,137,129,135,124,252,82"/>
 <area shape="rect" title=" " alt="" coords="189,132,261,160"/>
-<area shape="poly" title=" " alt="" coords="340,87,264,127,262,122,337,82"/>
+<area shape="poly" title=" " alt="" coords="309,87,257,125,254,120,306,82"/>
 <area shape="rect" title=" " alt="" coords="285,132,336,160"/>
-<area shape="poly" title=" " alt="" coords="374,86,336,123,333,119,370,82"/>
+<area shape="poly" title=" " alt="" coords="344,86,326,119,322,117,339,83"/>
 <area shape="rect" title=" " alt="" coords="360,132,463,160"/>
-<area shape="poly" title=" " alt="" coords="414,84,414,116,409,116,409,84"/>
+<area shape="poly" title=" " alt="" coords="383,83,400,117,396,119,378,86"/>
 <area shape="rect" title=" " alt="" coords="487,132,571,160"/>
-<area shape="poly" title=" " alt="" coords="459,83,504,120,500,124,456,87"/>
+<area shape="poly" title=" " alt="" coords="428,82,495,122,492,126,426,87"/>
 <area shape="rect" title=" " alt="" coords="594,132,650,160"/>
-<area shape="poly" title=" " alt="" coords="495,82,582,123,580,128,493,87"/>
-<area shape="rect" title=" " alt="" coords="674,132,741,160"/>
-<area shape="poly" title=" " alt="" coords="525,81,661,126,659,131,523,86"/>
+<area shape="poly" title=" " alt="" coords="464,82,580,126,578,131,463,87"/>
 </map>
 </div>
 </div>
@@ -137,18 +134,19 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a112e1e720a7d68f090262d492643f1a8" id="r_a112e1e720a7d68f090262d492643f1a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a112e1e720a7d68f090262d492643f1a8">lowPowerSleep</a> ()</td></tr>
 <tr class="separator:a112e1e720a7d68f090262d492643f1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe5177a2733f72b910ff49b82b1fd2e2" id="r_afe5177a2733f72b910ff49b82b1fd2e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe5177a2733f72b910ff49b82b1fd2e2">onSleepWake</a> ()</td></tr>
+<tr class="memdesc:afe5177a2733f72b910ff49b82b1fd2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réveil implicite du processeur réveiller par la fin du timer.  <br /></td></tr>
 <tr class="separator:afe5177a2733f72b910ff49b82b1fd2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aba4c8fc4a7e4cc4be5f1774da46d4400" id="r_aba4c8fc4a7e4cc4be5f1774da46d4400"><td class="memItemLeft" align="right" valign="top">device_state_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_BOOT</td></tr>
+<tr class="memitem:aba4c8fc4a7e4cc4be5f1774da46d4400" id="r_aba4c8fc4a7e4cc4be5f1774da46d4400"><td class="memItemLeft" align="right" valign="top">device_state_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP</td></tr>
 <tr class="separator:aba4c8fc4a7e4cc4be5f1774da46d4400"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4e516f1753338d728e1f75f1138f02" id="r_a4f4e516f1753338d728e1f75f1138f02"><td class="memItemLeft" align="right" valign="top">TimerEvent_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f4e516f1753338d728e1f75f1138f02">sleepWakeTimer</a></td></tr>
 <tr class="separator:a4f4e516f1753338d728e1f75f1138f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Gestion de l'energie. </p>
-<dl class="section author"><dt>Auteur</dt><dd>Prenom </dd></dl>
+<dl class="section author"><dt>Auteur</dt><dd>Fabien </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>05 2025 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0</dd></dl>
 <p>Ce fichier contient les fonctions permettant de gérer l'énergie et l'activation / désactivation de certains composants. </p>
@@ -174,11 +172,13 @@ Variables</h2></td></tr>
 <p>Permet de réaliser la première communication entre la carte et le réseau TheThingsNetwork, permet le paramètrage de la carte et l'authentification de la carte auprès de TTN.</p>
 <dl class="section note"><dt>Note</dt><dd>Les paramètres sont réglés pour l'europe en SF9 - 125KHz. </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00032">32</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   33</span>{</div>
-<div class="line"><span class="lineno">   34</span>    TimerInit(&amp;sleepWakeTimer, onSleepWake);</div>
-<div class="line"><span class="lineno">   35</span>    TimerSetValue(&amp;sleepWakeTimer, LPM_SLEEP_TIME);</div>
-<div class="line"><span class="lineno">   36</span>}</div>
+<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00038">38</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
+<div class="line"><span class="lineno">   40</span>    TimerInit(&amp;<a class="code hl_variable" href="#a4f4e516f1753338d728e1f75f1138f02">sleepWakeTimer</a>, <a class="code hl_function" href="#afe5177a2733f72b910ff49b82b1fd2e2">onSleepWake</a>); <span class="comment">// Armement du timer sleepWakeTimer, avec pour fonction de callback onSleepWake() qui est appellé à la fin du timer</span></div>
+<div class="line"><span class="lineno">   41</span>    TimerSetValue(&amp;<a class="code hl_variable" href="#a4f4e516f1753338d728e1f75f1138f02">sleepWakeTimer</a>, LPM_SLEEP_TIME); <span class="comment">// Armement du timer sleepWakeTimer, avec comme temps la variable fournie par config.h LPM_SLEEP_TIME</span></div>
+<div class="line"><span class="lineno">   42</span>}</div>
+<div class="ttc" id="apowerManagement_8cpp_html_a4f4e516f1753338d728e1f75f1138f02"><div class="ttname"><a href="#a4f4e516f1753338d728e1f75f1138f02">sleepWakeTimer</a></div><div class="ttdeci">TimerEvent_t sleepWakeTimer</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00027">powerManagement.cpp:27</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_afe5177a2733f72b910ff49b82b1fd2e2"><div class="ttname"><a href="#afe5177a2733f72b910ff49b82b1fd2e2">onSleepWake</a></div><div class="ttdeci">void onSleepWake()</div><div class="ttdoc">Réveil implicite du processeur réveiller par la fin du timer.</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00067">powerManagement.cpp:67</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -197,21 +197,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00038">38</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
-<div class="line"><span class="lineno">   40</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   41</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Entering low power mode...&quot;</span>);</div>
-<div class="line"><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   43</span> </div>
-<div class="line"><span class="lineno">   44</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   45</span>        Serial.printf(<span class="stringliteral">&quot;\nDEBUG: Starting to sleep for %d seconds...&quot;</span>, LPM_SLEEP_TIME / 1000);</div>
-<div class="line"><span class="lineno">   46</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   47</span> </div>
-<div class="line"><span class="lineno">   48</span>    <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.end();</div>
+<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00044">44</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>{</div>
+<div class="line"><span class="lineno">   46</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   47</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Entering low power mode...&quot;</span>);</div>
+<div class="line"><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>    TimerStart(&amp;sleepWakeTimer);</div>
-<div class="line"><span class="lineno">   51</span>    lowPowerHandler();</div>
-<div class="line"><span class="lineno">   52</span>}</div>
+<div class="line"><span class="lineno">   50</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   51</span>        Serial.printf(<span class="stringliteral">&quot;\nDEBUG: Starting to sleep for %d seconds...&quot;</span>, LPM_SLEEP_TIME / 1000);</div>
+<div class="line"><span class="lineno">   52</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.end(); <span class="comment">// Eteindre complétement le GPS via la méthode end()</span></div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>    TimerStart(&amp;<a class="code hl_variable" href="#a4f4e516f1753338d728e1f75f1138f02">sleepWakeTimer</a>); <span class="comment">// Démarrage du Timer</span></div>
+<div class="line"><span class="lineno">   57</span>    lowPowerHandler(); <span class="comment">// Passage du du processeur en deepSleep</span></div>
+<div class="line"><span class="lineno">   58</span>}</div>
 <div class="ttc" id="agps_8cpp_html_af599e1dd1a7fba187c3cc26b8df8c792"><div class="ttname"><a href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></div><div class="ttdeci">Air530ZClass GPS</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00017">gps.cpp:17</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -231,14 +231,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00054">54</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>{</div>
-<div class="line"><span class="lineno">   56</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   57</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Exiting low power mode, starting next cycle.&quot;</span>);</div>
-<div class="line"><span class="lineno">   58</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span>    mcuStatus = STATE_GPS_ACQUIRE;</div>
-<div class="line"><span class="lineno">   61</span>}</div>
+<p>Réveil implicite du processeur réveiller par la fin du timer. </p>
+<p>Une fois le temps du timer écoulée, cette fonction qui est une fonction de callback aux yeux du timer est appellée</p>
+<dl class="section note"><dt>Note</dt><dd>La fonction met la carte dans l'état STATE_GPS_ACQUIRE, car après un réveil il faut reccomencer le cycle en réalisant une acquisition de donnée </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00067">67</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   68</span>{</div>
+<div class="line"><span class="lineno">   69</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   70</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Exiting low power mode, starting next cycle.&quot;</span>);</div>
+<div class="line"><span class="lineno">   71</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>    <a class="code hl_variable" href="#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_GPS_ACQUIRE;</div>
+<div class="line"><span class="lineno">   74</span>}</div>
+<div class="ttc" id="apowerManagement_8cpp_html_aba4c8fc4a7e4cc4be5f1774da46d4400"><div class="ttname"><a href="#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a></div><div class="ttdeci">device_state_t mcuStatus</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00022">powerManagement.cpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -250,12 +255,13 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">device_state_t mcuStatus = STATE_BOOT</td>
+          <td class="memname">device_state_t mcuStatus = STATE_SLEEP</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Variable mcuStatus pour garder en mémoire l'état actuel de la carte </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00020">20</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00022">22</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
 
 </div>
 </div>
@@ -270,8 +276,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Objet TimerEvent_t utilisé pour gérer le timer de mise en veille/réveil. </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00021">21</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="powerManagement_8cpp_source.html#l00027">27</a> du fichier <a class="el" href="powerManagement_8cpp_source.html">powerManagement.cpp</a>.</p>
 
 </div>
 </div>

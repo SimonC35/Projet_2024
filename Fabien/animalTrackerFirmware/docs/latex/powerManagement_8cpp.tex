@@ -11,8 +11,8 @@ Gestion de l\textquotesingle{}energie.
 {\ttfamily \#include "{}low\+\_\+power.\+h"{}}\newline
 {\ttfamily \#include "{}Arduino.\+h"{}}\newline
 {\ttfamily \#include "{}gps.\+h"{}}\newline
-{\ttfamily \#include "{}main.\+h"{}}\newline
-Graphe des dépendances par inclusion de power\+Management.\+cpp\+:\nopagebreak
+Graphe des dépendances par inclusion de power\+Management.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -27,11 +27,11 @@ void \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{co
 void \mbox{\hyperlink{powerManagement_8cpp_a112e1e720a7d68f090262d492643f1a8}{low\+Power\+Sleep}} ()
 \item 
 void \mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{on\+Sleep\+Wake}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Réveil implicite du processeur réveiller par la fin du timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-device\+\_\+state\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcu\+Status}} = STATE\+\_\+\+BOOT
+device\+\_\+state\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcu\+Status}} = STATE\+\_\+\+SLEEP
 \item 
 Timer\+Event\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleep\+Wake\+Timer}}
 \end{DoxyCompactItemize}
@@ -41,7 +41,7 @@ Timer\+Event\+\_\+t \mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1
 Gestion de l\textquotesingle{}energie. 
 
 \begin{DoxyAuthor}{Auteur}
-Prenom 
+Fabien 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 05 2025 
@@ -73,14 +73,14 @@ Les paramètres sont réglés pour l\textquotesingle{}europe en SF9 -\/ 125KHz.
 \end{DoxyNote}
 
 
-Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00032}{32}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00038}{38}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00033\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ TimerInit(\&sleepWakeTimer,\ onSleepWake);}
-\DoxyCodeLine{00035\ \ \ \ \ TimerSetValue(\&sleepWakeTimer,\ LPM\_SLEEP\_TIME);}
-\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ TimerInit(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}},\ \mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{onSleepWake}});\ \textcolor{comment}{//\ Armement\ du\ timer\ sleepWakeTimer,\ avec\ pour\ fonction\ de\ callback\ onSleepWake()\ qui\ est\ appellé\ à\ la\ fin\ du\ timer}}
+\DoxyCodeLine{00041\ \ \ \ \ TimerSetValue(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}},\ LPM\_SLEEP\_TIME);\ \textcolor{comment}{//\ Armement\ du\ timer\ sleepWakeTimer,\ avec\ comme\ temps\ la\ variable\ fournie\ par\ config.h\ LPM\_SLEEP\_TIME}}
+\DoxyCodeLine{00042\ \}}
 
 \end{DoxyCode}
 \Hypertarget{powerManagement_8cpp_a112e1e720a7d68f090262d492643f1a8}\index{powerManagement.cpp@{powerManagement.cpp}!lowPowerSleep@{lowPowerSleep}}
@@ -91,24 +91,24 @@ void low\+Power\+Sleep (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00038}{38}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00044}{44}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00039\ \{}
-\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00041\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Entering\ low\ power\ mode..."{}});}
-\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Starting\ to\ sleep\ for\ \%d\ seconds..."{}},\ LPM\_SLEEP\_TIME\ /\ 1000);}
-\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.end();}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00047\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Entering\ low\ power\ mode..."{}});}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ TimerStart(\&sleepWakeTimer);}
-\DoxyCodeLine{00051\ \ \ \ \ lowPowerHandler();}
-\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Starting\ to\ sleep\ for\ \%d\ seconds..."{}},\ LPM\_SLEEP\_TIME\ /\ 1000);}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.end();\ \textcolor{comment}{//\ Eteindre\ complétement\ le\ GPS\ via\ la\ méthode\ end()}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ TimerStart(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}});\ \textcolor{comment}{//\ Démarrage\ du\ Timer}}
+\DoxyCodeLine{00057\ \ \ \ \ lowPowerHandler();\ \textcolor{comment}{//\ Passage\ du\ du\ processeur\ en\ deepSleep}}
+\DoxyCodeLine{00058\ \}}
 
 \end{DoxyCode}
 \Hypertarget{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}\index{powerManagement.cpp@{powerManagement.cpp}!onSleepWake@{onSleepWake}}
@@ -119,17 +119,26 @@ void on\+Sleep\+Wake (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00054}{54}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+Réveil implicite du processeur réveiller par la fin du timer. 
+
+Une fois le temps du timer écoulée, cette fonction qui est une fonction de callback aux yeux du timer est appellée
+
+\begin{DoxyNote}{Note}
+La fonction met la carte dans l\textquotesingle{}état STATE\+\_\+\+GPS\+\_\+\+ACQUIRE, car après un réveil il faut reccomencer le cycle en réalisant une acquisition de donnée 
+\end{DoxyNote}
+
+
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00067}{67}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00055\ \{}
-\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00057\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Exiting\ low\ power\ mode,\ starting\ next\ cycle."{}});}
-\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ mcuStatus\ =\ STATE\_GPS\_ACQUIRE;}
-\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00070\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Exiting\ low\ power\ mode,\ starting\ next\ cycle."{}});}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_GPS\_ACQUIRE;}
+\DoxyCodeLine{00074\ \}}
 
 \end{DoxyCode}
 
@@ -139,11 +148,11 @@ Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00054}{54}
 \index{mcuStatus@{mcuStatus}!powerManagement.cpp@{powerManagement.cpp}}
 \doxysubsubsection{\texorpdfstring{mcuStatus}{mcuStatus}}
 {\footnotesize\ttfamily \label{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400} 
-device\+\_\+state\+\_\+t mcu\+Status = STATE\+\_\+\+BOOT}
+device\+\_\+state\+\_\+t mcu\+Status = STATE\+\_\+\+SLEEP}
 
+Variable mcu\+Status pour garder en mémoire l\textquotesingle{}état actuel de la carte 
 
-
-Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00020}{20}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00022}{22}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
 
 \Hypertarget{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}\index{powerManagement.cpp@{powerManagement.cpp}!sleepWakeTimer@{sleepWakeTimer}}
 \index{sleepWakeTimer@{sleepWakeTimer}!powerManagement.cpp@{powerManagement.cpp}}
@@ -151,7 +160,7 @@ Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00020}{20}
 {\footnotesize\ttfamily \label{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02} 
 Timer\+Event\+\_\+t sleep\+Wake\+Timer}
 
+Objet Timer\+Event\+\_\+t utilisé pour gérer le timer de mise en veille/réveil. 
 
-
-Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00021}{21}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{powerManagement_8cpp_source_l00027}{27}} du fichier \mbox{\hyperlink{powerManagement_8cpp_source}{power\+Management.\+cpp}}.
 

@@ -1,0 +1,180 @@
+\doxysection{Référence du fichier /home/jerta/\+Bureau/\+Projet/\+Projet\+\_\+2024/\+Fabien/animal\+Tracker\+Firmware/src/debug.cpp}
+\hypertarget{debug_8cpp}{}\label{debug_8cpp}\index{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp@{/home/jerta/Bureau/Projet/Projet\_2024/Fabien/animalTrackerFirmware/src/debug.cpp}}
+
+
+Fonction de debug.  
+
+
+{\ttfamily \#include "{}debug.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+Graphe des dépendances par inclusion de debug.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{debug_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{debug_8cpp_afb7b00e564cdcca52f03bafc40e170b1}{print\+Debug\+Info}} (uint8\+\_\+t datalen, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Affichage des informations de debug. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fonction de debug. 
+
+\begin{DoxyAuthor}{Auteur}
+Fabien 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04 2025 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+Définition dans le fichier \mbox{\hyperlink{debug_8cpp_source}{debug.\+cpp}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{debug_8cpp_afb7b00e564cdcca52f03bafc40e170b1}\index{debug.cpp@{debug.cpp}!printDebugInfo@{printDebugInfo}}
+\index{printDebugInfo@{printDebugInfo}!debug.cpp@{debug.cpp}}
+\doxysubsubsection{\texorpdfstring{printDebugInfo()}{printDebugInfo()}}
+{\footnotesize\ttfamily \label{debug_8cpp_afb7b00e564cdcca52f03bafc40e170b1} 
+void print\+Debug\+Info (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{datalen}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Affichage des informations de debug. 
+
+Utilisation d\textquotesingle{}une logique de décodage basé sur les identifiants pour afficher les différentes valeurs. 
+
+Définition à la ligne \mbox{\hyperlink{debug_8cpp_source_l00019}{19}} du fichier \mbox{\hyperlink{debug_8cpp_source}{debug.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (data\ ==\ \textcolor{keyword}{nullptr}\ ||\ datalen\ ==\ 0)\ \{\ \ \textcolor{comment}{//\ Si\ le\ pointeur\ fournie\ n'est\ pas\ valide\ ou\ la\ taille\ des\ données\ est\ égale\ à\ 0,\ il\ n'y\ a\ pas\ de\ données\ à\ afficher}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fin\ de\ la\ fonction}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Invalid\ data\ pointer\ or\ empty\ data\ length."{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ DEBUG\ PAYLOAD\ -\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}RAW\ \ :\ "{}});\ \ \ \textcolor{comment}{//\ Affichage\ des\ données\ bruts,\ tableau\ complet.}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ datalen;\ ++i)\ \{\ \textcolor{comment}{//\ Parcours\ du\ tableau\ de\ 0\ à\ datalen}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\%02X\ "{}},\ data[i]);\ \ \ \ \textcolor{comment}{//\ Utilisation\ des\ indexs\ pour\ l'affichage}}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ Serial.println();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ uint8\_t\ *ptr\ =\ data;\ \textcolor{comment}{//\ Pointeur\ octet\ non\ signé\ sur\ le\ début\ du\ tableau\ de\ donnée}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{while}\ (ptr\ <\ data\ +\ datalen)\ \{\ \textcolor{comment}{//\ Tant\ que\ l'adresse\ ptr\ est\ inférieur\ à\ l'adresse\ début\ du\ tableau\ +\ taille\ alors\ on\ continue}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ >=\ data\ +\ datalen)\ \{\ \textcolor{comment}{//\ Si\ la\ taille\ à\ dépassé,\ erreur}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Pointer\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lecture\ de\ l'identifiant\ du\ champ\ de\ données\ actuel\ et\ post-\/incrémentation\ du\ pointeur.}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lit\ l'octet\ pointé\ par\ ptr\ (donc\ *ptr),\ le\ stocke\ dans\ l'octet\ identifier,\ puis\ avance\ ptr\ d'un\ octet.}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ uint8\_t\ identifier\ =\ *(ptr++);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nIdentifier:\ 0x\%02X\(\backslash\)n"{}},\ identifier);\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (identifier)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x01:\ \{\ \textcolor{comment}{//\ coordonnées}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérification\ de\ la\ taille\ restante\ du\ tableau\ :}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Il\ faut\ 8\ octets\ supplémentaires\ (2\ x\ 4\ octets\ pour\ latitude\ et\ longitude).}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ on\ dépasse\ les\ limites\ du\ tableau,\ on\ affiche\ une\ erreur\ et\ sortie\ de\ la\ fonction.}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ 2\ *\ \textcolor{keyword}{sizeof}(uint32\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ GPS\ coordinates."{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ latitude,\ longitude;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&latitude,\ ptr,\ \textcolor{keyword}{sizeof}(int32\_t));}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&longitude,\ ptr,\ \textcolor{keyword}{sizeof}(int32\_t));}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(int32\_t);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Latitude:\ \%.5f\(\backslash\)n"{}},\ latitude\ /\ digitPrecision5);\ \textcolor{comment}{//\ Opération\ inverse\ pour\ retrouvé\ la\ valeur\ réel}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Longitude:\ \%.5f\(\backslash\)n"{}},\ longitude\ /\ digitPrecision5);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x02:\ \{\ \textcolor{comment}{//\ Altitude}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérification\ de\ la\ taille\ restante\ du\ tableau\ :}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Il\ faut\ 2\ octets\ supplémentaires\ (2\ octets\ pour\ l'altitude).}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ on\ dépasse\ les\ limites\ du\ tableau,\ on\ affiche\ une\ erreur\ et\ sortie\ de\ la\ fonction.}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ \textcolor{keyword}{sizeof}(uint16\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ altitude."{}});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ altitude;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&altitude,\ ptr,\ \textcolor{keyword}{sizeof}(uint16\_t));}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ ptr\ +=\ \textcolor{keyword}{sizeof}(uint16\_t);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Altitude:\ \%d\ meters\(\backslash\)n"{}},\ altitude);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x03:\ \{\ \textcolor{comment}{//\ HDOP}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ \textcolor{keyword}{sizeof}(uint8\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ HDOP."{}});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ hdop\ =\ *(ptr++);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}HDOP:\ \%.2f\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((\textcolor{keywordtype}{float})hdop\ /\ 10.0));}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x04:\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ \textcolor{keyword}{sizeof}(uint8\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ speed."{}});}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ speed\ =\ *(ptr++);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Speed:\ \%.2f\ m/s\(\backslash\)n"{}},\ (\textcolor{keywordtype}{float})\ ((\textcolor{keywordtype}{float})speed\ /\ digitPrecision1));}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x05:\ \{\ \textcolor{comment}{//\ Course}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ \textcolor{keyword}{sizeof}(uint8\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ course."{}});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ course\ =\ *(ptr++);}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Course:\ \%.2f\ degrees\(\backslash\)n"{}},\ (course\ *\ 360.0)\ /\ 255.0\ );\ \textcolor{comment}{//\ Rééchelonnage\ [0,255]\ vers\ [0,\ 360],\ perte\ de\ précision.\ 1\ degrés\ -\/>\ 1.4\ degrés}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0x06:\ \{\ \textcolor{comment}{//\ Satellites}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ +\ \textcolor{keyword}{sizeof}(uint8\_t)\ >\ data\ +\ datalen)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error:\ Insufficient\ data\ for\ satellites."{}});}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ satellites\ =\ *(ptr++);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Satellites:\ \%d\(\backslash\)n"{}},\ satellites);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Unknown\ Identifier:\ 0x\%02X\(\backslash\)n"{}},\ identifier);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
+\DoxyCodeLine{00135\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}End\ of\ DEBUG\ PAYLOAD"{}});}
+\DoxyCodeLine{00136\ \ \ \ \ delay(1000);}
+\DoxyCodeLine{00137\ \}}
+
+\end{DoxyCode}

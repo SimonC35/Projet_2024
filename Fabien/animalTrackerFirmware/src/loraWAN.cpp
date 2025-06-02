@@ -14,6 +14,10 @@
 #include "gps.h"
 #include "main.h"
 
+/**
+ * Variable userChannelsMask, permet de définir les canaux utilisés pour la communication LoRa.
+ * Laissé par défaut, comme dans l'exemple du framework CubeCell.
+ */
 extern uint16_t userChannelsMask[6] = {0x00FF, 0, 0, 0, 0, 0};
 
 /**
@@ -75,11 +79,11 @@ void sendData(uint8_t *fullArray, size_t length)
 #ifdef DEBUG
     Serial.println("DEBUG: Sending GPS data...");
 #endif
-    bool confirmed = false;
-    int retryCount = RETRY_COUNT;
+    bool confirmed = false; // Pas  de confirmation de réception, la passerelle ne renverra pas de confirmation pour savoir si elle à bien reçu le message
+    int retryCount = RETRY_COUNT;   // Stockage de la constante (post compilation) RETRY_COUNT dans une variable pour opération future
 
     while (retryCount > 0) {
-        if (LoRaWAN.send(PAYLOAD_SIZE, fullArray, length, confirmed)) {
+        if (LoRaWAN.send(PAYLOAD_SIZE, fullArray, 1, confirmed)) { // Envoi via l'objet LoRaWAN des données sur le port 1.
     #ifdef DEBUG
                 Serial.println("Send OK");
     #endif
@@ -88,7 +92,7 @@ void sendData(uint8_t *fullArray, size_t length)
     #ifdef DEBUG
                 Serial.println("Send FAILED, retrying...");
     #endif
-            retryCount--;
+            retryCount--; // Décrément en cas d'échec
         }
     }
     #ifdef DEBUG

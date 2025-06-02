@@ -22,13 +22,12 @@ Graphe des dépendances par inclusion de lora\+WAN.\+cpp\+:\nopagebreak
 \item 
 void \mbox{\hyperlink{loraWAN_8cpp_aaa9f2c9bc4be8ea8857231146ec620a0}{configure\+Join\+TTN}} ()
 \begin{DoxyCompactList}\small\item\em Initialiser la connexion Lo\+Ra\+WAN via OTAA pour TTN. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}{send\+Data}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}full\+Array, size\+\_\+t length)
+void \mbox{\hyperlink{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}{send\+Data}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{full\+Array}}, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Envoyer les données via le module Lo\+Ra de la carte. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6}\label{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6} 
-uint16\+\_\+t {\bfseries user\+Channels\+Mask} \mbox{[}6\mbox{]} = \{0x00\+FF, 0, 0, 0, 0, 0\}
+uint16\+\_\+t \mbox{\hyperlink{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6}{user\+Channels\+Mask}} \mbox{[}6\mbox{]} = \{0x00\+FF, 0, 0, 0, 0, 0\}
 \end{DoxyCompactItemize}
 
 
@@ -70,34 +69,34 @@ Les paramètres sont réglés pour l\textquotesingle{}europe en SF9 -\/ 125KHz.
 \item[\mbox{\hyperlink{todo__todo000001}{A faire}}]Ajouter un paramètrage des variables Lo\+Ra\+WAN pour une plus grande flexibilité \end{DoxyRefDesc}
 
 
-Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00029}{29}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00033}{33}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00033\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Attempting\ to\ Join\ TTN..."{}});}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ \{}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ LoRaWAN.begin(CLASS\_A,\ LORAMAC\_REGION\_EU868);}
-\DoxyCodeLine{00037\ \ \ \ \ LoRaWAN.setAdaptiveDR(\textcolor{keyword}{false});}
-\DoxyCodeLine{00038\ \ \ \ \ LoRaWAN.setFixedDR(DR\_3);}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00037\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Attempting\ to\ Join\ TTN..."{}});}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{if}(!LoRaWAN.isJoined())\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!LoRaWAN.joinOTAA(appEui,\ appKey,\ devEui))\ \{}
-\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Failed\ to\ join\ TTN."{}});}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Retrying\ to\ join\ in\ \%d\ seconds..."{}},\ TTN\_JOIN\_FAIL\_WAIT\ /\ 1000);}
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ delay(TTN\_JOIN\_FAIL\_WAIT);}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00048\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00050\ \ \ \ \ \}}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ LoRaWAN.begin(CLASS\_A,\ LORAMAC\_REGION\_EU868);}
+\DoxyCodeLine{00041\ \ \ \ \ LoRaWAN.setAdaptiveDR(\textcolor{keyword}{false});}
+\DoxyCodeLine{00042\ \ \ \ \ LoRaWAN.setFixedDR(DR\_3);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{if}(!LoRaWAN.isJoined())\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!LoRaWAN.joinOTAA(appEui,\ appKey,\ devEui))\ \{}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Failed\ to\ join\ TTN."{}});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Retrying\ to\ join\ in\ \%d\ seconds..."{}},\ TTN\_JOIN\_FAIL\_WAIT\ /\ 1000);}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ delay(TTN\_JOIN\_FAIL\_WAIT);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \}}
 
 \end{DoxyCode}
 \Hypertarget{loraWAN_8cpp_aac25dd8510adc6a52c8e08015151ed6a}\index{loraWAN.cpp@{loraWAN.cpp}!sendData@{sendData}}
@@ -117,39 +116,55 @@ La fonction est non bloquante, en cas de réussite ou d\textquotesingle{}échec 
 \end{DoxyNote}
 
 
-Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00064}{64}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
+Définition à la ligne \mbox{\hyperlink{loraWAN_8cpp_source_l00068}{68}} du fichier \mbox{\hyperlink{loraWAN_8cpp_source}{lora\+WAN.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00065\ \{}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00068\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Sending\ GPS\ data..."{}});}
-\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ \{}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ NOLORAWAN}}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ confirmed\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{int}\ retryCount\ =\ RETRY\_COUNT;}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{while}\ (retryCount\ >\ 0)\ \{}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LoRaWAN.send(PAYLOAD\_SIZE,\ fullArray,\ length,\ confirmed))\ \{}
-\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ OK"{}});}
-\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED,\ retrying..."{}});}
-\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ retryCount-\/-\/;}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00087\ \ \ \ \ \}}
-\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (retryCount\ ==\ 0)\ \{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED\ after\ retries"{}});}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ NOLORAWAN}}
+\DoxyCodeLine{00073\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ would\ sendData\ at\ this\ point"{}});}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ NOLORAWAN}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00080\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Sending\ GPS\ data..."{}});}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ confirmed\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Pas\ \ de\ confirmation\ de\ réception,\ la\ passerelle\ ne\ renverra\ pas\ de\ confirmation\ pour\ savoir\ si\ elle\ à\ bien\ reçu\ le\ message}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ retryCount\ =\ RETRY\_COUNT;\ \ \ \textcolor{comment}{//\ Stockage\ de\ la\ constante\ (post\ compilation)\ RETRY\_COUNT\ dans\ une\ variable\ pour\ opération\ future}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{while}\ (retryCount\ >\ 0)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LoRaWAN.send(PAYLOAD\_SIZE,\ \mbox{\hyperlink{dataSender_8cpp_a4a5313711bb5c7540f8522e60a914147}{fullArray}},\ 1,\ confirmed))\ \{\ \textcolor{comment}{//\ Envoi\ via\ l'objet\ LoRaWAN\ des\ données\ sur\ le\ port\ 1.}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ OK"{}});}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED,\ retrying..."{}});}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ retryCount-\/-\/;\ \textcolor{comment}{//\ Décrément\ en\ cas\ d'échec}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (retryCount\ ==\ 0)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Send\ FAILED\ after\ retries"{}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00104\ \}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Documentation des variables}
+\Hypertarget{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6}\index{loraWAN.cpp@{loraWAN.cpp}!userChannelsMask@{userChannelsMask}}
+\index{userChannelsMask@{userChannelsMask}!loraWAN.cpp@{loraWAN.cpp}}
+\doxysubsubsection{\texorpdfstring{userChannelsMask}{userChannelsMask}}
+{\footnotesize\ttfamily \label{loraWAN_8cpp_aa91520c880940f96fc9321b289b981f6} 
+uint16\+\_\+t user\+Channels\+Mask\mbox{[}6\mbox{]} = \{0x00\+FF, 0, 0, 0, 0, 0\}\hspace{0.3cm}{\ttfamily [extern]}}
+
+Variable user\+Channels\+Mask, permet de définir les canaux utilisés pour la communication Lo\+Ra. Laissé par défaut, comme dans l\textquotesingle{}exemple du framework Cube\+Cell. 

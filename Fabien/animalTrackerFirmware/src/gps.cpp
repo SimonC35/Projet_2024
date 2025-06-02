@@ -121,7 +121,7 @@ void readGPSStoreAsBytes(uint8_t *fullArray)
         if (GPS.hdop.value() > 2550) tempUint8_t = 255; // Borne 255 
         else if (GPS.hdop.value() <= 0) tempUint8_t = 0;
         else {
-            tempUint8_t = (uint8_t)(GPS.hdop.value() / digitPrecision1); // Division par 10 nécessaire car value() fournie : hdop_réel / 100 -> donc un hdop réel de 1 = 100
+            tempUint8_t = (uint8_t)(GPS.hdop.value() / digitPrecision1); // Division par 10 pour une précision de 1 chiffre après la virgule.
         }
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
@@ -142,7 +142,7 @@ void readGPSStoreAsBytes(uint8_t *fullArray)
         if (GPS.speed.mps() >= 255) tempUint8_t = 255;
         else if (GPS.speed.mps() <= 0) tempUint8_t = 0;
         else {
-            tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision1);
+            tempUint8_t = (uint8_t)(GPS.speed.mps() * digitPrecision1); // Précision conservé respectant la précision fournie par la documentation
         }
 
         memcpy(ptr, &tempUint8_t, sizeof(uint8_t));
@@ -198,26 +198,40 @@ void readGPSStoreAsBytes(uint8_t *fullArray)
 #endif
 
 #ifdef DEBUG
-    printDebugInfo(ptr - fullArray, fullArray);
+    printDebugInfo(ptr - fullArray, fullArray); // ptr = adresse de fin. fullArray = adresse de début. L'opération : fin - début donne la taille
 #endif
 }
 
+/**
+ * @brief Lit les variables fournies par le module GPS et les stocke sous forme d'octets
+ * 
+ * Cette fonction réalise l'acquisition des données du GPS, c'est à dire l'allumage de celui-ci
+ * 
+ * @note Cette fonction est appelée lorsque le système est dans l'état STATE_GPS_ACQUIRE.
+ */
 void gpsAcquire()
 {
-    GPS.begin();
-    delay(1000);
+    GPS.begin(); // Démarrage du GPS, mise en tension via les broches nécessaire, initialisation baudrate
 
     #ifdef DEBUG
         Serial.println("DEBUG: Acquiring GPS...");
     #endif
 
-    uint32_t start = millis();
-    while ((millis() - start) < GPS_UPDATE_TIMEOUT) {
+    uint32_t start = millis(); // Stockage du temps de départ, millisecondes depuis le lancement de la carte.
+
+    while ((millis() - start) < GPS_UPDATE_TIMEOUT) { // Timer simple. millis() (temps actuel) - start donne le temps écoulé dans le contexte du timer.
+        // Si ce temps viens à dépasser GPS_UPDATE_TIME alors sortie de boucle
+
         while (GPS.available()) GPS.encode(GPS.read());
-        if (GPS.location.age() < 1000) break;
+            // Tant que des données sont disponibles dans le flux GPS, on lit et on décode.
+            // GPS.read() lit le flux série NMEA fournit par le GPS
+            // GPS.encode() interprète pour mettre à jour des attributs interne à l'objet GPS
+
+  
+        if (GPS.location.age() < 1000) break; // Si la position GPS est récente, on considère qu'elle est présente, sortie de la boucle
     }
 
-    if (!GPS.location.isValid()) {
+    if (!GPS.location.isValid()) {  // Si la position est invalide, passage de la carte dans l'état STATE_SLEEP et sortie de la fonction
     #ifdef DEBUG
             Serial.println("DEBUG: Invalid GPS. Skipping send.");
     #endif
@@ -225,17 +239,18 @@ void gpsAcquire()
         return;
     }
 
-    double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng());
+    double distance = GPS.distanceBetween(previousLatitude, previousLongitude, GPS.location.lat(), GPS.location.lng()); // Calcul de la distance parcourue
 
     #ifdef DEBUG
         Serial.printf("Previous: %.6f / %.6f\n", previousLatitude, previousLongitude);
-        Serial.printf("Current : %.6f / %.6f\n", GPS.location.lat(), GPS.location.lng());
+        Serial.printf("Current : %.6f / %.6f\n", GPS.location.lat(), GPS.location.lng()); 
         Serial.printf("Distance: %.2f meters\n", distance);
     #endif
 
-    if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) {
+    if (DISTANCE_THRESHOLD == 0.0 || distance > DISTANCE_THRESHOLD) { // Si la distance parcourue est supérieur au seuil déclaré dans
+        // config.h (DISTANCE_THRESHOLD) alors on passe la carte dans l'état STATE_SEND_THRESHOLD_EXCEEDED
         mcuStatus = STATE_SEND_THRESHOLD_EXCEEDED;
-    } else {
+    } else { // Dans le cas ou la distance parcourue n'est pas suffisante, on passe la carte dans l'état STATE_SLEEP
     #ifdef DEBUG
             Serial.println("DEBUG: No significant movement.");
     #endif

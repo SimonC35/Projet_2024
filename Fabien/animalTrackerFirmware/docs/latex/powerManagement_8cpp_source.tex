@@ -10,41 +10,41 @@
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}low\_power.h"{}}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}gps.h"{}}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}main.h"{}}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00020}00020\ device\_state\_t\ mcuStatus\ =\ STATE\_BOOT;}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00021}00021\ TimerEvent\_t\ sleepWakeTimer;}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00022}\mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{00022}}\ device\_state\_t\ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_SLEEP;}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00023}00023\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00032}\mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{00032}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configureTimer}}()}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00033}00033\ \{}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00034}00034\ \ \ \ \ TimerInit(\&sleepWakeTimer,\ onSleepWake);}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00035}00035\ \ \ \ \ TimerSetValue(\&sleepWakeTimer,\ LPM\_SLEEP\_TIME);}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00036}00036\ \}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00038}00038\ \textcolor{keywordtype}{void}\ lowPowerSleep()}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00027}\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{00027}}\ TimerEvent\_t\ \mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}};}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00038}\mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{00038}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{powerManagement_8cpp_abb6608094cd8dbee51a1db2c6ee283a3}{configureTimer}}()}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00039}00039\ \{}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00040}00040\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00041}00041\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Entering\ low\ power\ mode..."{}});}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00042}00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00040}00040\ \ \ \ \ TimerInit(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}},\ \mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{onSleepWake}});\ \textcolor{comment}{//\ Armement\ du\ timer\ sleepWakeTimer,\ avec\ pour\ fonction\ de\ callback\ onSleepWake()\ qui\ est\ appellé\ à\ la\ fin\ du\ timer}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00041}00041\ \ \ \ \ TimerSetValue(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}},\ LPM\_SLEEP\_TIME);\ \textcolor{comment}{//\ Armement\ du\ timer\ sleepWakeTimer,\ avec\ comme\ temps\ la\ variable\ fournie\ par\ config.h\ LPM\_SLEEP\_TIME}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00042}00042\ \}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00043}00043\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00044}00044\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Starting\ to\ sleep\ for\ \%d\ seconds..."{}},\ LPM\_SLEEP\_TIME\ /\ 1000);}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00046}00046\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00047}00047\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.end();}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00044}00044\ \textcolor{keywordtype}{void}\ lowPowerSleep()}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00046}00046\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00047}00047\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Entering\ low\ power\ mode..."{}});}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00048}00048\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00050}00050\ \ \ \ \ TimerStart(\&sleepWakeTimer);}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00051}00051\ \ \ \ \ lowPowerHandler();}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00050}00050\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}\(\backslash\)nDEBUG:\ Starting\ to\ sleep\ for\ \%d\ seconds..."{}},\ LPM\_SLEEP\_TIME\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00052}00052\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00053}00053\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00054}00054\ \textcolor{keywordtype}{void}\ onSleepWake()}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00055}00055\ \{}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00056}00056\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00057}00057\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Exiting\ low\ power\ mode,\ starting\ next\ cycle."{}});}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00058}00058\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00054}00054\ \ \ \ \ \mbox{\hyperlink{gps_8cpp_af599e1dd1a7fba187c3cc26b8df8c792}{GPS}}.end();\ \textcolor{comment}{//\ Eteindre\ complétement\ le\ GPS\ via\ la\ méthode\ end()}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00056}00056\ \ \ \ \ TimerStart(\&\mbox{\hyperlink{powerManagement_8cpp_a4f4e516f1753338d728e1f75f1138f02}{sleepWakeTimer}});\ \textcolor{comment}{//\ Démarrage\ du\ Timer}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00057}00057\ \ \ \ \ lowPowerHandler();\ \textcolor{comment}{//\ Passage\ du\ du\ processeur\ en\ deepSleep}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00058}00058\ \}}
 \DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00059}00059\ }
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00060}00060\ \ \ \ \ mcuStatus\ =\ STATE\_GPS\_ACQUIRE;}
-\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00067}\mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{00067}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{powerManagement_8cpp_afe5177a2733f72b910ff49b82b1fd2e2}{onSleepWake}}()}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00068}00068\ \{}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00069}00069\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00070}00070\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}DEBUG:\ Exiting\ low\ power\ mode,\ starting\ next\ cycle."{}});}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00071}00071\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00073}00073\ \ \ \ \ \mbox{\hyperlink{powerManagement_8cpp_aba4c8fc4a7e4cc4be5f1774da46d4400}{mcuStatus}}\ =\ STATE\_GPS\_ACQUIRE;}
+\DoxyCodeLine{\Hypertarget{powerManagement_8cpp_source_l00074}00074\ \}}
 
 \end{DoxyCode}

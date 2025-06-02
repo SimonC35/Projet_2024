@@ -16,23 +16,38 @@
 
 #include "Arduino.h"
 
+/**
+ * Temps en ms de timeout GPS
+ */
 constexpr uint32_t GPS_UPDATE_TIMEOUT = 90000;
 
-constexpr uint32_t LPM_SLEEP_TIME = 90001; 
+/**
+ * Temps de sommeil du dispositif en ms
+ */
+constexpr uint32_t LPM_SLEEP_TIME = 90000; 
 
+/**
+ * Temps entre les réessai d'envoi de données à TTN
+ */
 constexpr uint16_t TTN_JOIN_FAIL_WAIT = 5000;
 
 constexpr float DISTANCE_THRESHOLD = 0.0;
 
+/**
+ * Nombre de tentative de réessai en cas d'échec d'envoi des données à TTN
+ */
 constexpr uint16_t RETRY_COUNT = 5;
 
 #define BASE_SIZE 1 
 
 
+/**
+ * Structure qui en fonction des flags présent définit une taille en constante des données
+ */
 #ifdef GPS_COORDS
-constexpr uint8_t GPS_COORDS_SIZE = 9;
+constexpr uint8_t GPS_COORDS_SIZE = 9; // Si le flag coordonnées est présent 9 octets sont nécessaire pour stocker identifiant + 8 octets de données
 #else
-constexpr uint8_t GPS_COORDS_SIZE = 0;
+constexpr uint8_t GPS_COORDS_SIZE = 0; // Si le flag est non présent, aucun octets
 #endif
 
 #ifdef GPS_ALT
@@ -66,6 +81,9 @@ constexpr uint8_t GPS_SATS_SIZE = 0;
 #endif
 
 
+/**
+ * Calcul de la taille du payload en fonction des flags présent
+ */
 constexpr uint8_t PAYLOAD_SIZE_CALC =
     BASE_SIZE +
     GPS_COORDS_SIZE +

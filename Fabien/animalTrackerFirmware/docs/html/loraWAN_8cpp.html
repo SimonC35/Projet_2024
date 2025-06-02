@@ -128,14 +128,13 @@ Fonctions</h2></td></tr>
 <tr class="memitem:aaa9f2c9bc4be8ea8857231146ec620a0" id="r_aaa9f2c9bc4be8ea8857231146ec620a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa9f2c9bc4be8ea8857231146ec620a0">configureJoinTTN</a> ()</td></tr>
 <tr class="memdesc:aaa9f2c9bc4be8ea8857231146ec620a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialiser la connexion LoRaWAN via OTAA pour TTN.  <br /></td></tr>
 <tr class="separator:aaa9f2c9bc4be8ea8857231146ec620a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac25dd8510adc6a52c8e08015151ed6a" id="r_aac25dd8510adc6a52c8e08015151ed6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac25dd8510adc6a52c8e08015151ed6a">sendData</a> (uint8_t *fullArray, size_t length)</td></tr>
+<tr class="memitem:aac25dd8510adc6a52c8e08015151ed6a" id="r_aac25dd8510adc6a52c8e08015151ed6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac25dd8510adc6a52c8e08015151ed6a">sendData</a> (uint8_t *<a class="el" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>, size_t length)</td></tr>
 <tr class="memdesc:aac25dd8510adc6a52c8e08015151ed6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoyer les données via le module LoRa de la carte.  <br /></td></tr>
 <tr class="separator:aac25dd8510adc6a52c8e08015151ed6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa91520c880940f96fc9321b289b981f6" id="r_aa91520c880940f96fc9321b289b981f6"><td class="memItemLeft" align="right" valign="top"><a id="aa91520c880940f96fc9321b289b981f6" name="aa91520c880940f96fc9321b289b981f6"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>userChannelsMask</b> [6] = {0x00FF, 0, 0, 0, 0, 0}</td></tr>
+<tr class="memitem:aa91520c880940f96fc9321b289b981f6" id="r_aa91520c880940f96fc9321b289b981f6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa91520c880940f96fc9321b289b981f6">userChannelsMask</a> [6] = {0x00FF, 0, 0, 0, 0, 0}</td></tr>
 <tr class="separator:aa91520c880940f96fc9321b289b981f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
@@ -167,31 +166,31 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>userChannelsMask<
 <dl class="section note"><dt>Note</dt><dd>Les paramètres sont réglés pour l'europe en SF9 - 125KHz. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">A faire</a></b></dt><dd>Ajouter un paramètrage des variables LoRaWAN pour une plus grande flexibilité </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="loraWAN_8cpp_source.html#l00029">29</a> du fichier <a class="el" href="loraWAN_8cpp_source.html">loraWAN.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   30</span>{</div>
-<div class="line"><span class="lineno">   31</span> </div>
-<div class="line"><span class="lineno">   32</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   33</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Attempting to Join TTN...&quot;</span>);</div>
-<div class="line"><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
+<p class="definition">Définition à la ligne <a class="el" href="loraWAN_8cpp_source.html#l00033">33</a> du fichier <a class="el" href="loraWAN_8cpp_source.html">loraWAN.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>{</div>
 <div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>    LoRaWAN.begin(CLASS_A, LORAMAC_REGION_EU868);</div>
-<div class="line"><span class="lineno">   37</span>    LoRaWAN.setAdaptiveDR(<span class="keyword">false</span>);</div>
-<div class="line"><span class="lineno">   38</span>    LoRaWAN.setFixedDR(DR_3);</div>
+<div class="line"><span class="lineno">   36</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   37</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Attempting to Join TTN...&quot;</span>);</div>
+<div class="line"><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">   39</span> </div>
-<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">if</span>(!LoRaWAN.isJoined()) {</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">while</span>(!LoRaWAN.joinOTAA(appEui, appKey, devEui)) {</div>
-<div class="line"><span class="lineno">   42</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   43</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: Failed to join TTN.&quot;</span>);</div>
-<div class="line"><span class="lineno">   44</span>            Serial.printf(<span class="stringliteral">&quot;\nDEBUG: Retrying to join in %d seconds...&quot;</span>, TTN_JOIN_FAIL_WAIT / 1000);</div>
-<div class="line"><span class="lineno">   45</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   46</span>            delay(TTN_JOIN_FAIL_WAIT);</div>
-<div class="line"><span class="lineno">   47</span>        }</div>
-<div class="line"><span class="lineno">   48</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">   50</span>    }</div>
-<div class="line"><span class="lineno">   51</span> </div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>}</div>
+<div class="line"><span class="lineno">   40</span>    LoRaWAN.begin(CLASS_A, LORAMAC_REGION_EU868);</div>
+<div class="line"><span class="lineno">   41</span>    LoRaWAN.setAdaptiveDR(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">   42</span>    LoRaWAN.setFixedDR(DR_3);</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">if</span>(!LoRaWAN.isJoined()) {</div>
+<div class="line"><span class="lineno">   45</span>        <span class="keywordflow">while</span>(!LoRaWAN.joinOTAA(appEui, appKey, devEui)) {</div>
+<div class="line"><span class="lineno">   46</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   47</span>            Serial.println(<span class="stringliteral">&quot;DEBUG: Failed to join TTN.&quot;</span>);</div>
+<div class="line"><span class="lineno">   48</span>            Serial.printf(<span class="stringliteral">&quot;\nDEBUG: Retrying to join in %d seconds...&quot;</span>, TTN_JOIN_FAIL_WAIT / 1000);</div>
+<div class="line"><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   50</span>            delay(TTN_JOIN_FAIL_WAIT);</div>
+<div class="line"><span class="lineno">   51</span>        }</div>
+<div class="line"><span class="lineno">   52</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   54</span>    }</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -218,38 +217,69 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>userChannelsMask<
 <p>Sollicite le module LoRa pour envoyer les données GPS acquises. La fonction reçoit un tableau de données et sa taille, puis tente de les envoyés pendant retryCount tentative(s).</p>
 <dl class="section note"><dt>Note</dt><dd>La fonction est non bloquante, en cas de réussite ou d'échec le système passera au cycle suivant. </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="loraWAN_8cpp_source.html#l00064">64</a> du fichier <a class="el" href="loraWAN_8cpp_source.html">loraWAN.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   65</span>{</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   68</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Sending GPS data...&quot;</span>);</div>
-<div class="line"><span class="lineno">   69</span><span class="preprocessor">#endif</span></div>
+<p class="definition">Définition à la ligne <a class="el" href="loraWAN_8cpp_source.html#l00068">68</a> du fichier <a class="el" href="loraWAN_8cpp_source.html">loraWAN.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
 <div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span><span class="preprocessor">    #ifndef NOLORAWAN</span></div>
-<div class="line"><span class="lineno">   72</span>    <span class="keywordtype">bool</span> confirmed = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   73</span>    <span class="keywordtype">int</span> retryCount = RETRY_COUNT;</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>    <span class="keywordflow">while</span> (retryCount &gt; 0) {</div>
-<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (LoRaWAN.send(PAYLOAD_SIZE, fullArray, length, confirmed)) {</div>
-<div class="line"><span class="lineno">   77</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   78</span>                Serial.println(<span class="stringliteral">&quot;Send OK&quot;</span>);</div>
-<div class="line"><span class="lineno">   79</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   80</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   81</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   82</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   83</span>                Serial.println(<span class="stringliteral">&quot;Send FAILED, retrying...&quot;</span>);</div>
-<div class="line"><span class="lineno">   84</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   85</span>            retryCount--;</div>
-<div class="line"><span class="lineno">   86</span>        }</div>
-<div class="line"><span class="lineno">   87</span>    }</div>
-<div class="line"><span class="lineno">   88</span><span class="preprocessor">    #ifdef DEBUG</span></div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">if</span> (retryCount == 0) {</div>
-<div class="line"><span class="lineno">   90</span>            Serial.println(<span class="stringliteral">&quot;Send FAILED after retries&quot;</span>);</div>
-<div class="line"><span class="lineno">   91</span>        }</div>
-<div class="line"><span class="lineno">   92</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   94</span>}</div>
+<div class="line"><span class="lineno">   71</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   72</span><span class="preprocessor">    #ifdef NOLORAWAN</span></div>
+<div class="line"><span class="lineno">   73</span>    Serial.println(<span class="stringliteral">&quot;\nDEBUG: would sendData at this point&quot;</span>);</div>
+<div class="line"><span class="lineno">   74</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   75</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span><span class="preprocessor">    #ifndef NOLORAWAN</span></div>
+<div class="line"><span class="lineno">   79</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   80</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Sending GPS data...&quot;</span>);</div>
+<div class="line"><span class="lineno">   81</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">   82</span>    <span class="keywordtype">bool</span> confirmed = <span class="keyword">false</span>; <span class="comment">// Pas  de confirmation de réception, la passerelle ne renverra pas de confirmation pour savoir si elle à bien reçu le message</span></div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordtype">int</span> retryCount = RETRY_COUNT;   <span class="comment">// Stockage de la constante (post compilation) RETRY_COUNT dans une variable pour opération future</span></div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">while</span> (retryCount &gt; 0) {</div>
+<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">if</span> (LoRaWAN.send(PAYLOAD_SIZE, <a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>, 1, confirmed)) { <span class="comment">// Envoi via l&#39;objet LoRaWAN des données sur le port 1.</span></div>
+<div class="line"><span class="lineno">   87</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   88</span>                Serial.println(<span class="stringliteral">&quot;Send OK&quot;</span>);</div>
+<div class="line"><span class="lineno">   89</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   91</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">   92</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   93</span>                Serial.println(<span class="stringliteral">&quot;Send FAILED, retrying...&quot;</span>);</div>
+<div class="line"><span class="lineno">   94</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   95</span>            retryCount--; <span class="comment">// Décrément en cas d&#39;échec</span></div>
+<div class="line"><span class="lineno">   96</span>        }</div>
+<div class="line"><span class="lineno">   97</span>    }</div>
+<div class="line"><span class="lineno">   98</span><span class="preprocessor">    #ifdef DEBUG</span></div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordflow">if</span> (retryCount == 0) {</div>
+<div class="line"><span class="lineno">  100</span>            Serial.println(<span class="stringliteral">&quot;Send FAILED after retries&quot;</span>);</div>
+<div class="line"><span class="lineno">  101</span>        }</div>
+<div class="line"><span class="lineno">  102</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  103</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  104</span>}</div>
+<div class="ttc" id="adataSender_8cpp_html_a4a5313711bb5c7540f8522e60a914147"><div class="ttname"><a href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a></div><div class="ttdeci">uint8_t fullArray[PAYLOAD_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="dataSender_8cpp_source.html#l00016">dataSender.cpp:16</a></div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="aa91520c880940f96fc9321b289b981f6" name="aa91520c880940f96fc9321b289b981f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa91520c880940f96fc9321b289b981f6">&#9670;&#160;</a></span>userChannelsMask</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t userChannelsMask[6] = {0x00FF, 0, 0, 0, 0, 0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Variable userChannelsMask, permet de définir les canaux utilisés pour la communication LoRa. Laissé par défaut, comme dans l'exemple du framework CubeCell. </p>
+
 </div>
 </div>
 </div><!-- contents -->

@@ -91,29 +91,37 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">dataSender.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;dataSender.h&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>uint8_t fullArray[PAYLOAD_SIZE] = {0};</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keywordtype">void</span> readSendData()</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Distance threshold exceeded, sending data...&quot;</span>);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_function" href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a>(fullArray);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_function" href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a>(fullArray, PAYLOAD_SIZE);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_variable" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    previousLongitude = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng();</div>
+<a href="dataSender_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;dataSender.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">   16</a></span>uint8_t <a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>[PAYLOAD_SIZE] = {0};</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    mcuStatus = STATE_SLEEP;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
-<div class="ttc" id="agps_8cpp_html_ab9850920892b5e65e55e0abb6ef29e5c"><div class="ttname"><a href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a></div><div class="ttdeci">void readGPSStoreAsBytes(uint8_t *fullArray)</div><div class="ttdoc">Lit les variables fournies par le module GPS et les stocke sous forme d&#39;octets.</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00040">gps.cpp:40</a></div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="dataSender_8cpp.html#af8a7557c706cb0a798661f2b2d09d9ef">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="dataSender_8cpp.html#af8a7557c706cb0a798661f2b2d09d9ef">readSendData</a>()</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    Serial.println(<span class="stringliteral">&quot;DEBUG: Distance threshold exceeded, sending data...&quot;</span>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_function" href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a>(<a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>); <span class="comment">// Lecture &amp; transformation des valeurs</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a>(<a class="code hl_variable" href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a>, PAYLOAD_SIZE); <span class="comment">// Envoi des valeurs </span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_variable" href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lat(); <span class="comment">// Stockage des coordonnées actuelle pour future comparaison</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_variable" href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a> = <a class="code hl_variable" href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a>.location.lng(); </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_variable" href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a> = STATE_SLEEP; <span class="comment">// Passage dans l&#39;état STATE_SLEEP une fois l&#39;envoi réalisé qu&#39;il soit un échec ou une réussite</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="ttc" id="adataSender_8cpp_html_a4a5313711bb5c7540f8522e60a914147"><div class="ttname"><a href="dataSender_8cpp.html#a4a5313711bb5c7540f8522e60a914147">fullArray</a></div><div class="ttdeci">uint8_t fullArray[PAYLOAD_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="#l00016">dataSender.cpp:16</a></div></div>
+<div class="ttc" id="adataSender_8cpp_html_af8a7557c706cb0a798661f2b2d09d9ef"><div class="ttname"><a href="dataSender_8cpp.html#af8a7557c706cb0a798661f2b2d09d9ef">readSendData</a></div><div class="ttdeci">void readSendData()</div><div class="ttdoc">Réaliser la transformation des données et l&#39;envoi des données via LoRa.</div><div class="ttdef"><b>Definition</b> <a href="#l00025">dataSender.cpp:25</a></div></div>
+<div class="ttc" id="agps_8cpp_html_a3c87e8abead8833a75225ffefa9dbfe0"><div class="ttname"><a href="gps_8cpp.html#a3c87e8abead8833a75225ffefa9dbfe0">previousLongitude</a></div><div class="ttdeci">double previousLongitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00027">gps.cpp:27</a></div></div>
+<div class="ttc" id="agps_8cpp_html_ab9850920892b5e65e55e0abb6ef29e5c"><div class="ttname"><a href="gps_8cpp.html#ab9850920892b5e65e55e0abb6ef29e5c">readGPSStoreAsBytes</a></div><div class="ttdeci">void readGPSStoreAsBytes(uint8_t *fullArray)</div><div class="ttdoc">Lit les variables fournies par le module GPS et les stocke sous forme d&#39;octets.</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00042">gps.cpp:42</a></div></div>
 <div class="ttc" id="agps_8cpp_html_af599e1dd1a7fba187c3cc26b8df8c792"><div class="ttname"><a href="gps_8cpp.html#af599e1dd1a7fba187c3cc26b8df8c792">GPS</a></div><div class="ttdeci">Air530ZClass GPS</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00017">gps.cpp:17</a></div></div>
-<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00024">gps.cpp:24</a></div></div>
-<div class="ttc" id="aloraWAN_8cpp_html_aac25dd8510adc6a52c8e08015151ed6a"><div class="ttname"><a href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a></div><div class="ttdeci">void sendData(uint8_t *fullArray, size_t length)</div><div class="ttdoc">Envoyer les données via le module LoRa de la carte.</div><div class="ttdef"><b>Definition</b> <a href="loraWAN_8cpp_source.html#l00064">loraWAN.cpp:64</a></div></div>
+<div class="ttc" id="agps_8cpp_html_af5cbe348d725709e7d3ada96422e04d8"><div class="ttname"><a href="gps_8cpp.html#af5cbe348d725709e7d3ada96422e04d8">previousLatitude</a></div><div class="ttdeci">double previousLatitude</div><div class="ttdef"><b>Definition</b> <a href="gps_8cpp_source.html#l00022">gps.cpp:22</a></div></div>
+<div class="ttc" id="aloraWAN_8cpp_html_aac25dd8510adc6a52c8e08015151ed6a"><div class="ttname"><a href="loraWAN_8cpp.html#aac25dd8510adc6a52c8e08015151ed6a">sendData</a></div><div class="ttdeci">void sendData(uint8_t *fullArray, size_t length)</div><div class="ttdoc">Envoyer les données via le module LoRa de la carte.</div><div class="ttdef"><b>Definition</b> <a href="loraWAN_8cpp_source.html#l00068">loraWAN.cpp:68</a></div></div>
+<div class="ttc" id="apowerManagement_8cpp_html_aba4c8fc4a7e4cc4be5f1774da46d4400"><div class="ttname"><a href="powerManagement_8cpp.html#aba4c8fc4a7e4cc4be5f1774da46d4400">mcuStatus</a></div><div class="ttdeci">device_state_t mcuStatus</div><div class="ttdef"><b>Definition</b> <a href="powerManagement_8cpp_source.html#l00022">powerManagement.cpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
