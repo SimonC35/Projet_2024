@@ -58,11 +58,11 @@ void printDebugInfo(uint8_t datalen, uint8_t *data)
 
             int32_t latitude, longitude;
 
-            memcpy(&latitude, ptr, sizeof(uint32_t));
-            ptr += sizeof(uint32_t);
+            memcpy(&latitude, ptr, sizeof(int32_t));
+            ptr += sizeof(int32_t);
 
-            memcpy(&longitude, ptr, sizeof(uint32_t));
-            ptr += sizeof(uint32_t);
+            memcpy(&longitude, ptr, sizeof(int32_t));
+            ptr += sizeof(int32_t);
 
             Serial.printf("Latitude: %.5f\n", (float)((float)latitude / (float)digitPrecision5)); // Opération inverse pour retrouvé la valeur réel
             Serial.printf("Longitude: %.5f\n", (float)((float)longitude / (float)digitPrecision5));
