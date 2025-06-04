@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
 
-import 'package:flutter_map/flutter_map.dart';
+//import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class Home extends StatefulWidget {
@@ -19,60 +19,21 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var height_ = MediaQuery.of(context).size.height;
 
-    // ignore: avoid_print
     print(lang);
     return Scaffold(
       body: Column(
         children: [
-          // Bordereau coloré avec dégradé
           TopBanner(
             height: height_ / 2 * 0.35,
             startColor: const Color.fromARGB(255, 49, 122, 78),
             endColor: const Color.fromARGB(255, 111, 173, 110),
           ),
           SizedBox(height: 40),
-          GestureDetector(
-            onTap: () {
-              context.read<NavigationProvider>().changeTab(2);
-            },
-            child: Container(
-              width: 400,
-              height: 200,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue, width: 10),
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-              ),
-              child: MapPreview(), // 📌 Miniature de la carte
-              ),
-          )
         ],
       ),
     );
   }
 }
-
-class MapPreview extends StatelessWidget {
-  const MapPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FlutterMap(
-      options: MapOptions(
-        initialCenter: LatLng(48.73137, -3.44936), // 📍 Paris
-        initialZoom: 15.0,
-        //onTap: context.read<NavigationProvider>().changeTab(2),      //onTap: context.read<NavigationProvider>().changeTab(2),
-      ),
-      children: [
-        TileLayer(
-          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          subdomains: ['a', 'b', 'c'],
-        ),
-      ],
-    );
-  }
-}
-
-// ignore: must_be_immutable
 class TopBanner extends StatelessWidget {
 
   final double height;
@@ -102,8 +63,8 @@ class TopBanner extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 40, // Décalage depuis le haut
-          right: 40, // Décalage depuis la droite
+          top: 40, 
+          right: 40,
           child: IconButtonWidget(
             icon: Icons.person,
             onPressed: () {
@@ -114,7 +75,7 @@ class TopBanner extends StatelessWidget {
         Positioned(
           top: 35,
           left: 40,
-          child: AssetImageWidget(imagePath: "asset/images/Map.png"),
+          child: AssetImageWidget(imagePath: "assets/images/Map.png"),
         ),
       ],
     );

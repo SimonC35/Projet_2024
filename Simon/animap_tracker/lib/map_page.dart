@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-// To include Umap/OpenStreetMap in MapPage
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MapPage extends StatefulWidget {
@@ -11,20 +10,32 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-   late final WebViewController _controller;
+  WebViewController? _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = WebViewController()
+    _loadHtml();
+  }
+
+  Future<void> _loadHtml() async {
+    final String fileHtml = await rootBundle.loadString('assets/html/map.html');
+    final WebViewController controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse("https://umap.openstreetmap.fr/fr/map/testosm_1189050"));
+      ..loadHtmlString(fileHtml);
+
+    setState(() {
+      _controller = controller;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WebViewWidget(controller: _controller),
+      body:
+        _controller == null
+          ? Center(child: CircularProgressIndicator())
+          : WebViewWidget(controller: _controller!),
     );
   }
 }

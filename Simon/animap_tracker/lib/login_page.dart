@@ -25,12 +25,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 🖼 Logo ou image (facultatif)
             Icon(Icons.lock, size: 80, color: const Color.fromARGB(255, 66, 150, 101)),
 
             SizedBox(height: 20),
 
-            // 📧 Champ Email
             TextField(
               decoration: InputDecoration(
                 labelText: AppLocalization(lang: lang).translation("_user"),
@@ -41,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: 10),
 
-            // 🔑 Champ Mot de passe
             TextField(
               obscureText: true,
               decoration: InputDecoration(
@@ -53,10 +50,8 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: 20),
 
-            // ✅ Bouton Connexion
             ElevatedButton(
               onPressed: () {
-                // ignore: avoid_print
                 print("Connexion...");
               },
               child: Text(

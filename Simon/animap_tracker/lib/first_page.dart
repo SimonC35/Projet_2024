@@ -30,10 +30,10 @@ class _FirstPageState extends State<FirstPage> {
       _errorMessage = '';
     });
 
-    final url = Uri.parse("http://172.20.14.7:8000/api/login/"); // 🔥 Remplace par ton URL
+    final url = Uri.parse("http://172.20.14.7:8000/api/login/");
     final body = jsonEncode({
-      "email": _emailController,           // matts@matts.com   simon@simon.com
-      "password": _passwordController,     // matts             felix22
+      "email": _emailController.text,           // matts@matts.com   simon@simon.com
+      "password": _passwordController.text,     // matts             felix22
     });
 
     try {
@@ -73,12 +73,10 @@ class _FirstPageState extends State<FirstPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             
-            // 🖼 Logo ou image (facultatif)
             Icon(Icons.lock, size: 80, color: const Color.fromARGB(255, 66, 150, 101)),
 
             SizedBox(height: 20),
 
-            // 📧 Champ Email
             TextField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
@@ -91,7 +89,6 @@ class _FirstPageState extends State<FirstPage> {
 
             SizedBox(height: 10),
 
-            // 🔑 Champ Mot de passe
             TextField(
               controller: _passwordController,
               obscureText: true,
