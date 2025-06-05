@@ -4,9 +4,6 @@ import 'package:provider/provider.dart';
 // Main Class => global var (lang)
 import 'package:animap_tracker/main.dart';
 
-//import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-
 class Home extends StatefulWidget {
   const Home(String lang, {super.key});
 

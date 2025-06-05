@@ -138,7 +138,7 @@ class _FirstPageState extends State<FirstPage> {
   void changeLang() {
     if (lang == "fr") {
       setState(() {
-        lang = "en";
+        lang = "bzh";
       });
     } else {
       setState(() {

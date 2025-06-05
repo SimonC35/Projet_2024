@@ -1,4 +1,5 @@
 // File English / French
+import 'package:animap_tracker/locales/brz.dart';
 import 'package:animap_tracker/locales/en.dart';
 import 'package:animap_tracker/locales/fr.dart';
 
@@ -10,6 +11,7 @@ class AppLocalization {
   static final _localizedValues = <String, Map<String, String>>{
     'en': EnLang().locales,
     'fr': FrLang().locales,
+    'bzh': BzhLang().locales,
   };
 
   static List<String> languages() => _localizedValues.keys.toList();
