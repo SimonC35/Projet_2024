@@ -107,7 +107,10 @@ class _FirstPageState extends State<FirstPage> {
                 ? CircularProgressIndicator()
                 : ElevatedButton(
                   onPressed: () {
-                    _login();
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                    );
+                    //_login();
                   },
                   child: Text(
                     AppLocalization(lang: lang).translation("_login"),
